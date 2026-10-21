@@ -63,31 +63,31 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #FBF7F5;
-  --foreground: #5A5455;
+  --background: #FFFBF0;
+  --foreground: #4A5A6B;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  /* Primary: dusty rose #A8606F */
-  --primary: #A8606F;
+  /* Primary: dusty blue #5B7FA6 */
+  --primary: #5B7FA6;
   --primary-foreground: oklch(0.145 0 0);
-  /* Secondary: warm gray #9A9294 */
-  --secondary: #9A9294;
+  /* Secondary: mid pastel blue #8FB0CF */
+  --secondary: #8FB0CF;
   --secondary-foreground: oklch(0.145 0 0);
-  /* Sage token mapped to warm gray */
-  --sage: #9A9294;
-  /* Muted/light surfaces: beige #F3E8E6 */
-  --muted: #F3E8E6;
+  /* Sage token mapped to mid pastel blue */
+  --sage: #8FB0CF;
+  /* Muted/light surfaces: butter yellow #FFF4C2 */
+  --muted: #FFF4C2;
   --muted-foreground: oklch(0.145 0 0);
-  /* Accent: warm gray #9A9294 */
-  --accent: #9A9294;
+  /* Accent: mid pastel blue #8FB0CF */
+  --accent: #8FB0CF;
   --accent-foreground: oklch(0.145 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: #A8606F;
+  --ring: #5B7FA6;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -96,15 +96,15 @@
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: #A8606F;
+  --sidebar-primary: #5B7FA6;
   --sidebar-primary-foreground: oklch(0.145 0 0);
-  --sidebar-accent: #9A9294;
+  --sidebar-accent: #8FB0CF;
   --sidebar-accent-foreground: oklch(0.145 0 0);
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: #A8606F;
+  --sidebar-ring: #5B7FA6;
 
 /*\* Decoration tint: the botanical PNGs in /public/deco are painted in sage*
-*   (hue ≈ 92°). Light touch to sit with the warm gray #9A9294 motif.*
+*   (hue ≈ 92°). Light touch to sit with the butter yellow & pastel blue motif.*
 *   Set to "none" to show the original artwork. \*/
 --deco-filter: saturate(0.9) brightness(1.02);
 
@@ -121,21 +121,21 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.145 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: #A8606F;
+  --primary: #5B7FA6;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: #9A9294;
+  --secondary: #8FB0CF;
   --secondary-foreground: oklch(0.985 0 0);
   /* Sage for dark mode */
-  --sage: #9A9294;
-  --muted: #F3E8E6;
+  --sage: #8FB0CF;
+  --muted: #FFF4C2;
   --muted-foreground: oklch(0.145 0 0);
-  --accent: #9A9294;
+  --accent: #8FB0CF;
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
   --border: oklch(0.269 0 0);
   --input: oklch(0.269 0 0);
-  --ring: #A8606F;
+  --ring: #5B7FA6;
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -143,12 +143,12 @@
   --chart-5: oklch(0.645 0.246 16.439);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: #A8606F;
+  --sidebar-primary: #5B7FA6;
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: #9A9294;
+  --sidebar-accent: #8FB0CF;
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: #A8606F;
+  --sidebar-ring: #5B7FA6;
 }
 
 @theme inline {
@@ -158,114 +158,115 @@
   
 /* ==========================================
    MOTIF COLORS
-   Theme: Gray & Blush Pink — soft & romantic
-   warm gray #9A9294 (motif) + dusty rose #A8606F + blush pink #EBCBCF + Beige #F3E8E6
-   (+ light paper #FBF7F5 and charcoal #4A4546 for headings, sparingly)
+   Theme: Butter Yellow & Pastel Blue — soft, sunny & airy
+   butter yellow #FFF4C2 + pastel blue #D9EAF7 + cream #FFFBF0
+   + sky blue #B7D1E8 + soft gold #D6B779
+   (+ dusty blue #5B7FA6 / navy #2F4A66 for readable text and headings)
    ========================================== */
 
 /* ------------------------------------------
    Background / Linen
    ------------------------------------------ */
 
-   --color-motif-cream: #F3E8E6; /* beige */
-   --color-motif-yellow: #C9C1C2; /* soft warm gray */
-   --color-motif-soft: #FBF7F5; /* light beige paper */
+   --color-motif-cream: #FFF4C2; /* butter yellow */
+   --color-motif-yellow: #FFF4C2; /* butter yellow */
+   --color-motif-soft: #FFFBF0; /* cream paper */
    
    /* ------------------------------------------
       Fresh Spring Accents
       ------------------------------------------ */
    
-   --color-motif-accent: #A8606F; /* dusty rose */
-   --color-motif-deep: #4A4546; /* charcoal */
-   --color-motif-medium: #9A9294; /* warm gray */
+   --color-motif-accent: #5B7FA6; /* dusty blue */
+   --color-motif-deep: #2F4A66; /* navy */
+   --color-motif-medium: #8FB0CF; /* mid pastel blue */
    
    /* ------------------------------------------
-      warm gray Accents
+      Pastel Blue Accents
       ------------------------------------------ */
    
-   --color-motif-teal: #4A4546; /* charcoal */
-   --color-motif-teal-medium: #9A9294; /* warm gray */
-   --color-motif-teal-light: #C9C1C2; /* soft warm gray */
+   --color-motif-teal: #2F4A66; /* navy */
+   --color-motif-teal-medium: #8FB0CF; /* mid pastel blue */
+   --color-motif-teal-light: #B7D1E8; /* sky blue */
    
    /* ------------------------------------------
       Botanical / Spring Accent
       ------------------------------------------ */
    
-   --color-motif-blush: #EBCBCF; /* blush pink */
+   --color-motif-blush: #D9EAF7; /* pastel blue */
    
    /* ------------------------------------------
       Neutral / Paper
       ------------------------------------------ */
    
-   --color-motif-silver: #EBCBCF; /* blush pink */
+   --color-motif-silver: #D6B779; /* soft gold */
    
    /* ==========================================
       WELCOME SECTION
       ========================================== */
    
    /* Main background */
-   --color-welcome-bg: #F3E8E6; /* beige */
+   --color-welcome-bg: #FFF4C2; /* butter yellow */
    
    /* Soft background */
-   --color-welcome-bg-soft: #FBF7F5; /* light beige paper */
+   --color-welcome-bg-soft: #FFFBF0; /* cream paper */
    
    /* ==========================================
       TYPOGRAPHY
       ========================================== */
    
    /* Main body text */
-   --color-welcome-text: #5A5455; /* slate body text */
+   --color-welcome-text: #4A5A6B; /* blue-slate body text */
    
    /* Secondary / softer text */
-   --color-welcome-text-soft: color-mix(in srgb, #5A5455 70%, #FBF7F5);
+   --color-welcome-text-soft: color-mix(in srgb, #4A5A6B 70%, #FFFBF0);
    
    /* Small headings */
-   --color-welcome-heading: #A8606F;
+   --color-welcome-heading: #5B7FA6;
    
    /* Script / romantic accent */
-   --color-welcome-script: #A8606F;
+   --color-welcome-script: #5B7FA6;
    
    /* Main hero heading */
-   --color-welcome-navy: #4A4546; /* charcoal */
+   --color-welcome-navy: #2F4A66; /* navy */
    
    /* ==========================================
       BUTTONS / DECORATION
       ========================================== */
    
    /* Buttons */
-   --color-welcome-green: #A8606F;
+   --color-welcome-green: #5B7FA6;
    
    /* Decorative coastal / floral lines */
-   --color-welcome-botanical: #C9C1C2; /* soft warm gray */
+   --color-welcome-botanical: #B7D1E8; /* sky blue */
    
    /* Gold decorative details */
-   --color-welcome-gold: #A8606F;
+   --color-welcome-gold: #D6B779; /* soft gold */
    
    /* Floral accents */
-   --color-welcome-blush: #EBCBCF; /* blush pink */
+   --color-welcome-blush: #D9EAF7; /* pastel blue */
    
    /* ==========================================
       ADDITIONAL FRESH SPRING COLORS
       ========================================== */
    
-   --color-coastal-deep: #4A4546; /* charcoal */
-   --color-coastal-teal: #A8606F; /* dusty rose */
-   --color-coastal-soft: #9A9294; /* warm gray */
-   --color-coastal-light: #9A9294; /* warm gray */
+   --color-coastal-deep: #2F4A66; /* navy */
+   --color-coastal-teal: #5B7FA6; /* dusty blue */
+   --color-coastal-soft: #B7D1E8; /* sky blue */
+   --color-coastal-light: #D9EAF7; /* pastel blue */
    
-   --color-romantic-coral: #A8606F; /* dusty rose */
-   --color-romantic-deep: #4A4546; /* charcoal */
-   --color-romantic-peach: #EBCBCF; /* blush pink */
-   --color-romantic-blush: #EBCBCF; /* blush pink */
+   --color-romantic-coral: #5B7FA6; /* dusty blue */
+   --color-romantic-deep: #2F4A66; /* navy */
+   --color-romantic-peach: #FFF4C2; /* butter yellow */
+   --color-romantic-blush: #D9EAF7; /* pastel blue */
    
-   --color-coastal-sand: #9A9294; /* warm gray */
-   --color-coastal-ivory: #FBF7F5; /* light beige paper */
+   --color-coastal-sand: #D6B779; /* soft gold */
+   --color-coastal-ivory: #FFFBF0; /* cream paper */
    
    /* ==========================================
       COUPLE NAME MASK / LOCKUP
       ========================================== */
    
-   --couple-name-fill: var(--color-highlight-deep); /* dusty rose, like the script names */
+   --couple-name-fill: var(--color-highlight-deep); /* dusty blue, like the script names */
    
    /* Mid + accent match the fill */
    --couple-name-fill-mid: var(--couple-name-fill);
@@ -274,31 +275,31 @@
    
    /* ==========================================
       BACKGROUND — CIRCLE PATTERN
-      Light white-warm-gray base with soft, airy circles
-      (warm gray, blush pink, white and a touch of beige)
+      Light cream base with soft, airy circles
+      (pastel blue, butter yellow, white and a touch of gold)
       ========================================== */
    
-   /* Flat base behind the circles — white with a whisper of blush pink */
-   --color-bg-pattern-base: color-mix(in srgb, #EBCBCF 32%, white);
+   /* Flat base behind the circles — white with a whisper of butter yellow */
+   --color-bg-pattern-base: color-mix(in srgb, #FFF4C2 40%, white);
    
    /* Main circles */
-   --color-bg-circle-deep: color-mix(in srgb, #9A9294 26%, transparent);
+   --color-bg-circle-deep: color-mix(in srgb, #8FB0CF 26%, transparent);
    
-   --color-bg-circle-mid: color-mix(in srgb, #EBCBCF 62%, transparent);
+   --color-bg-circle-mid: color-mix(in srgb, #D9EAF7 62%, transparent);
    
    --color-bg-circle-light: color-mix(in srgb, white 72%, transparent);
    
    /* Accent circles */
-   --color-bg-circle-accent-1: color-mix(in srgb, #9A9294 16%, transparent);
+   --color-bg-circle-accent-1: color-mix(in srgb, #8FB0CF 16%, transparent);
    
    --color-bg-circle-accent-2: color-mix(in srgb, white 58%, transparent);
    
-   --color-bg-circle-accent-3: color-mix(in srgb, #EBCBCF 45%, transparent);
+   --color-bg-circle-accent-3: color-mix(in srgb, #FFF4C2 70%, transparent);
    
    /* Warm + deep touches, kept very light */
-   --color-bg-circle-rose: color-mix(in srgb, #F3E8E6 60%, transparent);
+   --color-bg-circle-rose: color-mix(in srgb, #FFF4C2 60%, transparent);
    
-   --color-bg-circle-peach: color-mix(in srgb, #A8606F 9%, transparent);
+   --color-bg-circle-peach: color-mix(in srgb, #D6B779 16%, transparent);
    
    /* Text and divider lines */
    --color-on-pattern: var(--color-welcome-navy);
@@ -307,67 +308,67 @@
    --color-on-pattern-glow:
        color-mix(in srgb, white 70%, transparent);
    
-   --color-on-pattern-line: #9A9294;
+   --color-on-pattern-line: #8FB0CF;
    
    /* ==========================================
       HERO COUNTDOWN
       ========================================== */
    
    /* Bottom fade */
-   --color-countdown-fade: #2E2A2B;
+   --color-countdown-fade: #1F3249;
    
    /* Numbers + heading */
    --color-countdown-text: var(--color-motif-soft);
    
    /* Unit labels */
-   --color-countdown-label: #EBCBCF;
+   --color-countdown-label: #D9EAF7;
    
    /* ==========================================
-      ENVELOPE — dusty rose FAMILY (slate paper, deeper slate folds)
+      ENVELOPE — DUSTY BLUE FAMILY (blue paper, deeper navy folds)
       ========================================== */
    
    /* Main paper */
-   --color-envelope-paper: #A8606F; /* dusty rose */
+   --color-envelope-paper: #5B7FA6; /* dusty blue */
    
    /* Back panel / inside */
-   --color-envelope-base: color-mix(in srgb, #A8606F 88%, #4A4546);
+   --color-envelope-base: color-mix(in srgb, #5B7FA6 88%, #2F4A66);
    
-   /* Lit edges — slate warmed toward warm gray */
-   --color-envelope-highlight: color-mix(in srgb, #A8606F 70%, #9A9294);
+   /* Lit edges — dusty blue lifted toward pastel blue */
+   --color-envelope-highlight: color-mix(in srgb, #5B7FA6 70%, #8FB0CF);
    
    /* Flap folds */
-   --color-envelope-fold: color-mix(in srgb, #A8606F 80%, #4A4546);
+   --color-envelope-fold: color-mix(in srgb, #5B7FA6 80%, #2F4A66);
    
    /* Shadows */
-   --color-envelope-shadow: color-mix(in srgb, #A8606F 60%, #2E2A2B);
+   --color-envelope-shadow: color-mix(in srgb, #5B7FA6 60%, #1F3249);
    
    /* Crease hairlines */
-   --color-envelope-crease: rgb(235 203 207 / 35%);
+   --color-envelope-crease: rgb(217 234 247 / 35%);
    
    /* ==========================================
       OPTIONAL SEMANTIC COLORS
       ========================================== */
    
    /* Primary CTA */
-   --color-primary: #4A4546;
+   --color-primary: #2F4A66;
    
    /* Primary CTA hover */
-   --color-primary-hover: #2E2A2B;
+   --color-primary-hover: #1F3249;
    
    /* Romantic CTA */
-   --color-romantic: #A8606F;
+   --color-romantic: #5B7FA6;
    
    /* Romantic hover */
-   --color-romantic-hover: #8F4E5C;
+   --color-romantic-hover: #46698F;
    
    /* Soft highlight */
-   --color-highlight: #EBCBCF;
+   --color-highlight: #FFF4C2; /* butter yellow */
    
-   /* Highlight — Save the Date, couple names, day number */
-   --color-highlight-deep: #A8606F;
+   /* Highlight — Save the Date, couple names, day number (dusty blue) */
+   --color-highlight-deep: #5B7FA6;
    
    /* Decorations — corner leaves, ornaments */
-   --color-deco: #9A9294;
+   --color-deco: #D6B779; /* soft gold */
    
    /* ==========================================
       INVITATION DESIGN SYSTEM
@@ -383,7 +384,7 @@
    --invite-script: var(--color-highlight-deep);
    
    /* Small accents */
-   --invite-accent: var(--color-welcome-heading); /* dusty rose — readable labels (proposal page) */
+   --invite-accent: var(--color-welcome-heading); /* dusty blue — readable labels (proposal page) */
    
    /* Paragraph text */
    --invite-body: var(--color-welcome-text);
@@ -391,12 +392,12 @@
    /* Paper surfaces */
    --invite-paper: var(--color-motif-soft);
    
-   --invite-paper-tint: color-mix(in srgb, #9A9294 12%, var(--color-motif-soft));
+   --invite-paper-tint: color-mix(in srgb, #8FB0CF 12%, var(--color-motif-soft));
    
    /* Hairlines and frames */
-   --invite-line: color-mix(in srgb, #9A9294 50%, transparent);
+   --invite-line: color-mix(in srgb, #8FB0CF 50%, transparent);
    
-   --invite-line-soft: color-mix(in srgb, #9A9294 25%, transparent);
+   --invite-line-soft: color-mix(in srgb, #8FB0CF 25%, transparent);
    
    /* Buttons */
    --invite-button: var(--color-ink-accent);
@@ -415,28 +416,28 @@
    --invite-page-bg: var(--color-welcome-bg);
    
    /* Section accent */
-   --color-section-accent: #9A9294;
+   --color-section-accent: #8FB0CF;
    
    /* Light section */
-   --color-section-light: #EBCBCF;
+   --color-section-light: #D9EAF7;
    
    /* Card background */
-   --color-card: #FBF7F5;
+   --color-card: #FFFBF0;
    
    /* Border */
-   --color-border: #9A9294;
+   --color-border: #8FB0CF;
    
    /* Dark text */
-   --color-text-dark: #5A5455;
+   --color-text-dark: #4A5A6B;
    
    /* Deepest ink */
-   --color-ink-deep: #4A4546;
+   --color-ink-deep: #2F4A66;
    
    /* Deep accent ink */
-   --color-ink-accent: #4A4546;
+   --color-ink-accent: #2F4A66;
    
    /* Muted text */
-   --color-text-muted: color-mix(in srgb, #4A4546 65%, white);
+   --color-text-muted: color-mix(in srgb, #2F4A66 65%, white);
    
    /* ==========================================
       DASHBOARD
@@ -493,10 +494,10 @@
    
    /* Delete / danger */
    --color-dash-danger:
-       color-mix(in srgb, var(--color-romantic-deep) 45%, #4A4546);
+       color-mix(in srgb, var(--color-romantic-deep) 45%, #2F4A66);
    
    --color-dash-danger-text:
-       color-mix(in srgb, var(--color-romantic-deep) 35%, #4A4546);
+       color-mix(in srgb, var(--color-romantic-deep) 35%, #2F4A66);
    
    --color-dash-danger-soft:
        color-mix(in srgb, var(--color-romantic-blush) 35%, white);
@@ -663,17 +664,17 @@ img[src*="%2Flovestorydeco%2F"] {
 }
 
 ::-webkit-scrollbar-track {
-  background: #F3E8E6;
+  background: #FFF4C2;
 }
 
-/* Updated scrollbar color to primary */
+/* Scrollbar thumb: dusty blue, sky blue on hover */
 ::-webkit-scrollbar-thumb {
-  background: #A8606F;
+  background: #5B7FA6;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9A9294;
+  background: #8FB0CF;
 }
 
 /* Shimmer animation for countdown cards */
@@ -756,9 +757,9 @@ img[src*="%2Flovestorydeco%2F"] {
   font-style: normal;
 }
 
-/* Countdown gradient text — blush pink to slate */
+/* Countdown gradient text — butter yellow to pastel blue */
 .countdown-gradient-text * {
-  background: linear-gradient(180deg, #EBCBCF 0%, #A8606F 100%);
+  background: linear-gradient(180deg, #FFF4C2 0%, #B7D1E8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -771,7 +772,7 @@ img[src*="%2Flovestorydeco%2F"] {
 }
 
 .bg-wedding-paper {
-  background-color: #FBF7F5;
+  background-color: #FFFBF0;
 }
 
 .text-wedding-brown {
@@ -779,7 +780,7 @@ img[src*="%2Flovestorydeco%2F"] {
 }
 
 .text-wedding-paper {
-  color: #FBF7F5;
+  color: #FFFBF0;
 }
 
 /* Font utilities for Love Story section */
@@ -887,7 +888,7 @@ img[src*="%2Flovestorydeco%2F"] {
   inset: 0;
   transform: rotateY(180deg);
   z-index: 0;
-  box-shadow: inset 0 0 24px rgba(74, 58, 62, 0.06);
+  box-shadow: inset 0 0 24px rgba(47, 74, 102, 0.06);
 }
 
 .album-flipbook-page-turning {
@@ -897,15 +898,15 @@ img[src*="%2Flovestorydeco%2F"] {
 @keyframes album-page-turn-out {
   0% {
     transform: rotateY(0deg);
-    box-shadow: 0 6px 28px -8px rgba(74, 58, 62, 0.16);
+    box-shadow: 0 6px 28px -8px rgba(47, 74, 102, 0.16);
   }
   45% {
     transform: rotateY(-92deg);
-    box-shadow: -12px 6px 36px -6px rgba(74, 58, 62, 0.22);
+    box-shadow: -12px 6px 36px -6px rgba(47, 74, 102, 0.22);
   }
   100% {
     transform: rotateY(-180deg);
-    box-shadow: 0 2px 12px -4px rgba(74, 58, 62, 0.1);
+    box-shadow: 0 2px 12px -4px rgba(47, 74, 102, 0.1);
   }
 }
 
@@ -934,8 +935,8 @@ img[src*="%2Flovestorydeco%2F"] {
 /* Story section — shared flip stage for portrait spreads and landscape singles */
 .album-flipbook-story-shell {
   box-shadow:
-    0 2px 4px rgba(74, 58, 62, 0.06),
-    0 12px 40px -8px rgba(74, 58, 62, 0.18),
+    0 2px 4px rgba(47, 74, 102, 0.06),
+    0 12px 40px -8px rgba(47, 74, 102, 0.18),
     inset 0 0 0 1px rgba(255, 255, 255, 0.35);
 }
 
@@ -948,8 +949,8 @@ img[src*="%2Flovestorydeco%2F"] {
 /* Open-book spread — two portrait photos per page */
 .album-flipbook-spread-shell {
   box-shadow:
-    0 2px 4px rgba(74, 58, 62, 0.06),
-    0 12px 40px -8px rgba(74, 58, 62, 0.18),
+    0 2px 4px rgba(47, 74, 102, 0.06),
+    0 12px 40px -8px rgba(47, 74, 102, 0.18),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
 }
 
@@ -964,15 +965,15 @@ img[src*="%2Flovestorydeco%2F"] {
   transform: translateX(-50%);
   background: linear-gradient(
     to right,
-    rgba(74, 58, 62, 0.14),
-    rgba(74, 58, 62, 0.04) 35%,
+    rgba(47, 74, 102, 0.14),
+    rgba(47, 74, 102, 0.04) 35%,
     rgba(255, 255, 255, 0.35) 50%,
-    rgba(74, 58, 62, 0.04) 65%,
-    rgba(74, 58, 62, 0.14)
+    rgba(47, 74, 102, 0.04) 65%,
+    rgba(47, 74, 102, 0.14)
   );
   box-shadow:
-    -2px 0 6px rgba(74, 58, 62, 0.08),
-    2px 0 6px rgba(74, 58, 62, 0.08);
+    -2px 0 6px rgba(47, 74, 102, 0.08),
+    2px 0 6px rgba(47, 74, 102, 0.08);
 }
 
 .album-flipbook-half {
@@ -982,11 +983,11 @@ img[src*="%2Flovestorydeco%2F"] {
 }
 
 .album-flipbook-half-left {
-  box-shadow: inset -6px 0 12px -8px rgba(74, 58, 62, 0.1);
+  box-shadow: inset -6px 0 12px -8px rgba(47, 74, 102, 0.1);
 }
 
 .album-flipbook-half-right {
-  box-shadow: inset 6px 0 12px -8px rgba(74, 58, 62, 0.1);
+  box-shadow: inset 6px 0 12px -8px rgba(47, 74, 102, 0.1);
 }
 
 .album-flipbook-blank-page {
@@ -1300,13 +1301,13 @@ img[src*="%2Flovestorydeco%2F"] {
 .background-video__veil {
   position: absolute;
   inset: 0;
-  /* Beige → light paper wash so the photos sit softly under the warm gray palette */
-  background: linear-gradient(180deg, #F3E8E6 0%, #FBF7F5 50%, #F3E8E6 100%);
+  /* Butter yellow → cream wash so the photos sit softly under the pastel palette */
+  background: linear-gradient(180deg, #FFF4C2 0%, #FFFBF0 50%, #FFF4C2 100%);
 }
 
 /* ==========================================================================
    Sky garden backdrop (components/sky-backdrop.tsx)
-   beige at the edges, cloud-white through the middle; clouds tile every
+   pastel blue at the edges, cloud-white through the middle; clouds tile every
    900px so long sections stay covered, and drift very slowly sideways.
    ========================================================================== */
 .sky-backdrop {
@@ -1387,9 +1388,9 @@ img[src*="%2Flovestorydeco%2F"] {
 
 
 /* ==========================================================================
-   Soft beige paper backdrop — loader, envelope and home hero (plain display).
-   Beige washing into light paper, with a faint blush-pink bloom at the top
-   and a whisper of warm gray at the foot. No photos, no patterns: calm and airy.
+   Soft butter paper backdrop — loader, envelope and home hero (plain display).
+   Butter yellow washing into cream, with a faint pastel-blue bloom at the top
+   and a whisper of sky blue and gold at the foot. No photos, no patterns: calm and airy.
    ========================================================================== */
 .invite-blush-backdrop {
   position: absolute;
@@ -1397,10 +1398,10 @@ img[src*="%2Flovestorydeco%2F"] {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(120% 60% at 50% -10%, color-mix(in srgb, #EBCBCF 85%, transparent) 0%, transparent 65%),
-    radial-gradient(80% 40% at 0% 100%, color-mix(in srgb, #C9C1C2 10%, transparent) 0%, transparent 70%),
-    radial-gradient(80% 40% at 100% 100%, color-mix(in srgb, #9A9294 10%, transparent) 0%, transparent 70%),
-    linear-gradient(180deg, #F3E8E6 0%, #FBF7F5 55%, #F3E8E6 100%);
+    radial-gradient(120% 60% at 50% -10%, color-mix(in srgb, #D9EAF7 85%, transparent) 0%, transparent 65%),
+    radial-gradient(80% 40% at 0% 100%, color-mix(in srgb, #D6B779 12%, transparent) 0%, transparent 70%),
+    radial-gradient(80% 40% at 100% 100%, color-mix(in srgb, #8FB0CF 10%, transparent) 0%, transparent 70%),
+    linear-gradient(180deg, #FFF4C2 0%, #FFFBF0 55%, #FFF4C2 100%);
 }
 
 .invite-blush-backdrop::after {
@@ -1410,7 +1411,7 @@ img[src*="%2Flovestorydeco%2F"] {
   opacity: 0.35;
   background:
     repeating-linear-gradient(90deg, transparent 0 2px, rgb(255 255 255 / 18%) 2px 3px),
-    repeating-linear-gradient(0deg, transparent 0 3px, rgb(74 69 70 / 1.5%) 3px 4px);
+    repeating-linear-gradient(0deg, transparent 0 3px, rgb(47 74 102 / 1.5%) 3px 4px);
 }
 
 
@@ -1497,14 +1498,14 @@ img[src*="%2Flovestorydeco%2F"] {
 
 /* Floral corners: soft shadow so they sit on the page instead of looking pasted on */
 .deco-corner-overlay {
-  filter: drop-shadow(0 6px 10px rgb(74 69 70 / 14%));
+  filter: drop-shadow(0 6px 10px rgb(47 74 102 / 14%));
 }
 
 
 /* ==========================================================================
    Shared section decoration — gallery section + /gallery page (and any section
    that wants the loader's look). Paths come from content/site.ts.
-     .section-wash   translucent light white-warm-gray over the circle pattern
+     .section-wash   translucent cream / pastel blue over the circle pattern
      .deco-frame     thin double border (same as the loading screen)
      .deco-corner--* corner florals, sized per corner like the loader
    ========================================================================== */
@@ -1515,9 +1516,9 @@ img[src*="%2Flovestorydeco%2F"] {
   pointer-events: none;
   background:
     radial-gradient(90% 18% at 50% 0%, rgb(255 255 255 / 60%) 0%, transparent 70%),
-    radial-gradient(60% 16% at 0% 40%, color-mix(in srgb, #EBCBCF 28%, transparent) 0%, transparent 70%),
-    radial-gradient(60% 16% at 100% 70%, color-mix(in srgb, #EBCBCF 24%, transparent) 0%, transparent 70%),
-    linear-gradient(180deg, rgb(255 255 255 / 52%) 0%, color-mix(in srgb, #F8EFEF 46%, transparent) 50%, rgb(255 255 255 / 46%) 100%);
+    radial-gradient(60% 16% at 0% 40%, color-mix(in srgb, #D9EAF7 28%, transparent) 0%, transparent 70%),
+    radial-gradient(60% 16% at 100% 70%, color-mix(in srgb, #FFF4C2 40%, transparent) 0%, transparent 70%),
+    linear-gradient(180deg, rgb(255 255 255 / 52%) 0%, color-mix(in srgb, #FFF8E1 46%, transparent) 50%, rgb(255 255 255 / 46%) 100%);
 }
 
 .deco-frame {
@@ -1593,6 +1594,58 @@ img[src*="%2Flovestorydeco%2F"] {
   100% { opacity: 0; transform: translate3d(var(--drift, 0px), -110vh, 0) rotate(calc(var(--tilt, 8deg) * -1)); }
 }
 
+/* Butter-yellow tone (RisingHearts tone="butter") — warm glow instead of blush */
+.story-rise--butter .story-rise__heart {
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-motif-yellow) 80%, transparent));
+}
+
 @media (prefers-reduced-motion: reduce) {
   .story-rise { display: none; }
+}
+
+
+/* ==========================================================================
+   Ghost backdrop — faint church illustration behind the loader, envelope and
+   home hero (components/loader/invite-photo-backdrop.tsx → GhostBackdrop).
+   Image: content/site.ts → loadingScreen.ghostImage.
+   Strength: --ghost-opacity. Edges melt into the paper via the mask.
+   ========================================================================== */
+.ghost-backdrop {
+  --ghost-opacity: 0.18;
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 0;
+  height: min(64vh, 560px);
+  pointer-events: none;
+  user-select: none;
+  opacity: var(--ghost-opacity);
+  -webkit-mask-image: radial-gradient(ellipse 62% 78% at 50% 72%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 62% 78% at 50% 72%, #000 40%, transparent 100%);
+  animation: ghost-backdrop-in 2.4s ease-out both;
+}
+
+/* Phones: fill the height and crop the sides so the church facade stays large */
+.ghost-backdrop__img {
+  object-fit: cover;
+  object-position: 50% 100%;
+  /* Softened toward the pastel palette */
+  filter: saturate(0.65) sepia(0.12);
+}
+
+@media (min-width: 768px) {
+  .ghost-backdrop {
+    height: min(82vh, 820px);
+  }
+  .ghost-backdrop__img {
+    object-fit: contain;
+  }
+}
+
+@keyframes ghost-backdrop-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: var(--ghost-opacity); transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ghost-backdrop { animation: none; }
 }

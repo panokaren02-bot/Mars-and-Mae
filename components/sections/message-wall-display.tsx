@@ -469,7 +469,7 @@ export default function MessageWallDisplay({ messages, loading, freshKey = null 
                 className="h-1.5 rounded-full transition-all duration-500"
                 style={{
                   width: isActive ? "1.5rem" : "0.375rem",
-                  background: isActive ? "var(--color-motif-silver)" : "rgb(255 255 255 / 50%)",
+                  background: isActive ? "#FFFFFF" : "rgb(255 255 255 / 50%)",
                 }}
                 aria-label={`Show messages page ${idx + 1} of ${pageCount}`}
                 aria-current={isActive ? "true" : undefined}

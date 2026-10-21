@@ -12,11 +12,22 @@ const RISE_COLORS = [
   "color-mix(in srgb, var(--color-highlight-deep) 55%, white)",
 ] as const
 
+// Butter-yellow hearts for sections sitting on the darker readability scrim
+const BUTTER_COLORS = [
+  "var(--color-motif-yellow)",
+  "#FFE99A",
+  "#FFF8DC",
+  "#FCE38A",
+] as const
+
+type HeartTone = "pink" | "butter"
+const TONE_COLORS: Record<HeartTone, readonly string[]> = { pink: RISE_COLORS, butter: BUTTER_COLORS }
+
 export const HEART_PATH =
   "M12 21s-7.5-4.6-9.6-9.2C1 8.6 3 5 6.5 5c2 0 3.5 1.1 4.3 2.6h2.4C14 6.1 15.5 5 17.5 5 21 5 23 8.6 21.6 11.8 19.5 16.4 12 21 12 21z"
 
 // `seed` shifts positions / timing so stacked bands don't look identical
-const makeHearts = (count: number, seed = 0) =>
+const makeHearts = (count: number, seed = 0, tone: HeartTone = "pink") =>
   Array.from({ length: count }, (_, n) => {
     const i = n + seed * 7
     return {
@@ -27,7 +38,7 @@ const makeHearts = (count: number, seed = 0) =>
       drift: `${((i % 2 ? 1 : -1) * (8 + (i % 4) * 6))}px`,
       tilt: `${(i % 2 ? 1 : -1) * (6 + (i % 3) * 6)}deg`,
       peak: 0.25 + ((i * 7) % 6) * 0.11,
-      color: RISE_COLORS[i % RISE_COLORS.length],
+      color: TONE_COLORS[tone][i % TONE_COLORS[tone].length],
     }
   })
 
@@ -66,10 +77,12 @@ type RisingHeartsProps = {
   /** Tall sections: stack one band of hearts per screen height so they show from
    *  top to bottom. The bands scroll with the content (no parallax). */
   fill?: boolean
+  /** Heart colours: pink (default) or butter yellow. */
+  tone?: HeartTone
   className?: string
 }
 
-export function RisingHearts({ dense = false, fill = false, className = "" }: RisingHeartsProps) {
+export function RisingHearts({ dense = false, fill = false, tone = "pink", className = "" }: RisingHeartsProps) {
   const reduceMotion = useReducedMotion()
   const ref = useRef<HTMLDivElement>(null)
   const [bands, setBands] = useState(1)
@@ -89,16 +102,18 @@ export function RisingHearts({ dense = false, fill = false, className = "" }: Ri
     }
   }, [fill])
 
+  const toneClass = tone === "butter" ? "story-rise--butter" : ""
+
   if (reduceMotion) return null
-  if (!fill) return <HeartLayer hearts={makeHearts(count)} className={className} />
+  if (!fill) return <HeartLayer hearts={makeHearts(count, 0, tone)} className={`${toneClass} ${className}`} />
 
   // Each band rises from its own bottom edge; bands overlap upward, the outer layer clips
   return (
-    <div ref={ref} className={`story-rise ${className}`} aria-hidden>
+    <div ref={ref} className={`story-rise ${toneClass} ${className}`} aria-hidden>
       {Array.from({ length: bands }, (_, b) => (
         <HeartLayer
           key={b}
-          hearts={makeHearts(count, b)}
+          hearts={makeHearts(count, b, tone)}
           className="story-rise--band"
           style={{ top: "auto", bottom: `${(b * 100) / bands}%`, height: `${100 / bands}%` }}
         />

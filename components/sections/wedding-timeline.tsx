@@ -7,7 +7,7 @@ import { motion } from "motion/react"
 import { Cinzel } from "next/font/google"
 import localFont from "next/font/local"
 import { TintedDeco } from "@/components/tinted-deco"
-import { HEART_PATH } from "@/components/rising-hearts"
+import { HEART_PATH, RisingHearts } from "@/components/rising-hearts"
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -29,13 +29,12 @@ const aboveTheBeyond = localFont({
 const CORNER_DECO_CLASS =
   "block h-auto w-auto max-w-[80px] sm:max-w-[120px] md:max-w-[170px] lg:max-w-[205px] xl:max-w-[245px] select-none"
 
-// Light palette — the section has no background and sits on the dusty-rose Silk backdrop.
-// Ivory titles, silver times / kicker, cream script + locations, soft charcoal halos.
-const INK = "var(--color-motif-soft)"
-const ROSE = "var(--color-motif-silver)"
-const SCRIPT = "var(--color-motif-cream)"
-const BODY = "var(--color-motif-soft)"
-const LINE = "color-mix(in srgb, var(--color-motif-soft) 70%, transparent)"
+// All-white palette over a translucent scrim so text stays readable on the Silk backdrop.
+const INK = "#FFFFFF"
+const ROSE = "#FFFFFF"
+const SCRIPT = "#FFFFFF"
+const BODY = "#FFFFFF"
+const LINE = "rgba(255, 255, 255, 0.7)"
 const entryEase = [0.22, 1, 0.36, 1] as const
 
 // Charcoal halo keeps light text readable over the moving backdrop
@@ -189,6 +188,11 @@ export function WeddingTimeline() {
       id="wedding-timeline"
       className="relative z-10 overflow-hidden py-10 sm:py-12 md:py-16 lg:py-20"
     >
+      {/* Readability scrim — translucent so the background still shows through */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-black/35" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <RisingHearts tone="butter" fill />
+      </div>
       {/* Corner decorations (optional, from site.ts) */}
       <div className="pointer-events-none absolute left-0 top-0 z-10">
         <DecoImg src={decos.topLeft} className={CORNER_DECO_CLASS} />

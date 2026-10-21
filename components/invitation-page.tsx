@@ -88,7 +88,7 @@ const sectionsRevealVariants = {
 }
 
 /** WebGL Silk needs a hex color. */
-const SILK_COLOR = "#C98793"
+const SILK_COLOR = "#B7D1E8"
 
 type InvitationPageProps = {
   /** Which principal-sponsor sheet the entourage shows (googleAPI.sponsorsInviteOne / Two) */
@@ -201,7 +201,7 @@ export function InvitationPage({ sponsorsList, showEntourage = true }: Invitatio
           >
             {cinematicEntry && (
               <motion.div
-                className="fixed inset-0 z-[28] pointer-events-none bg-[#FBF7F5]"
+                className="fixed inset-0 z-[28] pointer-events-none bg-[#FFFBF0]"
                 aria-hidden="true"
                 initial={{ clipPath: "circle(0% at 50% 46%)", opacity: 0.98 }}
                 animate={{ clipPath: "circle(145% at 50% 46%)", opacity: 0 }}
@@ -264,11 +264,11 @@ export function InvitationPage({ sponsorsList, showEntourage = true }: Invitatio
               {/* One continuous circle pattern behind the video and love story (same as Details) — no seam between them */}
               <div className="relative">
                 <PlainBubbles />
-                <CoupleVideo skyBackdrop={false} />
+               {/* <CoupleVideo skyBackdrop={false} />*/}
                 <LoveStory skyBackdrop={false} />
               </div>
               <Countdown />
-              <Gallery />
+              {/*  <Gallery />*/}
               {/* <MessageVideo /> */}
               <Messages />
               <Details />

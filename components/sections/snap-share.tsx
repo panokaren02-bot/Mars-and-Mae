@@ -1,5 +1,6 @@
 "use client"
 
+import { RisingHearts } from "@/components/rising-hearts"
 import { useEffect, useState } from "react"
 import { Cinzel } from "next/font/google"
 import localFont from "next/font/local"
@@ -31,8 +32,8 @@ const aboveTheBeyond = localFont({
 // Header + closing text sit on the dusty-blue page backdrop: white (script in butter)
 // with a soft navy shadow.
 const OUTSIDE_TEXT = "#FFFFFF"
-const OUTSIDE_TEXT_MUTED = "rgba(255, 255, 255, 0.92)"
-const OUTSIDE_SCRIPT = "var(--color-motif-silver)"
+const OUTSIDE_TEXT_MUTED = "#FFFFFF"
+const OUTSIDE_SCRIPT = "#FFFFFF"
 const OUTSIDE_TITLE_SHADOW =
   "0 1px 0 color-mix(in srgb, var(--color-welcome-navy) 45%, transparent), 0 2px 10px color-mix(in srgb, var(--color-welcome-navy) 40%, transparent), 0 8px 28px color-mix(in srgb, var(--color-welcome-navy) 30%, transparent)"
 const READABLE_SHADOW =
@@ -440,6 +441,11 @@ export function SnapShare() {
       id="snap-share"
       className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative z-10 bg-transparent pt-8 pb-8 sm:pt-10 sm:pb-10 md:pt-12 md:pb-12 lg:pt-14 lg:pb-14`}
     >
+      {/* Readability scrim — translucent so the background still shows through */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-black/35" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <RisingHearts tone="butter" fill />
+      </div>
       <div className="relative z-20 mx-auto max-w-6xl px-4 @container/snap-share sm:px-6 md:px-8">
         <div className="relative z-20 px-6 text-center sm:px-10 md:px-12">
           <div className="mx-auto mb-5 sm:mb-6 md:mb-7">

@@ -38,7 +38,7 @@ export function Footer() {
         <div className="text-center mb-8 sm:mb-10">
           <p
             className="text-[11px] sm:text-xs uppercase tracking-[0.2em] mb-2 font-semibold"
-            style={{ color: coastalPalette.dustyRose }}
+            style={{ color: "var(--color-motif-accent)" }}
           >
             With Love
           </p>
@@ -98,7 +98,7 @@ export function Footer() {
           className="mt-8 pt-8 text-center text-sm border-t"
           style={{
             borderColor: `color-mix(in srgb, ${coastalPalette.blueGray} 35%, white)`,
-            color: coastalPalette.dustyRose,
+            color: "var(--color-motif-accent)",
           }}
         >
           <p>With love and gratitude • {new Date().getFullYear()}</p>

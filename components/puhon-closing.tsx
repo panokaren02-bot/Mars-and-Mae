@@ -21,8 +21,8 @@ const theSeasons = localFont({
 
 const BURGUNDY = "var(--color-welcome-navy)"
 const ROSE = "var(--color-welcome-heading)"
-const INK = "#5A5455" // soft cocoa for the long verse line — gentler than burgundy, still high contrast
-const QUOTE_MARK = "color-mix(in srgb, #9A9294 70%, transparent)"
+const INK = "#4A5A6B" // soft cocoa for the long verse line — gentler than burgundy, still high contrast
+const QUOTE_MARK = "color-mix(in srgb, #8FB0CF 70%, transparent)"
 // Soft ivory edge keeps burgundy text crisp over pink or photos
 const glow = "0 1px 0 rgb(247 244 239 / 90%), 0 0 14px rgb(247 244 239 / 85%)"
 
@@ -34,13 +34,13 @@ const TONES = {
     lead: BURGUNDY,
     body: INK,
     mark: QUOTE_MARK,
-    rule: "#9A9294",
+    rule: "#8FB0CF",
     shadow: glow,
   },
   light: {
-    title: "#FBF7F5",
+    title: "#FFFBF0",
     accent: "#DCE3EC",
-    lead: "#FBF7F5",
+    lead: "#FFFBF0",
     body: "rgb(247 244 239 / 94%)",
     mark: "rgb(220 227 236 / 75%)",
     rule: "rgb(220 227 236 / 85%)",
@@ -141,7 +141,7 @@ export function PuhonBanner() {
       className="relative isolate overflow-hidden rounded-[1.5rem] sm:rounded-[2rem]"
       style={{
         boxShadow:
-          "0 0 0 1px color-mix(in srgb, #9A9294 45%, transparent), 0 0 0 6px rgb(247 244 239 / 35%), 0 26px 50px -28px color-mix(in srgb, #4A4546 45%, transparent)",
+          "0 0 0 1px color-mix(in srgb, #8FB0CF 45%, transparent), 0 0 0 6px rgb(247 244 239 / 35%), 0 26px 50px -28px color-mix(in srgb, #2F4A66 45%, transparent)",
       }}
     >
       {images.map((src, i) => (
@@ -172,7 +172,7 @@ export function PuhonBanner() {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(85% 70% at 50% 50%, rgb(31 45 58 / 52%) 0%, rgb(74 69 70 / 34%) 60%, rgb(74 69 70 / 22%) 100%), linear-gradient(180deg, rgb(74 69 70 / 10%) 0%, rgb(31 45 58 / 25%) 100%)",
+            "radial-gradient(85% 70% at 50% 50%, rgb(31 45 58 / 52%) 0%, rgb(47 74 102 / 34%) 60%, rgb(47 74 102 / 22%) 100%), linear-gradient(180deg, rgb(47 74 102 / 10%) 0%, rgb(31 45 58 / 25%) 100%)",
         }}
       />
       <PuhonText tone="light" className="px-5 py-14 sm:px-10 sm:py-20 md:py-24" />

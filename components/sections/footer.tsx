@@ -11,7 +11,7 @@ import {
   Heart,
   Mail,
   MessageCircle,
-  Church,
+  Landmark,
   GlassWater,
   Clock,
   MapPin,
@@ -253,7 +253,7 @@ export function Footer({ background = true }: { background?: boolean } = {}) {
   const isCombined = venues.layout === "combined"
   type SummaryRow = {
     key: string
-    Icon: typeof Church
+    Icon: typeof Landmark
     label: string
     place: string
     times: { label: string; time: string; showLabel: boolean }[]
@@ -262,7 +262,7 @@ export function Footer({ background = true }: { background?: boolean } = {}) {
     ? [
         {
           key: "combined",
-          Icon: Church,
+          Icon: Landmark,
           label: venues.combined.badge,
           place: ceremony.location,
           times: [
@@ -277,7 +277,7 @@ export function Footer({ background = true }: { background?: boolean } = {}) {
         ...(venues.ceremony.show
           ? [{
               key: "ceremony",
-              Icon: Church,
+              Icon: Landmark,
               label: content.summary.ceremonyLabel,
               place: ceremony.location,
               times: ceremony.time ? [{ label: content.summary.ceremonyLabel, time: ceremony.time, showLabel: false }] : [],

@@ -579,7 +579,7 @@ function EventVenueCard({
         className="relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem]"
         style={{ background: cardStyle.background, boxShadow: cardStyle.boxShadow }}
       >
-        <div className="relative w-full h-64 sm:h-72 md:h-80 lg:h-96 xl:h-[30rem] overflow-hidden" style={{ background: "color-mix(in srgb, var(--color-motif-blush) 40%, white)" }}>
+        <div className={`relative w-full overflow-hidden ${images.length ? "h-64 sm:h-72 md:h-80 lg:h-96 xl:h-[30rem]" : "h-40 sm:h-44 md:h-48"}`} style={{ background: "color-mix(in srgb, var(--color-motif-blush) 40%, white)" }}>
           {images.map((src, index) => {
             const isActive = index === activeImageIndex
             return (

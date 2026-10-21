@@ -7,7 +7,7 @@ import localFont from "next/font/local"
 import { useSiteConfig } from "@/hooks/use-site-config"
 import { parseWeddingDate } from "@/lib/wedding-date"
 import Image from "next/image"
-import { InvitePhotoBackdrop, PhotoBackground } from "@/components/loader/invite-photo-backdrop"
+import { GhostBackdrop, InvitePhotoBackdrop, PhotoBackground } from "@/components/loader/invite-photo-backdrop"
 import { siteConfig as defaultSiteConfig } from "@/content/site"
 import "@/components/loader/loading-screen.css"
 
@@ -267,6 +267,7 @@ export function Hero() {
       {isPlain ? (
         <>
           <PhotoBackground photos={plainPhotos} desktopPhotos={plainPhotosDesktop} />
+          <GhostBackdrop src={loading.ghostImage} />
           <div className="home-hero-plain-corners" aria-hidden="true">
             {(
               [

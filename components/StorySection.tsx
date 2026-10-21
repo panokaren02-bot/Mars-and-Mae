@@ -1,8 +1,8 @@
 "use client"
 
-import React from "react"
+import React, { useRef } from "react"
 import localFont from "next/font/local"
-import { motion, useReducedMotion } from "motion/react"
+import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react"
 import { sectionType, storyChapterTitleSize } from "@/lib/section-typography"
 import Image from "next/image"
 import { TornPaperEdge } from "./TornPaperEdge"
@@ -23,6 +23,13 @@ const revealEase = [0.22, 1, 0.36, 1] as const
 // Plain cards: flat palette colors — teal text on light cards, light text on teal cards
 const TEAL = "var(--color-welcome-navy)"
 const ON_TEAL = "var(--color-motif-soft)"
+
+export type StoryCardCorners = {
+  topLeft: string
+  topRight: string
+  bottomLeft: string
+  bottomRight: string
+}
 
 export type LoveStoryEucalyptusDecos = {
   topLeft: string
@@ -52,6 +59,8 @@ interface StorySectionProps {
   // Plain layout: faint chapter number behind the text / heart divider after the chapter
   showNumber?: boolean
   showDivider?: boolean
+  // Plain layout: florals on the card corners (two per card, alternating pairs)
+  cardCorners?: StoryCardCorners
 }
 
 function PlainEucalyptusDecos({ decos }: { decos: LoveStoryEucalyptusDecos }) {
@@ -82,119 +91,153 @@ function PlainChapterDivider({ dark }: { dark: boolean }) {
 }
 
 /**
- * Plain mode: open layout, no card. Photo and text sit side by side and swap
- * sides each chapter (layout "image-left" / "image-right"); text aligns toward
- * its photo. A small dusty-blue divider with a heart separates chapters.
+ * Plain mode: one card per chapter (no photo). Cards zig-zag left / right on
+ * tablet and up (centered on phones), alternate butter-yellow and pastel-blue
+ * tones, and slide in from the left on scroll with their lines staggered.
+ * Two florals bloom on opposite corners of each card (pairs alternate) and
+ * sway gently. A large faint chapter number drifts behind each card
+ * (parallax). A small heart divider separates chapters.
  */
-function PlainOpenChapter({
-  imageSrc,
-  imageAlt,
-  imagePosition,
+function PlainStoryCard({
   date,
   title,
   text,
-  photoLeft,
+  alignLeft,
   isLast,
   chapterIndex,
   fallbackLabel,
   showNumber,
   showDivider,
+  corners,
 }: {
-  imageSrc?: string
-  imageAlt?: string
-  imagePosition?: string
   date?: string
   title?: string
   text: React.ReactNode
-  photoLeft: boolean
+  alignLeft: boolean
   isLast: boolean
   chapterIndex: number
   fallbackLabel: string
   showNumber: boolean
   showDivider: boolean
+  corners?: StoryCardCorners
 }) {
   const reduceMotion = useReducedMotion()
-  const photoFrom = reduceMotion ? { opacity: 1, x: 0, rotate: 0 } : { opacity: 0, x: photoLeft ? -40 : 40, rotate: 0 }
-  const textFrom = reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }
-  const tilt = photoLeft ? -2.5 : 2.5
+  const rowRef = useRef<HTMLDivElement>(null)
+  // Scroll-linked drift: the ghost number moves faster than the card for a soft parallax
+  const { scrollYProgress } = useScroll({ target: rowRef, offset: ["start end", "end start"] })
+  const numberY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [70, -70])
+  const cardY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [18, -18])
+  const number = String(chapterIndex + 1).padStart(2, "0")
+  const tone = chapterIndex % 2 ? "blue" : "butter"
+  // Alternate the floral pair so neighbouring cards don't mirror each other
+  const cornerPair = corners
+    ? chapterIndex % 2
+      ? [
+          { src: corners.topRight, pos: "tr" },
+          { src: corners.bottomLeft, pos: "bl" },
+        ]
+      : [
+          { src: corners.topLeft, pos: "tl" },
+          { src: corners.bottomRight, pos: "br" },
+        ]
+    : []
+
+  // Every card enters from the left and settles in place (left → right)
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, x: -64, scale: 0.97, filter: "blur(6px)" },
+    show: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: { duration: 0.9, ease: revealEase, staggerChildren: 0.12, delayChildren: 0.2 },
+    },
+  }
+  const lineVariants: Variants = {
+    hidden: { opacity: 0, x: -22 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.7, ease: revealEase } },
+  }
+  // Florals bloom open once the card has landed
+  const cornerVariants: Variants = {
+    hidden: { opacity: 0, scale: 0.55, rotate: -12 },
+    show: { opacity: 1, scale: 1, rotate: 0, transition: { duration: 1.1, delay: 0.55, ease: revealEase } },
+  }
 
   return (
-    <div className={`${theSeasons.variable} story-open relative z-[2] px-5 sm:px-8 md:px-10`}>
-      {/* Soft powder-blue wash behind each chapter, on the photo's side */}
-      <span className={`story-open-wash ${photoLeft ? "story-open-wash--left" : "story-open-wash--right"}`} aria-hidden />
+    <div ref={rowRef} className={`${theSeasons.variable} story-card-row relative z-[2] px-5 sm:px-8 md:px-10`}>
       <RisingHearts />
       <div
-        className={`relative mx-auto flex max-w-5xl items-center gap-5 py-10 sm:gap-10 sm:py-14 md:gap-14 md:py-16 ${
-          photoLeft ? "flex-row" : "flex-row-reverse"
+        className={`relative mx-auto flex max-w-5xl justify-center py-8 sm:py-10 md:py-12 ${
+          alignLeft ? "md:justify-start" : "md:justify-end"
         }`}
       >
-        {imageSrc ? (
-          <motion.div
-            className="w-[44%] shrink-0 sm:w-[42%] md:w-5/12"
-            initial={photoFrom}
-            whileInView={{ opacity: 1, x: 0, rotate: tilt }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.95, ease: revealEase }}
-          >
-            <div className="story-open-photo">
-              {/* Tall portrait frame (2:3) */}
-              <div className="relative aspect-[2/3] w-full overflow-hidden">
-                <Image
-                  src={encodeURI(imageSrc)}
-                  alt={imageAlt ?? ""}
-                  fill
-                  sizes="(max-width: 640px) 44vw, (max-width: 1024px) 40vw, 420px"
-                  className="object-cover"
-                  style={{ objectPosition: imagePosition || "center 30%" }}
-                  quality={85}
-                  priority={chapterIndex < 1}
-                />
-              </div>
-            </div>
-          </motion.div>
-        ) : null}
-
-        <motion.div
-          className={`relative min-w-0 flex-1 ${photoLeft ? "text-left" : "text-right"}`}
-          initial={textFrom}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.85, delay: 0.15, ease: revealEase }}
-        >
-          {/* Faint chapter numeral behind the text (loveStory.showChapterNumbers) */}
-          {showNumber && (
-            <span
-              className={`story-open-number ${photoLeft ? "right-0" : "left-0"}`}
-              aria-hidden
-            >
-              {String(chapterIndex + 1).padStart(2, "0")}
-            </span>
-          )}
-          {/* Year / date line — Cinzel (engraved serif with clean numerals), see .story-open-date */}
-          <p className="story-open-date">
-            <StoryGlyphText text={date || fallbackLabel} />
-          </p>
-          {title ? (
-            <h2 className={`${theSeasons.className} story-open-title`}>
-              <StoryGlyphText text={title} />
-            </h2>
-          ) : null}
-          <span
-            className={`story-open-rule ${photoLeft ? "" : "ml-auto"}`}
+        {/* Faint chapter number behind the card (loveStory.showChapterNumbers) */}
+        {showNumber && (
+          <motion.span
+            className={`story-card-number ${alignLeft ? "story-card-number--right" : "story-card-number--left"}`}
+            style={{ y: numberY }}
+            initial={reduceMotion ? false : { opacity: 0, x: -48 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-12%" }}
+            transition={{ duration: 1.1, ease: revealEase }}
             aria-hidden
-          />
-          <div className="story-open-text">{text}</div>
-        </motion.div>
+          >
+            {number}
+          </motion.span>
+        )}
+
+        <motion.article
+          className={`story-card story-card--${tone}`}
+          style={{ y: cardY }}
+          variants={cardVariants}
+          initial={reduceMotion ? "show" : "hidden"}
+          whileInView="show"
+          viewport={{ once: true, margin: "-12%" }}
+        >
+          <span className="story-card__frame" aria-hidden />
+          {cornerPair
+            .filter(({ src }) => src)
+            .map(({ src, pos }) => (
+              <motion.span
+                key={pos}
+                className={`story-card__corner story-card__corner--${pos}`}
+                variants={cornerVariants}
+                aria-hidden
+              >
+                {/* Original artwork colors (no tint); the inner img sways gently (CSS) */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={encodeURI(src)} alt="" className="story-card__corner-img" />
+              </motion.span>
+            ))}
+          <span className="story-card__badge" aria-hidden>
+            <svg viewBox="0 0 24 24" className="h-3 w-3 sm:h-3.5 sm:w-3.5" fill="currentColor">
+              <path d={HEART_PATH} />
+            </svg>
+          </span>
+          {/* Date line — Cinzel (engraved serif with clean numerals), see .story-open-date */}
+          <motion.p className="story-open-date" variants={lineVariants}>
+            <StoryGlyphText text={date || fallbackLabel} />
+          </motion.p>
+          {title ? (
+            <motion.h2 className={`${theSeasons.className} story-open-title`} variants={lineVariants}>
+              <StoryGlyphText text={title} />
+            </motion.h2>
+          ) : null}
+          <motion.span className="story-open-rule mx-auto" variants={lineVariants} aria-hidden />
+          <motion.div className="story-open-text" variants={lineVariants}>
+            {text}
+          </motion.div>
+        </motion.article>
       </div>
 
       {showDivider && !isLast && (
         <div className="story-open-divider flex items-center justify-center gap-2" aria-hidden>
-          <span className="h-px w-12 sm:w-20" style={{ background: "linear-gradient(to right, transparent, #9A9294)" }} />
-          {/* Deep slate heart — the one accent between chapters */}
-          <svg viewBox="0 0 24 24" className="h-3 w-3 sm:h-3.5 sm:w-3.5" fill="#4A4546">
+          <span className="h-px w-12 sm:w-20" style={{ background: "linear-gradient(to right, transparent, #8FB0CF)" }} />
+          {/* Navy heart — the one accent between chapters */}
+          <svg viewBox="0 0 24 24" className="h-3 w-3 sm:h-3.5 sm:w-3.5" fill="#2F4A66">
             <path d={HEART_PATH} />
           </svg>
-          <span className="h-px w-12 sm:w-20" style={{ background: "linear-gradient(to left, transparent, #9A9294)" }} />
+          <span className="h-px w-12 sm:w-20" style={{ background: "linear-gradient(to left, transparent, #8FB0CF)" }} />
         </div>
       )}
     </div>
@@ -204,7 +247,6 @@ function PlainOpenChapter({
 export const StorySection: React.FC<StorySectionProps> = ({
   imageSrc,
   imageAlt,
-  imagePosition,
   date,
   title,
   text,
@@ -218,24 +260,23 @@ export const StorySection: React.FC<StorySectionProps> = ({
   chapterLabelText = "Chapter",
   showNumber = true,
   showDivider = true,
+  cardCorners,
 }) => {
   const reduceMotion = useReducedMotion()
 
   if (plain) {
     return (
-      <PlainOpenChapter
-        imageSrc={imageSrc}
-        imageAlt={imageAlt}
-        imagePosition={imagePosition}
+      <PlainStoryCard
         date={date}
         title={title}
         text={text}
-        photoLeft={layout === "image-left"}
+        alignLeft={layout === "image-left"}
         isLast={isLast}
         chapterIndex={chapterIndex}
         fallbackLabel={`${chapterLabelText} ${String(chapterIndex + 1).padStart(2, "0")}`}
         showNumber={showNumber}
         showDivider={showDivider}
+        corners={cardCorners}
       />
     )
   }

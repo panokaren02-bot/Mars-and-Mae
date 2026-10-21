@@ -22,13 +22,13 @@ export function Narrative() {
   return (
     <Section
       id="narrative"
-      className="relative py-12 md:py-16 lg:py-20 overflow-hidden bg-gradient-to-br from-[#D2A4A4] via-[#A8606F] to-[#F7E6CA]"
+      className="relative py-12 md:py-16 lg:py-20 overflow-hidden bg-gradient-to-br from-[#D2A4A4] via-[#5B7FA6] to-[#F7E6CA]"
     >
       {/* Background elements with blush & sand motif */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Vertical blush gradients to frame the story */}
         <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-[#D3B9A2]/90 via-[#D2A4A4]/78 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#D3B9A2]/88 via-[#A8606F]/70 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#D3B9A2]/88 via-[#5B7FA6]/70 to-transparent" />
         {/* Soft radial light in warm blush */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(196,209,226,0.42),transparent_55%)] opacity-90" />
         {/* Subtle diagonal wash of sand & rose */}
@@ -90,8 +90,8 @@ export function Narrative() {
             <div className="relative">
               {/* Enhanced glow effect with blush & sand motif */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#FADDE0]/35 via-[#E9D5C3]/24 to-[#F7E6CA]/32 rounded-full blur-3xl -z-10 w-full h-full max-w-sm animate-pulse" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#D2A4A4]/30 via-transparent to-[#A8606F]/26 rounded-full blur-2xl -z-10 w-full h-full max-w-sm" />
-              <div className="absolute inset-0 bg-gradient-to-bl from-[#A8606F]/24 via-transparent to-[#D3B9A2]/22 rounded-full blur-xl -z-10 w-full h-full max-w-sm" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#D2A4A4]/30 via-transparent to-[#5B7FA6]/26 rounded-full blur-2xl -z-10 w-full h-full max-w-sm" />
+              <div className="absolute inset-0 bg-gradient-to-bl from-[#5B7FA6]/24 via-transparent to-[#D3B9A2]/22 rounded-full blur-xl -z-10 w-full h-full max-w-sm" />
 
               <Stack
                 randomRotation={true}
@@ -201,7 +201,7 @@ export function Narrative() {
                 href="#guest-list"
                 className="group relative w-full sm:w-auto px-6 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 text-[#22313F] font-sans font-bold text-sm sm:text-base md:text-lg rounded-[2rem] transition-all duration-500 text-center overflow-hidden shadow-xl hover:shadow-2xl border-2 border-[#E9D5C3] hover:border-[#D2A4A4]"
                 style={{ 
-                  backgroundImage: "linear-gradient(135deg, #FADDE0, #A8606F)",
+                  backgroundImage: "linear-gradient(135deg, #FADDE0, #5B7FA6)",
                   boxShadow: "0 10px 40px rgba(0,0,0,0.35), 0 4px 12px rgba(135,153,167,0.45)"
                 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -210,11 +210,11 @@ export function Narrative() {
                 whileHover={{ scale: 1.05, y: -4 }}
                 whileTap={{ scale: 0.98 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundImage = "linear-gradient(135deg, #A8606F, #D2A4A4)";
+                  e.currentTarget.style.backgroundImage = "linear-gradient(135deg, #5B7FA6, #D2A4A4)";
                   e.currentTarget.style.boxShadow = "0 16px 55px rgba(0,0,0,0.45), 0 6px 18px rgba(135,153,167,0.6)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundImage = "linear-gradient(135deg, #FADDE0, #A8606F)";
+                  e.currentTarget.style.backgroundImage = "linear-gradient(135deg, #FADDE0, #5B7FA6)";
                   e.currentTarget.style.boxShadow = "0 10px 40px rgba(0,0,0,0.35), 0 4px 12px rgba(135,153,167,0.45)";
                 }}
               >
@@ -280,7 +280,7 @@ export function Narrative() {
                 ))}
                 
                 {/* Animated gradient border */}
-                <div className="absolute inset-0 rounded-[2rem] border-2 border-white/10 group-hover:border-[#A8606F]/60 transition-all duration-500"></div>
+                <div className="absolute inset-0 rounded-[2rem] border-2 border-white/10 group-hover:border-[#5B7FA6]/60 transition-all duration-500"></div>
                 <motion.div 
                   className="absolute inset-0 rounded-[2rem] border-2 border-white/25"
                   animate={{

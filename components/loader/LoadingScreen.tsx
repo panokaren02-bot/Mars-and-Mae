@@ -6,7 +6,7 @@ import localFont from 'next/font/local';
 import { useReducedMotion } from 'motion/react';
 import { useSiteConfig } from '@/hooks/use-site-config';
 import { siteConfig as defaultSiteConfig } from '@/content/site';
-import { PhotoBackground, PhotoMarquee } from '@/components/loader/invite-photo-backdrop';
+import { GhostBackdrop, PhotoBackground, PhotoMarquee } from '@/components/loader/invite-photo-backdrop';
 import { TintedDeco } from '@/components/tinted-deco';
 import { SectionBackdrop } from '@/components/section-backdrop';
 import './loading-screen.css';
@@ -60,8 +60,8 @@ function splitHeadline(headline: string) {
   });
 }
 
-// Motif colors cycled through the floating petals (plain mode): mostly blush and
-// dusty rose, a little sage, burgundy only once in a while
+// Motif colors cycled through the floating petals (plain mode): mostly pastel blue
+// and sky blue, a little butter yellow, navy only once in a while
 const MOTE_COLORS = [
   'var(--color-motif-blush)',
   'var(--color-motif-medium)',
@@ -258,6 +258,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete, onFade
       {isPlain && (
         <>
           <PhotoBackground photos={backgroundPhotos} desktopPhotos={backgroundPhotosDesktop} />
+          <GhostBackdrop src={content.ghostImage} />
           <div className="loading-screen__plain-corners" aria-hidden="true">
             {(
               [
@@ -279,8 +280,8 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete, onFade
           </div>
           <div className="loading-screen__plain-frame" aria-hidden="true" />
           <div className="ls-plain-glow" aria-hidden="true" />
-          {/* Paper grain + rising pink hearts, same as the invitation sections (section-backdrop.tsx);
-              no extra wash — the photo background already has its blush veil */}
+          {/* Paper grain + rising hearts, same as the invitation sections (section-backdrop.tsx);
+              no extra wash — the backdrop (photos or plain paper) already carries the tint */}
           <SectionBackdrop wash={false} overlay />
           {!reduceMotion && (
             <div className="ls-plain-motes" aria-hidden="true">

@@ -181,7 +181,7 @@ export function PhotoBackground({
 }) {
   const reduceMotion = useReducedMotion();
   const isDesktop = useIsDesktop();
-  const mobile = photos.length > 0 ? photos : MOBILE_BG_PHOTOS;
+  const mobile = photos;
   const resolved = useMemo(
     () =>
       (isDesktop && desktopPhotos && desktopPhotos.length > 0 ? desktopPhotos : mobile).slice(
@@ -190,7 +190,8 @@ export function PhotoBackground({
       ),
     [isDesktop, desktopPhotos, mobile],
   );
-  if (resolved.length === 0) return null;
+  // No photos (plain display): soft butter-yellow / pastel-blue paper instead (globals.css)
+  if (resolved.length === 0) return <div className="invite-blush-backdrop" aria-hidden="true" />;
 
   return (
     <div className="background-video" aria-hidden="true">
@@ -233,6 +234,17 @@ export function InvitePhotoBackdrop({
     <div className={`invite-photo-backdrop ${className}`.trim()} aria-hidden="true">
       <PhotoMarquee photos={resolved} copies={copies} variant="mobile" />
       <div className="loading-screen__backdrop-veil" />
+    </div>
+  );
+}
+
+/** Faint, edge-faded illustration behind the loader, envelope and home hero
+ *  (content/site.ts → loadingScreen.ghostImage; styles: .ghost-backdrop in globals.css). */
+export function GhostBackdrop({ src }: { src?: string }) {
+  if (!src) return null;
+  return (
+    <div className="ghost-backdrop" aria-hidden="true">
+      <Image src={encodeURI(src)} alt="" fill priority sizes="100vw" className="ghost-backdrop__img" />
     </div>
   );
 }

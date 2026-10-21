@@ -232,6 +232,7 @@ export function LoveStory({ skyBackdrop = true }: { skyBackdrop?: boolean } = {}
           isFirst={index === 0}
           isLast={index === chapters.length - 1}
           eucalyptusDecos={isPlain ? eucalyptusDecos : undefined}
+          cardCorners={loveStory.cardCorners ?? defaultSiteConfig.loveStory.cardCorners}
           chapterLabelText={loveStory.chapterLabel}
         />
       ))}

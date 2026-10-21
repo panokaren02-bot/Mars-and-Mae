@@ -67,35 +67,37 @@ export type AttireColor = string | { name: string; hex: string }
 
 // ── The couple ──────────────────────────────────────────────────────────────
 const COUPLE = {
-  bride: "Breichelle Lyn Acordon",
-  brideNickname: "Breichelle",
-  groom: "Jeff Ren Liwalas",
-  groomNickname: "Jeff",
+  bride: "Jaeviane Mae A. Abejon",
+  brideNickname: "Mae",
+  groom: "Mars J. Vallejo",
+  groomNickname: "Mars",
 }
 
 // ── Date & times ────────────────────────────────────────────────────────────
-const WEDDING_DATE = "December 6, 2026" // e.g. "June 5, 2027"
-const WEDDING_DAY = "Sunday"
+const WEDDING_DATE = "December 21, 2026" // e.g. "June 5, 2027"
+const WEDDING_DAY = "Monday"
 const TIMES = {
-  entourageCall: "3:00 PM", // entourage assembly
-  guestArrival: "3:30 PM", // guests arrival / assembly (shown in Event Details + reminders)
-  ceremony: "4:00 PM",
-  reception: "6:30 PM", // start of program
+  entourageCall: "2:00 PM", // entourage assembly ⚠ check — not confirmed yet
+  guestArrival: "2:30 PM", // guests arrival / assembly (shown in Event Details + reminders) ⚠ check — not confirmed yet
+  ceremony: "3:00 PM",
+  reception: "5:30 PM", // start of program ⚠ check — not confirmed yet
 }
 
 // ── Venues ──────────────────────────────────────────────────────────────────
 
 const CEREMONY_VENUE = {
-  name: "Vista-Mons Private Resort",
-  address: "San Pablo, Magalang, 2011 Pampanga",
-  map: "https://maps.app.goo.gl/SY5NAMKACySL8aZ96",
-  photos: ["/Details/reception (1).png", "/Details/reception (2).png", "/Details/reception (3).jpg", "/Details/reception (4).jpg", "/Details/reception (5).jpg", "/Details/reception (6).jpg"],
+  name: "Iglesia ni Cristo",
+  address: "Local Congregation of Santiago Norte, Ecclesiastical District of La Union",
+  // ⚠ check — Google Maps search link; swap for the exact pin when available
+  map: "https://www.google.com/maps/search/?api=1&query=Iglesia+ni+Cristo+Santiago+Norte+San+Fernando+La+Union",
+  photos: ['/Details/Watercolor Iglesia ni Cristo Chapel in Bloom.png'] as string[], // no venue photos yet
 }
 const RECEPTION_VENUE = {
-  name: "The Vistas-Pampanga: Vista Mons",
-  address: "San Pablo, Magalang, 2011 Pampanga",
-  map: "https://maps.app.goo.gl/SY5NAMKACySL8aZ96",
-  photos: ["/Details/reception (1).png", "/Details/reception (2).png", "/Details/reception (3).jpg", "/Details/reception (4).jpg", "/Details/reception (5).jpg", "/Details/reception (6).jpg"],
+  name: "The Mansion Estates La Union",
+  address: "San Juan, La Union",
+  // ⚠ check — Google Maps search link; swap for the exact pin when available
+  map: "https://www.google.com/maps/search/?api=1&query=The+Mansion+Estates+San+Juan+La+Union",
+  photos: ["/Details/Golden Hour Villa Fountain Estate.png"] as string[], // no venue photos yet
 }
 
 // ── Venue cards (Event Details section) ─────────────────────────────────────
@@ -108,7 +110,7 @@ const RECEPTION_VENUE = {
 // showDate     = show the big Month / Day / Year
 // showArrival  = show "Arrival: <guest arrival time>" (otherwise "At <time>")
 const VENUE_CARDS = {
-  layout: "combined" as "separate" | "combined",
+  layout: "separate" as "separate" | "combined",
   // Used when layout is "combined"
   combined: {
     badge: "Ceremony & Reception",
@@ -144,7 +146,7 @@ const RSVP = {
   coordinator: "{groom} / {bride}", // {groom} / {bride} → couple nicknames
   phone: "to be announced",
 }
-const HASHTAGS = ["#CidnyJasmine2026"] // ⚠ check — looks like it's from a previous couple
+const HASHTAGS = ["#MarsAndMae2026"] // ⚠ check — placeholder, confirm with the couple
 
 // ── Attire guide (Event Details → Attire Guidelines) ────────────────────────
 // SHOW = which cards to display AND their order, top to bottom. Examples:
@@ -164,12 +166,10 @@ const HASHTAGS = ["#CidnyJasmine2026"] // ⚠ check — looks like it's from a p
 //     highlight: phrase inside details shown bold + underlined ("" for none)
 // Guest dress code colors — also shown in the "Dress Code" gentle reminder
 const DRESS_CODE_PALETTE: AttireColor[] = [
-  { name: "Blush Pink", hex: "#EBCBCF" },
-  { name: "Dusty Pink", hex: "#D49AA3" },
-  { name: "Dusty Rose", hex: "#A8606F" },
-  { name: "Light Gray", hex: "#BEBBBD" },
-  { name: "Warm Gray", hex: "#9A9294" },
-  { name: "Charcoal", hex: "#5E5A5C" },
+  { name: "Butter Yellow", hex: "#FFF4C2" },
+  { name: "Pastel Blue", hex: "#D9EAF7" },
+  { name: "Sky Blue", hex: "#B7D1E8" },
+  { name: "Soft Gold", hex: "#D6B779" },
 ];
 
 // Attire groups shown in the Details section (components/sections/details.tsx).
@@ -186,22 +186,22 @@ const ATTIRE = {
     image: "/Details/entourage.png",
     dressCode: "Formal Attire",
     palette: [
-      { name: "Blush Pink", hex: "#EBCBCF" },
-      { name: "Dusty Pink", hex: "#D49AA3" },
-      { name: "Light Gray", hex: "#BEBBBD" },
-      { name: "Gray", hex: "#8E8A8C" },
+      { name: "Butter Yellow", hex: "#FFF4C2" },
+      { name: "Pastel Blue", hex: "#D9EAF7" },
+      { name: "Sky Blue", hex: "#B7D1E8" },
+      { name: "Soft Gold", hex: "#D6B779" },
     ] as AttireColor[],
-    note: "Soft dusty pink beside classic gray — the heart of our wedding palette, worn by the ones standing closest to us.",
+    note: "Butter yellow beside pastel blue — the heart of our wedding palette, worn by the ones standing closest to us.",
     ladies: {
       label: "Bridesmaids & Flower Girls",
-      details: "Dusty pink gowns, soft and flowing, in the same romantic shade as our day.",
-      highlight: "Dusty pink gowns",
+      details: "Butter yellow or pastel blue gowns, soft and flowing, in the same sunny shades as our day.",
+      highlight: "Butter yellow or pastel blue gowns",
       roles: [] as { role: string; attire: string }[],
     },
     gentlemen: {
       label: "Groomsmen & Bearers",
-      details: "Gray suits — clean, classic and polished, the perfect match for the pink.",
-      highlight: "Gray suits",
+      details: "Sky blue suits — clean, classic and polished, the perfect match for the yellow.",
+      highlight: "Sky blue suits",
       roles: [] as { role: string; attire: string }[],
     },
   },
@@ -246,7 +246,7 @@ const ATTIRE = {
       { name: "Beige", hex: "#D9C4A8" },
       { name: "Black", hex: "#2B2627" },
     ] as AttireColor[],
-    note: "We invite our principal sponsors to dress in soft cream and beige — a warm, timeless frame around our dusty pink celebration.",
+    note: "We invite our principal sponsors to dress in soft cream and beige — a warm, timeless frame around our butter yellow and pastel blue celebration.",
     ladies: {
       label: "Ninang",
       details: "A formal dress or long gown in shades of cream or beige.",
@@ -266,16 +266,16 @@ const ATTIRE = {
     image: "/Details/guest.png",
     dressCode: "Semi-Formal Attire",
     palette: DRESS_CODE_PALETTE,
-    note: "Any shade of dusty pink or gray from the palette below — mix and match, and come as you are, comfortable and lovely.",
+    note: "Any shade of butter yellow or pastel blue from the palette below — mix and match, and come as you are, comfortable and lovely.",
     ladies: {
       label: "Ladies",
-      details: "A short or long dress in dusty pink, blush or gray.",
+      details: "A short or long dress in butter yellow, pastel blue or sky blue.",
       highlight: "short or long dress",
       roles: [] as { role: string; attire: string }[],
     },
     gentlemen: {
       label: "Gentlemen",
-      details: "A polo or long-sleeve shirt with pants, in pink or gray tones.",
+      details: "A polo or long-sleeve shirt with pants, in yellow or blue tones.",
       highlight: "polo or long-sleeve shirt",
       roles: [] as { role: string; attire: string }[],
     },
@@ -293,15 +293,17 @@ const LINK_PREVIEW_IMAGE = "/Details/LinkPreview.png"
 export const canonicalSiteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL).replace(/\/$/, "")
 
 // ── Look & feel ─────────────────────────────────────────────────────────────
-// "plain"  = no photo backgrounds anywhere (botanical cards, hides photo-only blocks)
+// "plain"  = no couple photos on the loader, envelope and home hero (soft butter &
+//            pastel-blue backdrop, no envelope portraits, no cover photo)
 // "photos" = photo backgrounds on the loader, envelope and closing section
 const DISPLAY_MODE = "plain" as "photos" | "plain"
+const SHOW_PHOTOS = DISPLAY_MODE === "photos"
 
 // ── Shared images ───────────────────────────────────────────────────────────
 const BRAND = {
-  monogram: "/monogram/monog-ram.png",
+  monogram: "/monogram/monogram.png",
   coupleNameImage: "/Details/newcoupelNames.png", // couple-name lettering (loader, envelope)
-  seal: "/monogram/new-seal.png", // envelope wax seal
+  seal: "/monogram/seal.png", // envelope wax seal
   backgroundMusic: "/background_music/Your Love - Juris Piano Cover by Gerard Chua (mp3cut.net).mp3",
 }
 
@@ -337,14 +339,14 @@ const MARQUEE_PHOTOS_DESKTOP = Array.from(
 // Change a path here to swap it on every section at once.
 // To change ONE section only, override it there, e.g. decos: { ...SECTION_DECOS, footerVine: "" }
 const DECOR = {
-  cornerTopLeft: "/deco/cornerTopLeft.png",
-  cornerTopRight: "/deco/cornerTopRight.png",
-  cornerBottomLeft: "/deco/cornerBottomLeft.png",
-  cornerBottomRight: "/deco/cornerBottomRight.png",
+  cornerTopLeft: "/deco/lovestorydeco/cornerTopLeft.png",
+  cornerTopRight: "/deco/lovestorydeco/cornerTopRight.png",
+  cornerBottomLeft: "/deco/lovestorydeco/cornerBottomLeft.png",
+  cornerBottomRight: "/deco/lovestorydeco/cornerBottomRight.png",
   cornerOverlayTopLeft: "/deco/cornerOverlayTopLeft.png", // floral corner layered over the top vines (loader + envelope)
   cornerOverlayTopRight: "/deco/cornerOverlayTopRight.png",
-  headerOrnament: "/deco/headerOrnament.png", // small sprig above titles
-  footerVine: "/deco/footerVine.png", // long vine at section ends
+  headerOrnament: "/deco/lovestorydeco/headerOrnament.png", // small sprig above titles
+  footerVine: "/deco/lovestorydeco/footerVine.png", // long vine at section ends
   sideLeft: "/deco/lovestorydeco/Elegant-Eucalyptus-Left.png", // love story side sprigs
   sideRight: "/deco/lovestorydeco/Elegant-Eucalyptus-Right.png",
 }
@@ -413,8 +415,8 @@ export const siteConfig = {
     time: TIMES.ceremony,
     venue: CEREMONY_VENUE.name,
     tagline: "are getting married!!!!!",
-    theme: "Gray & Blush Pink",
-    motif: "#9A9294, #A8606F, #EBCBCF, #F3E8E6",
+    theme: "Butter Yellow & Pastel Blue",
+    motif: "#FFF4C2, #D9EAF7, #FFFBF0, #B7D1E8, #D6B779",
   },
   // Opening "Save the Date" loading screen (components/loader/LoadingScreen.tsx).
   // Couple names, wedding date and ceremony details come from couple / wedding / ceremony above.
@@ -428,9 +430,11 @@ export const siteConfig = {
       text: "var(--color-welcome-text)",
       accent: "var(--color-welcome-gold)",
     },
-    // Sliding photo marquee behind the loader and envelope (both display modes); files live in /public
-    backgroundPhotos: MARQUEE_PHOTOS,
-    backgroundPhotosDesktop: MARQUEE_PHOTOS_DESKTOP, // same marquee on screens 768px and up
+    // Faint "ghost" illustration behind the loader, envelope and home hero ("" hides it)
+    ghostImage: "/Details/church.png",
+    // Sliding photo marquee behind the loader and envelope ("photos" display only); files live in /public
+    backgroundPhotos: SHOW_PHOTOS ? MARQUEE_PHOTOS : [],
+    backgroundPhotosDesktop: SHOW_PHOTOS ? MARQUEE_PHOTOS_DESKTOP : [], // same marquee on screens 768px and up
     // Opening title on the loader and the envelope letter — short joining words ("of", "the") are set in script
     headline: "Save the Date", // "the" is set in the Brittany script (loader + envelope letter)
     // {days} is replaced with the number of days left before wedding.date
@@ -467,14 +471,16 @@ export const siteConfig = {
     enterButtonText: "View the Invitation",
     sealImage: BRAND.seal,
     // Revealed when the envelope opens: one portrait of each, side by side (groom left, bride right)
+    // ("" hides them — plain display has no photos yet)
     portraits: {
-      groom: COUPLE_PORTRAITS.groom,
-      bride: COUPLE_PORTRAITS.bride,
+      groom: SHOW_PHOTOS ? COUPLE_PORTRAITS.groom : "",
+      bride: SHOW_PHOTOS ? COUPLE_PORTRAITS.bride : "",
     },
     // Bouquet tucked inside the open envelope, peeking out on both sides ("" to hide)
     envelopeFlowers: "/deco/new-deco/Blush Garden Rose Corner Bouquet.png",
     // Main page cover photo (home hero, plain display) — one natural, candid couple photo
-    coverPhoto: COUPLE_PORTRAITS.cover,
+    // "" = no cover photo (the envelope opens with the curtain reveal instead of the photo pull)
+    coverPhoto: SHOW_PHOTOS ? COUPLE_PORTRAITS.cover : "",
     coverPhotoAlt: COUPLE_LABEL,
     // All four corner florals (top two are drawn smaller in CSS; "" hides a corner)
     cornerDecos: { ...CORNER_DECOS },
@@ -523,16 +529,19 @@ export const siteConfig = {
     chapterLabel: "With Love",
     // Photo description used when a chapter has no imageAlt
     photoAlt: "{groom} and {bride}",
-    // Large faint chapter number (01, 02 …) behind each chapter's text
-    showChapterNumbers: false,
+    // Large faint chapter number (01, 02 …) behind each chapter card
+    showChapterNumbers: true,
+    // Florals tucked on each chapter card's corners (plain display). Cards alternate:
+    // top-left + bottom-right, then top-right + bottom-left ("" hides one)
+    cardCorners: { ...CORNER_DECOS },
     // Small heart divider between chapters
     showChapterDividers: true,
     // Closing block: big word, hashtag, then the verse (also shown in Snap & Share)
     closingEyebrow: "", // large word on top (was "Puhon") — "" hides it
     closingHashtag: "", // hashtag under it (was HASHTAGS[0]) — "" hides it
     closingQuoteLead: "", // bold first line ("" for none)
-    closingQuote: "“He has made everything beautiful in its time.”",
-    closingCitation: "Ecclesiastes 3:11",
+    closingQuote: "“Wherefore they are no more twain, but one flesh. What therefore God hath joined together, let not man put asunder.”",
+    closingCitation: "Matthew 19:6",
     // Four corner florals framing the section, sized per corner like the loader ("" hides a corner)
     decos: { ...CORNER_DECOS },
     // Thin double border around the section, under the corner florals (false hides it)
@@ -543,15 +552,20 @@ export const siteConfig = {
       timelineTop: DECOR.headerOrnament,
       sectionBottom: DECOR.headerOrnament, // dusty-blue sprig under the closing verse ("" hides it)
     },
-    // The story, one chapter at a time (fields: see StoryChapter above). Photos come from
-    // /public/mobile-background. Add, remove or reorder chapters freely — sides alternate on their own.
+    // The story, one chapter at a time (fields: see StoryChapter above). Plain display shows
+    // each chapter as a card without photos. Add, remove or reorder chapters freely — sides alternate on their own.
     chapters: [
+      {
+        date: "To God",
+        title: "All Glory Belongs to Him",
+        paragraphs: [
+          "Above all, we thank our Almighty God, who brought {groom} and {bride} together and has guided every step of our journey. It is by His will and grace that we stand before Him to be joined in marriage.",
+          "We pray that He will remain at the center of our home, today and for all the years to come.",
+        ],
+      },
       {
         date: "To Our Parents",
         title: "Thank You for Everything",
-        image: "/mobile-background/couples (5).webp",
-        imageAlt: "{groom} and {bride} smiling together",
-        imagePosition: "center 25%",
         paragraphs: [
           "To our dearest parents: thank you for your unconditional love, your countless sacrifices and the faith you planted in our hearts. You showed us what it means to love patiently and to stay together through every season.",
           "Everything we bring into our marriage, we first learned from you. We hope to make you proud.",
@@ -559,79 +573,42 @@ export const siteConfig = {
       },
       {
         date: "To Our Families",
-        title: "Our Home and Our Roots",
-        image: "/mobile-background/couples (8).webp",
-        imageAlt: "{groom} and {bride} laughing together",
-        imagePosition: "center 35%",
+        title: "Two Families, One Home",
         paragraphs: [
-          "To our siblings, grandparents, aunts, uncles and cousins: thank you for the warmth, the laughter and the support you have always given us.",
-          "Today our two families become one, and we are grateful to be welcomed with such open arms.",
+          "To the Vallejo and Abejon families — our siblings, grandparents, aunts, uncles and cousins: thank you for the warmth, the laughter and the support you have always given us.",
+          "On this day our two families become one, and we are grateful to be welcomed with such open arms.",
+        ],
+      },
+      {
+        date: "To Our Brethren",
+        title: "Our Family in Faith",
+        paragraphs: [
+          "To our brethren in the Church, especially the Local Congregation of Santiago Norte: thank you for your prayers, your guidance and the encouragement you have shown us as we prepared for this day.",
+          "We are blessed to begin our married life surrounded by a family in faith.",
         ],
       },
       {
         date: "To Our Sponsors",
         title: "Our Guides and Mentors",
-        image: "/mobile-background/couples (6).webp",
-        imageAlt: "{bride} leaning on {groom}",
-        imagePosition: "center 20%",
         paragraphs: [
-          "To our beloved Ninongs and Ninangs: thank you for agreeing to stand with us as we make our vows. Your wisdom and example mean so much to us.",
+          "To our beloved sponsors: thank you for agreeing to stand with us as we make our vows. Your wisdom and example mean so much to us.",
           "We are honored to have you guide us as we begin our life as husband and wife.",
         ],
       },
       {
-        date: "To Our Entourage",
+        date: "To Our Entourage & Friends",
         title: "Walking Beside Us",
-        image: "/mobile-background/couples (9).webp",
-        imageAlt: "{groom} and {bride} holding hands",
-        imagePosition: "center 55%",
         paragraphs: [
-          "To our bridesmaids, groomsmen, flower girls, ring bearers and everyone in our entourage: thank you for saying yes to standing with us on the most important day of our lives.",
+          "To our entourage and our dear friends: thank you for saying yes to standing with us, for the encouragement, the advice and for always showing up for us.",
           "Your time, your effort and your joy make this celebration even more beautiful.",
-        ],
-      },
-      {
-        date: "To Our Friends",
-        title: "Our Chosen Family",
-        image: "/mobile-background/couples (3).webp",
-        imageAlt: "{groom} and {bride} together outdoors",
-        imagePosition: "center 40%",
-        paragraphs: [
-          "To our friends: thank you for the encouragement, the advice, the endless jokes and for always showing up for us. You made our days lighter and our hearts fuller.",
-          "We cannot imagine celebrating this day without you.",
-        ],
-      },
-      {
-        date: "To Everyone",
-        title: "Thank You for Your Prayers",
-        image: "/mobile-background/couples (10).webp",
-        imageAlt: "{groom} and {bride} in formal wear",
-        imagePosition: "center 30%",
-        paragraphs: [
-          "To our church family, our colleagues and everyone who has sent a kind word, a warm wish or a quiet prayer our way: thank you. Every kindness has been a blessing to us.",
-          "Whether you are traveling far or joining us from near, thank you for making time to share this day with us.",
-        ],
-      },
-      {
-        date: "To Our Wedding Team",
-        title: "The Hands Behind the Day",
-        image: "/mobile-background/couples (11).webp",
-        imageAlt: "{groom} and {bride} together in an archway",
-        imagePosition: "center 45%",
-        paragraphs: [
-          "To our coordinators, suppliers and everyone working behind the scenes: thank you for turning our dreams into something real, and for caring about every little detail.",
-          "Because of you, we can simply be present and enjoy every moment with the people we love.",
         ],
       },
       {
         date: "Our Invitation",
         title: "Please Celebrate With Us",
-        image: "/mobile-background/couples (7).webp",
-        imageAlt: "{bride} smiling as {groom} leans in close",
-        imagePosition: "center 30%",
         paragraphs: [
-          "With grateful hearts, we warmly invite you to join us as we exchange our vows before God, our families and our friends.",
-          "Your presence is the greatest gift we could ask for. We look forward to celebrating, laughing and giving thanks together with you. With all our love, {groom} & {bride}. ♡",
+          `With grateful hearts, we warmly invite you to witness our wedding at the ${CEREMONY_VENUE.name}, ${CEREMONY_VENUE.address}, and to celebrate with us afterwards at ${RECEPTION_VENUE.name}.`,
+          "Your presence is the greatest gift we could ask for. We look forward to celebrating and giving thanks together with you. With all our love, {groom} & {bride}. ♡",
         ],
       },
     ] as StoryChapter[],
@@ -669,7 +646,7 @@ export const siteConfig = {
     },
     // Uses COUPLE_PHOTOS; replace with your own list if the gallery should differ.
     // text → caption used as the photo's description
-    images: COUPLE_PHOTOS.map((image, i) => ({ image, text: `Cid and Jas, photo ${i + 1}` })),
+    images: COUPLE_PHOTOS.map((image, i) => ({ image, text: `${COUPLE.groomNickname} and ${COUPLE.brideNickname}, photo ${i + 1}` })),
   },
 
   // Event details section (components/sections/details.tsx)
@@ -704,7 +681,7 @@ export const siteConfig = {
     // Cards, colors, images and which groups show → QUICK SETUP → ATTIRE
     attire: {
       title: "Attire Guidelines",
-      description: "Our day is dressed in soft dusty pinks, gentle grays and warm creams, and we would love for you to wear them with us. Please find your role below.",
+      description: "Our day is dressed in soft butter yellows, pastel blues and warm creams, and we would love for you to wear them with us. Please find your role below.",
       // Shown above a card's palette
       paletteTitle: "Dress Code Palette",
       paletteSubtitle: "", // script line under the palette title — "" hides it
@@ -774,7 +751,7 @@ export const siteConfig = {
           variant: "accent" as "accent" | "soft",
           showPalette: true,
           paragraphs: [
-            "Guests, kindly come in semi-formal attire in shades of dusty pink or gray from our palette.",
+            "Guests, kindly come in semi-formal attire in shades of butter yellow or pastel blue from our palette.",
             "Please avoid casual clothes and all-white outfits.",
           ],
         },
@@ -804,7 +781,7 @@ export const siteConfig = {
     subtitle: "our wedding day",
     description:
       "From the first arrival to the last farewell, here is how we will spend this day together.",
-    // "" hides the verse — Ecclesiastes 3:11 is already shown in the Love Story
+    // "" hides the verse — Ecclesiastes 3:11 is in Welcome, Matthew 19:6 closes the Love Story
     quote: "",
     quoteCitation: "",
     // Optional corner decorations — leave "" to hide
@@ -853,7 +830,7 @@ export const siteConfig = {
       },
       {
         show: true,
-        time: "11:00 AM",
+        time: "4:00 PM", // ⚠ check — not confirmed yet
         title: "Photo Session",
         description: "Join us for pictures with the newlyweds.",
         location: "{ceremony}",
@@ -862,12 +839,12 @@ export const siteConfig = {
       },
       {
         show: true,
-        time: "11:45 AM",
-        title: "Cocktail Hour",
-        description: "Refreshments while we make our way to the reception.",
+        time: "4:45 PM", // ⚠ check — not confirmed yet
+        title: "Refreshments",
+        description: "Light snacks and drinks while we make our way to the reception.",
         location: "{reception}",
-        image: "/weddingtimeline/CockTailHour.png",
-        icon: "cocktail" as TimelineIconName,
+        image: "", // CockTailHour.png shows champagne glasses — kept off for an INC celebration
+        icon: "guests" as TimelineIconName,
       },
       {
         show: true,
@@ -880,7 +857,7 @@ export const siteConfig = {
       },
       {
         show: true,
-        time: "12:45 PM",
+        time: "5:45 PM", // ⚠ check — not confirmed yet
         title: "Grand Entrance",
         description: "Welcome the newlyweds as husband and wife.",
         location: "{reception}",
@@ -889,7 +866,7 @@ export const siteConfig = {
       },
       {
         show: true,
-        time: "1:00 PM",
+        time: "6:00 PM", // ⚠ check — not confirmed yet
         title: "Wedding Feast",
         description: "Let's share a meal and celebrate together.",
         location: "{reception}",
@@ -898,7 +875,7 @@ export const siteConfig = {
       },
       {
         show: true,
-        time: "2:00 PM",
+        time: "7:00 PM", // ⚠ check — not confirmed yet
         title: "Cake Cutting",
         description: "",
         location: "{reception}",
@@ -907,7 +884,7 @@ export const siteConfig = {
       },
       {
         show: true,
-        time: "2:30 PM",
+        time: "7:30 PM", // ⚠ check — not confirmed yet
         title: "First Dance",
         description: "Our first dance as husband and wife.",
         location: "{reception}",
@@ -916,7 +893,7 @@ export const siteConfig = {
       },
       {
         show: true,
-        time: "3:30 PM",
+        time: "9:00 PM", // ⚠ check — not confirmed yet
         title: "Send-off",
         description: "Thank you for celebrating with us!",
         location: "{reception}",
@@ -1145,7 +1122,7 @@ export const siteConfig = {
     title: "Frequently Asked Questions",
     subtitle: "everything you need to know",
     description:
-      "Helpful notes so you can simply arrive, celebrate, and enjoy this new chapter with us.",
+      "Everything you need for the day, so you can simply arrive, celebrate and enjoy this new chapter with us.",
     // Corner florals (sized per corner like the loader), sprig above the title and
     // sprig at the end of the section — "" hides any of them.
     // On the invitation page Book of Guests shows the top corners and FAQ the bottom ones.
@@ -1159,98 +1136,106 @@ export const siteConfig = {
     // Answers: blank line = new paragraph, "• " = bullet, [label](#section) or [label](https://…) = link.
     // {deadline} {coordinator} {contact} {groom} {bride} are filled in automatically.
     items: [
+      // ── The day ──
       {
         question: "When and where is the wedding?",
-        answer: `Our wedding will be on ${WEDDING_DAY}, ${WEDDING_DATE}. The ceremony begins at ${TIMES.ceremony}, followed by the reception at ${TIMES.reception}.\n\nBoth the ceremony and the reception will be held at ${CEREMONY_VENUE.name}, ${CEREMONY_VENUE.address}, so there is no need to travel between venues. [Open in Google Maps](${CEREMONY_VENUE.map})`,
+        answer: `Our wedding will be on ${WEDDING_DAY}, ${WEDDING_DATE}.\n\n• Ceremony — ${TIMES.ceremony} at ${CEREMONY_VENUE.name}, ${CEREMONY_VENUE.address}. [Open in Google Maps](${CEREMONY_VENUE.map})\n• Reception — ${TIMES.reception} at ${RECEPTION_VENUE.name}, ${RECEPTION_VENUE.address}. [Open in Google Maps](${RECEPTION_VENUE.map})`,
       },
       {
         question: "What time should I arrive?",
-        answer: `Please arrive by ${TIMES.guestArrival} so you have time to park, find your seat and settle in. The ceremony will begin promptly at ${TIMES.ceremony}.\n\nEntourage members are kindly requested to be at the venue by ${TIMES.entourageCall}.`,
+        answer: `Please arrive by ${TIMES.guestArrival}, so you have time to park, find your seat and settle in before the ceremony begins promptly at ${TIMES.ceremony}.\n\nEntourage members are kindly asked to be at the venue by ${TIMES.entourageCall}.`,
       },
       {
-        question: "How do I RSVP?",
-        answer:
-          "Please RSVP through the [guest list](#guest-list) on this invitation: search for your name and confirm your attendance.\n\nKindly respond by {deadline}.\n\nFor questions, please reach out to {coordinator}{contact}.",
-      },
-      {
-        question: 'Do we still need to RSVP if we already said "Yes" to the couple?',
-        answer:
-          "Yes, please. Your formal RSVP helps us finalize the headcount for catering and seating, so every guest has a place prepared for them.",
-      },
-      {
-        question: "What if I RSVP'd but can no longer attend?",
-        answer:
-          "We will miss you, and we understand that some things are beyond our control. Please let us know as soon as possible so we can reallocate your seat/s.",
-      },
-      {
-        question: 'I said "No" but my plans changed. Can I still come?',
-        answer:
-          "Please message us first, as our guest list is limited. If a seat becomes available, we will let you know as soon as we can. Kindly do not attend unannounced, as we may not have a seat prepared for you.",
-      },
-      {
-        question: 'Can I bring a "Plus One"?',
-        answer:
-          "As much as we would love to celebrate with everyone, our venue and guest list are limited. Our wedding is strictly by invitation, and only the names reserved for you on the guest list can be accommodated.",
-      },
-      {
-        question: "Are children invited?",
-        answer:
-          "We love your little ones, but apart from the children in our entourage, our celebration is adults-only. We hope this gives you a relaxing evening off to celebrate with us!",
-      },
-      {
-        question: "What should I wear?",
-        answer:
-          "Please follow the [attire guide](#details) in Event Details.\n\n• Guests: semi-formal in shades of dusty pink or gray. Ladies may wear a short or long dress; gentlemen may wear a polo or long-sleeve shirt with pants.\n• Principal sponsors: Ninang in a formal dress or long gown in cream or beige; Ninong in a long-sleeve barong with black pants.\n• Entourage: dusty pink gowns for the bridesmaids and flower girls; gray suits for the groomsmen and bearers.\n\nKindly avoid casual clothes and all-white outfits.",
-      },
-      {
-        question: "May we choose our own seats at the reception?",
-        answer:
-          "We kindly ask that you take the seat reserved for you. Each table has been arranged with care so you can share the evening with the people we hoped you would sit with.",
+        question: "How do I get from the ceremony to the reception?",
+        answer: `The reception at ${RECEPTION_VENUE.name} is a short drive from the ceremony. Please arrange your own ride or carpool with family and friends, and use the [map link](${RECEPTION_VENUE.map}) to find your way.`,
       },
       {
         question: "Is there parking at the venue?",
         answer:
-          "Yes, parking for cars and motorcycles is available inside the venue. Arriving a little early will give you time to park comfortably.",
+          "Yes, parking for cars and motorcycles is available inside the venue. Arriving a little early gives you time to park comfortably.",
+      },
+      // ── RSVP & guests ──
+      {
+        question: "How do I RSVP?",
+        answer:
+          "Find your name on the [guest list](#guest-list) on this invitation and confirm your attendance. Kindly respond by {deadline}.\n\nFor any questions, please reach out to {coordinator}{contact}.",
       },
       {
-        question: "Will the ceremony be unplugged?",
+        question: 'We already said "Yes" to the couple. Do we still need to RSVP?',
         answer:
-          "Mostly. You may take a few photos, but please keep it minimal and avoid blocking or crowding our official photographers. We would love for everyone to stay present with us in the moment — professional photos will be shared after the wedding.",
+          "Yes, please. Your formal RSVP lets us finalize the headcount for catering and seating, so a place is ready for every guest.",
       },
       {
-        question: "Can I take photos and videos during the reception?",
+        question: "What if I RSVP'd but can no longer attend?",
         answer:
-          "Absolutely! Capture all the joy you can. We would love to see your snaps, so please upload them through [Snap and Share](#snap-share).",
+          "We will miss you, and we understand that some things are beyond our control. Please let us know as soon as possible so we can offer your seat to someone else.",
+      },
+      {
+        question: 'I said "No" but my plans changed. Can I still come?',
+        answer:
+          "Please message us first, as our guest list is limited. If a seat opens up, we will let you know right away. Kindly don't come unannounced, as we may not have a place prepared for you.",
+      },
+      {
+        question: 'Can I bring a "Plus One"?',
+        answer:
+          "As much as we would love to celebrate with everyone, our venue and guest list are limited. Our wedding is by invitation only, so we can only accommodate the seats reserved under your name on the guest list.",
+      },
+      {
+        question: "Are children invited?",
+        answer:
+          "We love your little ones, but apart from the children in our entourage, our celebration is adults-only. We hope you enjoy a relaxing evening off with us!",
+      },
+      // ── Attire, food & seating ──
+      {
+        question: "What should I wear?",
+        answer:
+          "Please see the [attire guide](#details) in Event Details.\n\n• Guests: semi-formal, in butter yellow, pastel blue or sky blue. Ladies, a short or long dress; gentlemen, a polo or long-sleeve shirt with pants.\n• Principal sponsors: Ninang in a formal dress or long gown in cream or beige; Ninong in a long-sleeve barong with black pants.\n• Entourage: butter yellow or pastel blue gowns for the bridesmaids and flower girls; sky blue suits for the groomsmen and bearers.\n\nKindly avoid casual wear and all-white outfits.",
       },
       {
         question: "What if I have dietary restrictions or allergies?",
         answer:
-          "Please let us know about any dietary restrictions or allergies when you RSVP so we can make sure you enjoy the celebration comfortably.",
+          "Please message {coordinator}{contact} before {deadline} so we can let our caterer know and make sure there is something delicious for you.",
       },
       {
-        question: "What gift should we give?",
+        question: "May we choose our own seats at the reception?",
         answer:
-          "Your presence and prayers are the greatest gifts of all. Should you wish to bless us further, please see our [gift guide](#registry).",
+          "We kindly ask that you take the seat reserved for you. Each table was arranged with care, so you can share the evening with the people we hoped you would sit with.",
+      },
+      // ── Photos & sharing ──
+      {
+        question: "Will the ceremony be unplugged?",
+        answer:
+          "Mostly. You may take a few photos, but please keep it minimal and never block or crowd our official photographers. We would love for everyone to be fully present with us — professional photos will be shared after the wedding.",
+      },
+      {
+        question: "Can I take photos and videos during the reception?",
+        answer: `Absolutely! Capture all the joy you can, tag your posts with ${HASHTAGS.join(" ")} and upload your favorites through [Snap and Share](#snap-share) so we can relive the day through your eyes.`,
       },
       {
         question: "Can I share the invitation online?",
         answer:
-          "Please keep this one just between us! Kindly refrain from posting our invitation on social media.",
+          "Please keep this one just between us! Kindly don't post our invitation or its link on social media.",
       },
       {
         question: "May I make an announcement or a proposal during the wedding?",
         answer:
           "To keep the day centered on our celebration, we kindly ask that there be no surprise announcements or proposals during our wedding.",
       },
+      // ── Gifts & the celebration ──
+      {
+        question: "What gift should we give?",
+        answer:
+          "Having you with us and keeping us in your prayers is truly all we could ask for. Should you wish to bless us further, please see our [gift guide](#registry).",
+      },
       {
         question: "When is the best time to take our leave?",
         answer:
-          "It would mean so much if you could stay with us until the end of the program. We have prepared the evening with love, and we hope you will laugh, take photos and celebrate with us until the very last dance.",
+          "It would mean so much if you could stay until the end of the program. We have planned the evening with love, and we hope you will laugh, dance and celebrate with us until the very last song.",
       },
       {
         question: "How can I help make the day special?",
         answer:
-          "• Pray with us for good weather and the Lord's continued blessings as we begin this new chapter as husband and wife.\n• RSVP as soon as your schedule is cleared.\n• Dress according to the attire guide and color palette.\n• Arrive on time.\n• Follow the seating arrangement at the reception.\n• Stay until the end of the program.\n• Join the activities and enjoy!",
+          "• Pray with us for good weather and the Lord's continued blessings on our new life as husband and wife.\n• RSVP as early as you can.\n• Dress according to the attire guide and color palette.\n• Arrive on time.\n• Take your reserved seat at the reception.\n• Stay until the end of the program.\n• Join the activities and enjoy every moment!",
       },
     ],
   },
@@ -1261,8 +1246,8 @@ export const siteConfig = {
     subtitle: "with gratitude",
     description: "Your presence on our wedding day is the greatest gift of all.",
     paragraphs: [
-      "Your presence and prayers are all that we request; but should you wish to bless us further, a monetary gift is one we humbly suggest.",
-      "Your love and generosity mean the world to us.",
+      "Having you beside us as we say our vows, and keeping us in your prayers as we begin this new chapter, is truly all we could ask for.",
+      "Should you wish to bless us further, a monetary gift toward our life together would be warmly appreciated — though never expected.",
     ],
     thankYou: "Thank you for being part of our story.", // "" hides the line
     signOff: "With joyful hearts,",
@@ -1276,31 +1261,11 @@ export const siteConfig = {
       soft: "color-mix(in srgb, var(--color-welcome-text) 75%, white)",                // "With joyful hearts," and secondary text
       card: "#FFFFFF",                                                                 // letter card
       cardEdge: "color-mix(in srgb, var(--color-motif-medium) 65%, transparent)",      // letter card border
-      accountCard: "color-mix(in srgb, var(--color-motif-medium) 12%, white)",         // e-gift account card
-      button: "linear-gradient(180deg, var(--color-welcome-heading) 0%, color-mix(in srgb, var(--color-welcome-heading) 72%, var(--color-welcome-navy)) 100%)", // gift seal, selected tab, Save QR
+      button: "linear-gradient(180deg, var(--color-welcome-heading) 0%, color-mix(in srgb, var(--color-welcome-heading) 72%, var(--color-welcome-navy)) 100%)", // gift seal
       line: "var(--color-motif-yellow)",                                               // sage dividers
       glow: "color-mix(in srgb, var(--color-motif-medium) 30%, transparent)",          // tab track / borders
       background: "var(--color-motif-cream)",                                          // section background
     },
-    // E-gift accounts — optional, as many as you like.
-    //   showAccounts: false hides the whole block
-    //   show:  false hides one account
-    //   qr:    "/QR/BPI.png" to show a QR image, or "" when you have no QR (card shows name + number only).
-    //          Guests can tap the QR to enlarge it and save it with the "Save QR" button.
-    //   accountNumber: shown under the name (display only)
-    //   With 2+ visible accounts, guests switch between them with a toggle; each shows its QR and a "Save QR" button
-    showAccounts: true,
-    accountsTitle: "For e-gifts",
-    accountsNote: "Choose an account, then scan its QR — tap the QR to enlarge.",
-    saveQrLabel: "Save QR",
-    zoomNote: "Scan with your banking or e-wallet app, or save it and upload from your gallery.",
-    // ⚠ The QR file names are swapped — checked by decoding each QR:
-    //   /QR/BDO.png → pays the GCash account (G-Xchange, "BR*******E L** A.")
-    //   /QR/BPI.png → pays the BDO account (Banco de Oro, "Brei", account ending 8451)
-    accounts: [
-      { show: true, label: "GCash", accountName: "BR***", accountNumber: "0938 662 ****", qr: "/QR/BDO.png" },
-      { show: true, label: "BDO", accountName: "Brei", accountNumber: "********8451", qr: "/QR/BPI.png" },
-    ] as { show: boolean; label: string; accountName: string; accountNumber: string; qr: string }[],
     // Leave any path "" to hide that decoration
     decos: { ...SECTION_DECOS },
   },

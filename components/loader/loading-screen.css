@@ -3451,11 +3451,11 @@
    Sunshine yellow is used once — the glowing dot on the progress bar.
    ========================================================================== */
 .loading-screen--plain {
-  --ls-sky: var(--color-motif-medium);          /* #9A9294 */
+  --ls-sky: var(--color-motif-medium);          /* #8FB0CF */
   --ls-blue: var(--color-welcome-heading);      /* #4F6578 */
-  --ls-navy: var(--color-welcome-navy);         /* #2E2A2B */
-  --ls-ink: var(--color-welcome-text);          /* #4A4546 */
-  --ls-leaf: var(--color-motif-yellow);         /* #9A9294 sage */
+  --ls-navy: var(--color-welcome-navy);         /* #1F3249 */
+  --ls-ink: var(--color-welcome-text);          /* #2F4A66 */
+  --ls-leaf: var(--color-motif-yellow);         /* #8FB0CF sage */
   --ls-leaf-ink: color-mix(in srgb, var(--color-motif-yellow) 78%, #3C4424);
   --ls-sun: var(--color-motif-accent);          /* #4F6578 */
 
@@ -3565,12 +3565,12 @@
    holds up over bright frames. Sage + sunshine appear only as accents.
    ========================================================================== */
 .home-hero--plain {
-  --hh-navy: var(--color-welcome-navy);       /* #2E2A2B */
+  --hh-navy: var(--color-welcome-navy);       /* #1F3249 */
   --hh-blue: var(--color-welcome-heading);    /* #4F6578 */
-  --hh-ink: var(--color-welcome-text);        /* #4A4546 */
-  --hh-sky: var(--color-motif-medium);        /* #9A9294 */
-  --hh-leaf: var(--color-motif-yellow);       /* #9A9294 */
-  --hh-butter: var(--color-motif-silver);     /* #EBCBCF */
+  --hh-ink: var(--color-welcome-text);        /* #2F4A66 */
+  --hh-sky: var(--color-motif-medium);        /* #8FB0CF */
+  --hh-leaf: var(--color-motif-yellow);       /* #8FB0CF */
+  --hh-butter: var(--color-motif-silver);     /* #D9EAF7 */
   /* Tight white edge: keeps thin strokes crisp instead of washing them out */
   --hh-edge:
     0 0 1px rgb(255 255 255 / 100%),
@@ -3944,23 +3944,23 @@
 
 
 /* ==========================================================================
-   Blush romance — loader (plain). Kept last so it wins.
-   Ivory card on pastel pink; burgundy only for the headline and names,
-   dusty rose script, rose-ink small caps, sage hairlines.
+   Butter & pastel blue — loader (plain). Kept last so it wins.
+   Cream card on butter yellow; navy only for the headline and names,
+   dusty blue script and small caps, sky-blue hairlines.
    ========================================================================== */
 .loading-screen--plain {
-  --ls-blush: #EBCBCF;
-  --ls-pastel: #F3E8E6;
-  --ls-ivory: #FBF7F5;
-  --ls-burgundy: #4A4546;
-  --ls-rose: #9A9294;
-  --ls-rose-ink: #A8606F;
-  --ls-sage: #C9C1C2;
+  --ls-blush: #D9EAF7;
+  --ls-pastel: #FFF4C2;
+  --ls-ivory: #FFFBF0;
+  --ls-burgundy: #2F4A66;
+  --ls-rose: #8FB0CF;
+  --ls-rose-ink: #5B7FA6;
+  --ls-sage: #B7D1E8;
 
   --ls-sky: var(--ls-rose);
   --ls-blue: var(--ls-rose-ink);
   --ls-navy: var(--ls-burgundy);
-  --ls-ink: #5A5455;
+  --ls-ink: #4A5A6B;
   --ls-leaf: var(--ls-sage);
   --ls-leaf-ink: var(--ls-rose);
   --ls-sun: var(--ls-rose);
@@ -4028,14 +4028,14 @@
    Desktop: photo left, wording right.
    ========================================================================== */
 .home-hero--plain {
-  --hh-navy: #4A4546;
-  --hh-blue: #A8606F;
-  --hh-ink: #5A5455;
-  --hh-sky: #9A9294;
-  --hh-leaf: #C9C1C2;
-  --hh-butter: #EBCBCF;
+  --hh-navy: #2F4A66;
+  --hh-blue: #5B7FA6;
+  --hh-ink: #4A5A6B;
+  --hh-sky: #8FB0CF;
+  --hh-leaf: #B7D1E8;
+  --hh-butter: #D9EAF7;
   --hh-edge: none;
-  background: #F3E8E6;
+  background: #FFF4C2;
 }
 
 .home-hero--plain .home-hero-title-main,
@@ -4046,8 +4046,8 @@
 }
 
 .home-hero--plain .home-hero-title-script {
-  color: #9A9294;
-  -webkit-text-fill-color: #9A9294;
+  color: #8FB0CF;
+  -webkit-text-fill-color: #8FB0CF;
   text-shadow: none;
 }
 
@@ -4095,7 +4095,7 @@
   aspect-ratio: 3 / 4;
   width: calc(100% + 18px);
   border-radius: 999px 999px 22px 22px;
-  border: 1px solid color-mix(in srgb, #9A9294 55%, transparent);
+  border: 1px solid color-mix(in srgb, #8FB0CF 55%, transparent);
   pointer-events: none;
 }
 
@@ -4105,12 +4105,12 @@
   aspect-ratio: 3 / 4;
   overflow: hidden;
   border-radius: 999px 999px 16px 16px;
-  background: #EBCBCF;
-  border: 5px solid #FBF7F5;
+  background: #D9EAF7;
+  border: 5px solid #FFFBF0;
   box-shadow:
-    0 0 0 1px color-mix(in srgb, #9A9294 35%, transparent),
-    0 30px 55px -30px color-mix(in srgb, #4A4546 40%, transparent),
-    0 10px 24px -14px color-mix(in srgb, #9A9294 45%, transparent);
+    0 0 0 1px color-mix(in srgb, #8FB0CF 35%, transparent),
+    0 30px 55px -30px color-mix(in srgb, #2F4A66 40%, transparent),
+    0 10px 24px -14px color-mix(in srgb, #8FB0CF 45%, transparent);
 }
 
 /* Soft blush vignette at the base so the photo melts into the frame */
@@ -4120,7 +4120,7 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(180deg, transparent 72%, color-mix(in srgb, #F3E8E6 35%, transparent) 100%);
+  background: linear-gradient(180deg, transparent 72%, color-mix(in srgb, #FFF4C2 35%, transparent) 100%);
 }
 
 /* Natural colour, only the faintest warm lift — no heavy filter */
@@ -4140,7 +4140,7 @@
   aspect-ratio: 2170 / 725;
   margin: -1.6rem auto 0;
   background: url("/deco/new-deco/small-center.png") center / contain no-repeat;
-  filter: drop-shadow(0 4px 6px color-mix(in srgb, #4A4546 15%, transparent));
+  filter: drop-shadow(0 4px 6px color-mix(in srgb, #2F4A66 15%, transparent));
 }
 
 @media (min-width: 768px) {
@@ -4177,8 +4177,8 @@
 }
 
 .loading-screen--plain .ls-headline__letter {
-  color: #4A4546;
-  -webkit-text-fill-color: #4A4546;
+  color: #2F4A66;
+  -webkit-text-fill-color: #2F4A66;
 }
 
 .ls-headline__break {
@@ -4229,12 +4229,12 @@
      behind the section shows through softly */
   background:
     radial-gradient(90% 16% at 50% 0%, rgb(255 255 255 / 65%) 0%, transparent 70%),
-    radial-gradient(60% 14% at 0% 30%, color-mix(in srgb, #EBCBCF 30%, transparent) 0%, transparent 70%),
-    radial-gradient(60% 14% at 100% 62%, color-mix(in srgb, #EBCBCF 26%, transparent) 0%, transparent 70%),
+    radial-gradient(60% 14% at 0% 30%, color-mix(in srgb, #D9EAF7 30%, transparent) 0%, transparent 70%),
+    radial-gradient(60% 14% at 100% 62%, color-mix(in srgb, #D9EAF7 26%, transparent) 0%, transparent 70%),
     linear-gradient(
       180deg,
       rgb(255 255 255 / 58%) 0%,
-      color-mix(in srgb, #F8EFEF 52%, transparent) 50%,
+      color-mix(in srgb, #FFF8E1 52%, transparent) 50%,
       rgb(255 255 255 / 50%) 100%
     );
 }
@@ -4314,43 +4314,43 @@
 
 .story-open-wash--left {
   left: -18%;
-  background: radial-gradient(closest-side, color-mix(in srgb, #9A9294 30%, transparent) 0%, color-mix(in srgb, #EBCBCF 50%, transparent) 55%, transparent 100%);
+  background: radial-gradient(closest-side, color-mix(in srgb, #8FB0CF 30%, transparent) 0%, color-mix(in srgb, #D9EAF7 50%, transparent) 55%, transparent 100%);
 }
 
 .story-open-wash--right {
   right: -18%;
-  background: radial-gradient(closest-side, color-mix(in srgb, #9A9294 30%, transparent) 0%, color-mix(in srgb, #EBCBCF 50%, transparent) 55%, transparent 100%);
+  background: radial-gradient(closest-side, color-mix(in srgb, #8FB0CF 30%, transparent) 0%, color-mix(in srgb, #D9EAF7 50%, transparent) 55%, transparent 100%);
 }
 
 /* Text colors (loading screen palette): charcoal title, slate details, warm-gray rule */
 .story-open-date {
-  color: #A8606F;
+  color: #5B7FA6;
 }
 
 .story-open-title {
-  color: #4A4546;
+  color: #2F4A66;
   text-shadow: 0 1px 0 rgb(247 244 239 / 85%);
 }
 
 .story-open-rule {
-  background: #9A9294;
+  background: #8FB0CF;
 }
 
 .story-open-text {
-  color: #5A5455;
+  color: #4A5A6B;
   text-shadow: 0 0 8px rgb(247 244 239 / 75%);
 }
 
 .story-open-number {
-  color: color-mix(in srgb, #9A9294 30%, transparent);
+  color: color-mix(in srgb, #8FB0CF 30%, transparent);
 }
 
 /* Photo frame: light paper mat with a warm-gray edge */
 .story-open-photo {
-  background: #FBF7F5;
+  background: #FFFBF0;
   box-shadow:
-    0 0 0 1px color-mix(in srgb, #9A9294 35%, transparent),
-    0 18px 34px -16px color-mix(in srgb, #4A4546 32%, transparent);
+    0 0 0 1px color-mix(in srgb, #8FB0CF 35%, transparent),
+    0 18px 34px -16px color-mix(in srgb, #2F4A66 32%, transparent);
 }
 
 
@@ -4421,7 +4421,7 @@
   margin: -1.9rem auto 0;
   user-select: none;
   pointer-events: none;
-  filter: drop-shadow(0 4px 6px color-mix(in srgb, #4A4546 15%, transparent));
+  filter: drop-shadow(0 4px 6px color-mix(in srgb, #2F4A66 15%, transparent));
 }
 
 
@@ -4442,5 +4442,163 @@
   letter-spacing: 0.22em;
   line-height: 1.3;
   text-transform: uppercase;
-  color: #A8606F;
+  color: #5B7FA6;
+}
+
+
+/* ==========================================================================
+   Love story / gratitude — plain cards (components/StorySection.tsx → PlainStoryCard)
+   One card per chapter, butter-yellow and pastel-blue tones alternating,
+   centered text, a heart badge on the top edge and a large ghost number
+   drifting behind (parallax). Kept last so it wins over the older open layout.
+   ========================================================================== */
+.story-card {
+  --story-card-tint: var(--color-motif-yellow);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 36rem;
+  padding: clamp(2.1rem, 7vw, 3rem) clamp(1.35rem, 5.5vw, 2.75rem) clamp(1.75rem, 6vw, 2.5rem);
+  border-radius: clamp(1.1rem, 3.5vw, 1.75rem);
+  text-align: center;
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgb(255 255 255 / 85%) 0%, transparent 60%),
+    linear-gradient(180deg, color-mix(in srgb, var(--story-card-tint) 55%, white) 0%, color-mix(in srgb, var(--story-card-tint) 22%, white) 100%);
+  border: 1px solid color-mix(in srgb, var(--color-motif-medium) 45%, transparent);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 90%) inset,
+    0 24px 48px -28px color-mix(in srgb, var(--color-welcome-navy) 40%, transparent),
+    0 6px 16px -10px color-mix(in srgb, var(--color-welcome-navy) 18%, transparent);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.story-card--blue {
+  --story-card-tint: var(--color-motif-blush);
+}
+
+/* Thin inner border, like a printed invitation card */
+.story-card__frame {
+  position: absolute;
+  inset: clamp(0.4rem, 1.4vw, 0.6rem);
+  border-radius: inherit;
+  border: 1px solid color-mix(in srgb, var(--color-welcome-gold) 45%, transparent);
+  pointer-events: none;
+}
+
+/* Heart badge sitting on the card's top edge */
+.story-card__badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: clamp(1.9rem, 6vw, 2.3rem);
+  height: clamp(1.9rem, 6vw, 2.3rem);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  color: var(--color-motif-accent);
+  background: var(--color-motif-soft);
+  border: 1px solid color-mix(in srgb, var(--color-welcome-gold) 60%, transparent);
+  box-shadow: 0 6px 14px -8px color-mix(in srgb, var(--color-welcome-navy) 45%, transparent);
+}
+
+.story-card .story-open-rule {
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--color-welcome-gold);
+}
+
+.story-card .story-open-text {
+  text-shadow: none;
+}
+
+/* Large ghost number behind each card: centered above the card on phones,
+   beside it (on the empty side) from tablet up */
+.story-card-number {
+  position: absolute;
+  top: -0.05em;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  text-align: center;
+  font-family: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-variant-numeric: lining-nums;
+  font-size: clamp(6.5rem, 34vw, 15rem);
+  line-height: 0.8;
+  letter-spacing: -0.03em;
+  color: color-mix(in srgb, var(--color-motif-medium) 26%, transparent);
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--color-motif-medium) 30%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .story-card-number {
+    top: 50%;
+    margin-top: -0.4em;
+    font-size: clamp(10rem, 22vw, 17rem);
+  }
+  .story-card-number--right {
+    left: auto;
+    right: 4%;
+    text-align: right;
+  }
+  .story-card-number--left {
+    right: auto;
+    left: 4%;
+    text-align: left;
+  }
+}
+
+/* Card corner florals (two per card, opposite corners) — tucked half outside
+   the card so they frame it; the image sways slowly once it has bloomed in */
+.story-card__corner {
+  position: absolute;
+  z-index: 3;
+  width: clamp(5.5rem, 26vw, 9.5rem);
+  pointer-events: none;
+  user-select: none;
+}
+
+.story-card__corner--tl { top: clamp(-1.6rem, -4vw, -1.1rem); left: clamp(-1.6rem, -4vw, -0.9rem); transform-origin: top left; }
+.story-card__corner--tr { top: clamp(-1.6rem, -4vw, -1.1rem); right: clamp(-1.6rem, -4vw, -0.9rem); transform-origin: top right; }
+.story-card__corner--bl { bottom: clamp(-1.4rem, -3.5vw, -0.9rem); left: clamp(-1.6rem, -4vw, -0.9rem); transform-origin: bottom left; }
+.story-card__corner--br { bottom: clamp(-1.4rem, -3.5vw, -0.9rem); right: clamp(-1.6rem, -4vw, -0.9rem); transform-origin: bottom right; }
+
+/* Bottom artwork is wider than tall — give it a little more width */
+.story-card__corner--bl,
+.story-card__corner--br {
+  width: clamp(6.5rem, 30vw, 11rem);
+}
+
+.story-card__corner-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 6px 10px color-mix(in srgb, var(--color-welcome-navy) 16%, transparent));
+  transform-origin: inherit;
+  animation: story-corner-sway 7s ease-in-out 1.8s infinite alternate;
+}
+
+.story-card__corner--tr .story-card__corner-img,
+.story-card__corner--bl .story-card__corner-img {
+  animation-duration: 8.5s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes story-corner-sway {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(2.5deg) scale(1.03); }
+}
+
+/* Room at the card's top so the floral never covers the date line */
+.story-card .story-open-date {
+  padding-inline: clamp(2.5rem, 12vw, 4rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-card__corner-img { animation: none; }
 }

@@ -1,5 +1,6 @@
 "use client"
 
+import { RisingHearts } from "@/components/rising-hearts"
 import { useState, useEffect, useRef, type CSSProperties } from "react"
 import { createPortal } from "react-dom"
 import {
@@ -621,6 +622,11 @@ export function GuestList() {
       id="guest-list"
       className="relative z-30 scroll-mt-16 overflow-visible px-5 pb-10 pt-12 sm:scroll-mt-20 sm:px-8 sm:pb-12 sm:pt-14 md:scroll-mt-24"
     >
+      {/* Readability scrim — translucent so the background still shows through */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-black/35" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <RisingHearts tone="butter" fill />
+      </div>
       <fieldset
         className="relative mx-auto w-full max-w-[22.5rem] overflow-visible rounded-[1.85rem] px-5 pb-8 pt-6 text-center @container/rsvp sm:max-w-[24rem] sm:px-7 sm:pb-9 sm:pt-7"
         style={modalCardStyle}

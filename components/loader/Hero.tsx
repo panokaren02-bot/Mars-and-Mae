@@ -19,7 +19,7 @@ import { useSiteConfig } from '@/hooks/use-site-config';
 import { siteConfig as defaultSiteConfig } from '@/content/site';
 import { parseWeddingDate } from '@/lib/wedding-date';
 import { InviteParticles } from '@/components/loader/InviteParticles';
-import { InvitePhotoBackdrop, PhotoBackground } from '@/components/loader/invite-photo-backdrop';
+import { GhostBackdrop, InvitePhotoBackdrop, PhotoBackground } from '@/components/loader/invite-photo-backdrop';
 import { TintedDeco } from '@/components/tinted-deco';
 import { SectionBackdrop } from '@/components/section-backdrop';
 import './envelope-invite.css';
@@ -636,6 +636,7 @@ export const Hero: React.FC<HeroProps> = ({
       {isPlain && (
         <>
           <PhotoBackground photos={backgroundPhotos} desktopPhotos={backgroundPhotosDesktop} />
+          <GhostBackdrop src={content.ghostImage} />
           <div className="env-invite-plain-corners" aria-hidden="true">
             {(
               [
@@ -656,8 +657,8 @@ export const Hero: React.FC<HeroProps> = ({
             ))}
           </div>
           <div className="env-invite-plain-frame" aria-hidden="true" />
-          {/* Paper grain + rising pink hearts, same as the loader and invitation sections
-              (section-backdrop.tsx); no extra wash — the photo background has its blush veil */}
+          {/* Paper grain + rising hearts, same as the loader and invitation sections
+              (section-backdrop.tsx); no extra wash — the backdrop (photos or plain paper) has the tint */}
           <SectionBackdrop wash={false} overlay />
         </>
       )}
@@ -1273,7 +1274,7 @@ type FoldGeo = {
   scale: number;
 };
 
-const FOLD_SHADE = '#2E2A2B';
+const FOLD_SHADE = '#1F3249';
 
 /** A paper fold: a crisp dark crease with light catching the edge just below it */
 function FoldCrease({ d }: { d: string }) {

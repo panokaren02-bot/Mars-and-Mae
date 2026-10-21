@@ -1,5 +1,6 @@
 "use client"
 
+import { RisingHearts } from "@/components/rising-hearts"
 import { useRef, useState, useCallback, useEffect, type ReactNode } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -36,7 +37,7 @@ const IVORY = "#FFFFFF"
 const NAVY = "var(--color-welcome-navy)"
 const BODY = "var(--color-welcome-text)"
 const ACCENT = "var(--color-welcome-heading)"
-const BUTTER = "var(--color-motif-silver)"
+const BUTTER = "#FFFFFF"
 
 const palette = {
   body: BODY,
@@ -443,6 +444,11 @@ export function Messages() {
       id="messages"
       className="relative z-10 pt-8 pb-8 sm:pt-10 sm:pb-10 md:pt-12 md:pb-12 lg:pt-14 lg:pb-14"
     >
+      {/* Readability scrim — translucent so the background still shows through */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-black/35" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <RisingHearts tone="butter" fill />
+      </div>
       <div className="relative z-10 mx-auto max-w-6xl px-3 @container/messages sm:px-4 md:px-6 lg:px-8">
         {/* Header — outside container */}
         <SilkTextGlow className="mb-6 text-center sm:mb-8 md:mb-10">
