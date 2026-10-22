@@ -161,8 +161,6 @@ function MessagesTitle() {
 
 function MessageForm({ onSuccess, onMessageSent }: MessageFormProps) {
   const siteConfig = useSiteConfig()
-  const { brideNickname, groomNickname } = siteConfig.couple
-  const coupleDisplayName = `${groomNickname} & ${brideNickname}`
 
   const formRef = useRef<HTMLFormElement>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -280,7 +278,7 @@ function MessageForm({ onSuccess, onMessageSent }: MessageFormProps) {
               Share Your Love
             </h3>
             <p className={`font-goudy-italic ${sectionType.text}`} style={{ color: BODY }}>
-              Leave a note for {coupleDisplayName} to read and keep.
+              Leave a note for us to read and keep.
             </p>
           </div>
 
@@ -343,7 +341,7 @@ function MessageForm({ onSuccess, onMessageSent }: MessageFormProps) {
                 }}
                 onFocus={() => setFocusedField("message")}
                 onBlur={() => setFocusedField(null)}
-                placeholder={`Write your wishes, prayer, or kind words for ${coupleDisplayName}...`}
+                placeholder="Write your wishes, prayer, or kind words for us..."
                 className={`message-form-textarea ${inputClass("message")} min-h-[90px] resize-none placeholder:leading-relaxed sm:min-h-[110px] md:min-h-[130px]`}
                 style={{
                   color: NAVY,
@@ -379,10 +377,6 @@ function MessageForm({ onSuccess, onMessageSent }: MessageFormProps) {
 }
 
 export function Messages() {
-  const siteConfig = useSiteConfig()
-  const { brideNickname, groomNickname } = siteConfig.couple
-  const coupleDisplayName = `${groomNickname} & ${brideNickname}`
-
   const [messages, setMessages] = useState<Message[]>([])
   const [loading, setLoading] = useState(true)
   const [freshKey, setFreshKey] = useState<string | null>(null)
@@ -457,7 +451,7 @@ export function Messages() {
             className={`font-goudy-italic mx-auto mt-4 max-w-2xl px-2 sm:mt-5 md:mt-6 ${sectionType.textRelaxed}`}
             style={{ color: IVORY, textShadow: silkBodyShadow }}
           >
-            Share a short note, wish, or prayer for {coupleDisplayName}. Every message becomes part of our story.
+            Share a short note, wish, or prayer for us. Every message becomes part of our story.
           </p>
           <div className="mt-4 flex items-center justify-center sm:mt-5">
             <span className="h-px w-16 sm:w-24 md:w-32" style={lightLineStyle} />

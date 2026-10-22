@@ -150,12 +150,12 @@ export function Navbar() {
             className="flex-shrink-0 group relative z-10 flex items-center justify-center py-0 pl-1 pr-2.5 sm:pl-1.5 sm:pr-3 md:pl-2 md:pr-3.5 -ml-0.5 sm:ml-0 self-stretch"
             aria-label={`${siteConfig.couple.groomNickname} & ${siteConfig.couple.brideNickname} — Home`}
           >
-            {/* Monogram painted in burgundy through its alpha mask */}
+            {/* Monogram painted in soft gold through its alpha mask */}
             <span
               aria-hidden
               className="relative block h-[2.5rem] w-[3.2rem] sm:h-[2.85rem] sm:w-[3.65rem] md:h-[3.35rem] md:w-[4.15rem] shrink-0 my-0 group-hover:scale-105 group-active:scale-100 transition-transform duration-500"
               style={{
-                backgroundColor: "var(--color-motif-deep)",
+                backgroundColor: "var(--color-welcome-gold)",
                 WebkitMask: `url("${monogramSrc}") center / contain no-repeat`,
                 mask: `url("${monogramSrc}") center / contain no-repeat`,
               }}

@@ -3228,7 +3228,7 @@
 }
 
 .env-invite-inner-flowers__img {
-  --env-flowers-w: calc(var(--env-letter-w) * 0.6);
+  --env-flowers-w: calc(var(--env-letter-w) * 0.95);
   --env-flowers-inset: 0px; /* bloom distance in from the letter's side edge */
   position: absolute;
   bottom: var(--env-flowers-bottom, -28%);
@@ -3265,8 +3265,8 @@
 @media (min-width: 768px) {
   .env-invite-screen--plain {
     --env-portrait-w: calc(var(--env-letter-w) * 0.46);
-    --env-portrait-bottom: 16%;
-    --env-flowers-bottom: -28%;
+    --env-portrait-bottom: 30%;
+    --env-flowers-bottom: -16%;
   }
 }
 
@@ -3319,27 +3319,27 @@
 
 /* ==========================================================================
    warm gray crumpled-paper envelope (plain). Kept last so it wins.
-   Paper built around warm gray #8FB0CF, deepening toward slate #5B7FA6 in the
+   Paper built around light sky blue #BFE6FF, deepening toward dusty blue #8FB0CF in the
    folds, with a fine grain and a soft crumpled relief (light ridges, slate
    creases) on every panel.
    ========================================================================== */
 .env-invite-screen--plain {
   --env-paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.24 0 0 0 0 0.31 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   --env-paper-mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='c' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.016 0.022' numOctaves='5' seed='11' stitchTiles='stitch' result='n'/%3E%3CfeDiffuseLighting in='n' surfaceScale='2' lighting-color='%23fff' result='l'%3E%3CfeDistantLight azimuth='225' elevation='52'/%3E%3C/feDiffuseLighting%3E%3CfeColorMatrix in='l' result='dark' values='0 0 0 0 0.12 0 0 0 0 0.18 0 0 0 0 0.24 -0.75 0 0 0 0.5'/%3E%3CfeColorMatrix in='l' result='lite' values='0 0 0 0 0.96 0 0 0 0 0.97 0 0 0 0 1 0.9 0 0 0 -0.72'/%3E%3CfeMerge%3E%3CfeMergeNode in='dark'/%3E%3CfeMergeNode in='lite'/%3E%3C/feMerge%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");
-  --env-highlight: color-mix(in srgb, #8FB0CF 82%, #D9EAF7);
-  --env-base: #8FB0CF;
-  --env-fold: color-mix(in srgb, #8FB0CF 72%, #5B7FA6);
-  --env-shadow: color-mix(in srgb, #8FB0CF 45%, #5B7FA6);
-  --env-envelope: #8FB0CF;
+  --env-highlight: color-mix(in srgb, #BFE6FF 70%, #FFFFFF);
+  --env-base: #BFE6FF;
+  --env-fold: color-mix(in srgb, #BFE6FF 78%, #8FB0CF);
+  --env-shadow: color-mix(in srgb, #BFE6FF 55%, #8FB0CF);
+  --env-envelope: #BFE6FF;
   --env-border: color-mix(in srgb, #5B7FA6 40%, transparent);
 }
 
 .env-invite-screen--plain .env-invite-envelope {
-  --env-highlight: color-mix(in srgb, #8FB0CF 82%, #D9EAF7);
-  --env-base: #8FB0CF;
-  --env-fold: color-mix(in srgb, #8FB0CF 72%, #5B7FA6);
-  --env-shadow: color-mix(in srgb, #8FB0CF 45%, #5B7FA6);
-  --env-envelope: #8FB0CF;
+  --env-highlight: color-mix(in srgb, #BFE6FF 70%, #FFFFFF);
+  --env-base: #BFE6FF;
+  --env-fold: color-mix(in srgb, #BFE6FF 78%, #8FB0CF);
+  --env-shadow: color-mix(in srgb, #BFE6FF 55%, #8FB0CF);
+  --env-envelope: #BFE6FF;
   filter:
     drop-shadow(0 26px 40px color-mix(in srgb, #2F4A66 22%, transparent))
     drop-shadow(0 8px 14px color-mix(in srgb, #5B7FA6 22%, transparent));
@@ -3501,8 +3501,8 @@
 @media (max-width: 767px) {
   .env-invite-screen--plain {
     --env-portrait-w: calc(var(--env-width) * 0.3);
-    --env-portrait-bottom: 22%;
-    --env-flowers-bottom: 16%;
+    --env-portrait-bottom: 36%;
+    --env-flowers-bottom: 26%;
   }
 
   .env-invite-screen--plain .env-invite-photos-emerge--portraits {
@@ -3516,7 +3516,7 @@
 
   .env-invite-inner-flowers__img {
     /* Blooms sit inside the envelope, at each photo's inner lower corner */
-    --env-flowers-w: calc(var(--env-letter-w) * 0.3);
+    --env-flowers-w: calc(var(--env-letter-w) * 0.52);
     --env-flowers-inset: calc(var(--env-letter-w) * 0.15);
   }
 

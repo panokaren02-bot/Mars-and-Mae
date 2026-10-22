@@ -242,6 +242,8 @@ export function Hero() {
   )
   const ceremonyName =
     siteConfig.ceremony.location || siteConfig.wedding.venue
+  // Congregation / district line under the venue name (content/site.ts → CEREMONY_VENUE.address)
+  const ceremonyAddress = siteConfig.ceremony.location ? siteConfig.ceremony.venue : ""
 
   const fadeUp = (delay: number) => {
     if (reduceMotion) {
@@ -409,6 +411,11 @@ export function Hero() {
           <span className="home-hero-meta-venue text-[clamp(1.05rem,4.6vw,1.4rem)] italic leading-tight">
             {ceremonyName}
           </span>
+          {ceremonyAddress && (
+            <span className="home-hero-meta-address mt-1 max-w-[22rem] text-[clamp(0.78rem,3.2vw,0.95rem)] leading-snug sm:max-w-md">
+              {ceremonyAddress}
+            </span>
+          )}
         </motion.div>
         </div>
       </div>

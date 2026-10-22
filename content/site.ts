@@ -92,7 +92,7 @@ const CEREMONY_VENUE = {
   map: "https://www.google.com/maps/search/?api=1&query=Iglesia+ni+Cristo+Santiago+Norte+San+Fernando+La+Union",
   // Place searched for the embedded map + church → reception route ⚠ check the pin lands on the chapel
   mapQuery: "Iglesia ni Cristo Santiago Norte, San Fernando, La Union",
-  photos: ["/Details/Watercolor Iglesia ni Cristo Chapel in Bloom.webp"] as string[],
+  photos: ["/Details/Watercolor Illustration of a Gothic Church.png"] as string[],
 }
 const RECEPTION_VENUE = {
   name: "The Mansion Estates La Union",
@@ -100,14 +100,14 @@ const RECEPTION_VENUE = {
   // ⚠ check — Google Maps search link; swap for the exact pin when available
   map: "https://www.google.com/maps/search/?api=1&query=The+Mansion+Estates+San+Juan+La+Union",
   mapQuery: "The Mansion Estates, San Juan, La Union", // embedded map + route ⚠ check the pin
-  photos: ["/Details/Golden Hour Villa Fountain Estate.webp"] as string[],
+  photos: ["/Details/Watercolor Coastal Estate Panorama.png"] as string[],
 }
 
 // Route card between the church and reception cards (Event Details, "separate" layout):
 // embedded driving route from CEREMONY_VENUE.mapQuery to RECEPTION_VENUE.mapQuery
 const VENUE_ROUTE = {
   show: true,
-  eyebrow: "On to the Reception",
+  eyebrow: "", // small line above the title ("" hides it)
   title: "From the Church to the Reception",
   travelTime: "13 minutes by car",
   fromLabel: "Church",
@@ -121,16 +121,16 @@ const VENUE_ROUTE = {
 //   "combined" = ONE card for both — use when ceremony and reception share a venue.
 //                Name, address, map and photos come from CEREMONY_VENUE.
 // badge        = small pill on the photo (e.g. "Ceremony & Reception")
-// sectionLabel = label above the venue name (e.g. "Venue")
-// showDate     = show the big Month / Day / Year
-// showArrival  = show "Arrival: <guest arrival time>" (otherwise "At <time>")
+// showDate     = show the big Month / Day / Year (above the photo)
+// showTime     = show the time line under the date
+// showArrival  = time line reads "Arrival: <guest arrival time>" (otherwise "At <time>")
 const VENUE_CARDS = {
   layout: "separate" as "separate" | "combined",
   // Used when layout is "combined"
   combined: {
     badge: "Ceremony & Reception",
-    sectionLabel: "Venue",
     showDate: true,
+    showTime: true,
     showArrival: false,
     // Time rows on the card, e.g. "Ceremony 4:30 PM | Reception 7:00 PM"
     ceremonyLabel: "Ceremony",
@@ -142,15 +142,15 @@ const VENUE_CARDS = {
   ceremony: {
     show: true,
     badge: "Ceremony",
-    sectionLabel: "Ceremony Venue",
     showDate: true,
+    showTime: true,
     showArrival: true,
   },
   reception: {
     show: true,
     badge: "Reception",
-    sectionLabel: "Reception Venue",
     showDate: false,
+    showTime: false,
     showArrival: false,
   },
 }
@@ -411,6 +411,7 @@ type StoryChapter = {
   paragraphs: string[] // {groom} / {bride} → nicknames
   imagePosition?: string // which part of the photo stays in frame, e.g. "center 20%" (default "center 30%")
   layout?: "image-left" | "image-right" // optional — chapters alternate sides automatically
+  inviteTwoOnly?: boolean // true = shown only on /invitetwo (hidden on the main page and /inviteone)
 }
 
 // Handy derived values — no need to edit
@@ -514,7 +515,7 @@ export const siteConfig = {
       bride: COUPLE_PORTRAITS.bride,
     },
     // Bouquet tucked inside the open envelope, peeking out on both sides ("" to hide)
-    envelopeFlowers: "/deco/new-deco/Blush Garden Rose Corner Bouquet.png",
+    envelopeFlowers: "/deco/lovestorydeco/cornerBottomLeft.png",
     // Main page cover photo (home hero, plain display) — one natural, candid couple photo
     // "" = no cover photo (the envelope opens with the curtain reveal instead of the photo pull)
     coverPhoto: COUPLE_PORTRAITS.cover,
@@ -598,7 +599,7 @@ export const siteConfig = {
         title: "All Glory Belongs to Him",
         image: "/mobile-background/couples (2).webp",
         paragraphs: [
-          "Above all, we thank our Almighty God, who brought {groom} and {bride} together and has guided every step of our journey. It is by His will and grace that we stand before Him to be joined in marriage.",
+          "Above all, we thank our Almighty God, who brought us together and has guided every step of our journey. It is by His will and grace that we stand before Him to be joined in marriage.",
           "We pray that He will remain at the center of our home, today and for all the years to come.",
         ],
       },
@@ -607,7 +608,7 @@ export const siteConfig = {
         title: "Thank You for Everything",
         image: "/mobile-background/couples (3).webp",
         paragraphs: [
-          "To our dearest parents: thank you for your unconditional love, your countless sacrifices and the faith you planted in our hearts. You showed us what it means to love patiently and to stay together through every season.",
+          "Thank you for your unconditional love, your countless sacrifices and the faith you instilled in our hearts. You showed us what it means to love patiently and to stay together through every season.",
           "Everything we bring into our marriage, we first learned from you. We hope to make you proud.",
         ],
       },
@@ -615,8 +616,9 @@ export const siteConfig = {
         date: "To Our Families",
         title: "Two Families, One Home",
         image: "/mobile-background/couples (4).webp",
+        inviteTwoOnly: true,
         paragraphs: [
-          "To the Vallejo and Abejon families — our siblings, grandparents, aunts, uncles and cousins: thank you for the warmth, the laughter and the support you have always given us.",
+          "To our grandparents, aunts, uncles and cousins: thank you for the warmth, the laughter and the support you have always given us.",
           "On this day our two families become one, and we are grateful to be welcomed with such open arms.",
         ],
       },
@@ -634,17 +636,15 @@ export const siteConfig = {
         title: "Our Guides and Mentors",
         image: "/mobile-background/couples (6).webp",
         paragraphs: [
-          "To our beloved sponsors: thank you for agreeing to stand with us as we make our vows. Your wisdom and example mean so much to us.",
-          "We are honored to have you guide us as we begin our life as husband and wife.",
+          "With heartfelt gratitude, we thank you for your guidance, love, and blessings as you become part of our journey into marriage. It is our honor to have you as our  sponsors."
         ],
       },
       {
-        date: "To Our Entourage & Friends",
+        date: "To Our Friends",
         title: "Walking Beside Us",
         image: "/mobile-background/couples (7).webp",
         paragraphs: [
-          "To our entourage and our dear friends: thank you for saying yes to standing with us, for the encouragement, the advice and for always showing up for us.",
-          "Your time, your effort and your joy make this celebration even more beautiful.",
+          "Thank you for being part of our lives and our story. We’re happy to share this special milestone with you and hope you’ll celebrate this beautiful beginning with us!"
         ],
       },
       {
@@ -661,12 +661,11 @@ export const siteConfig = {
   // Gallery section (components/sections/gallery.tsx)
   gallery: {
     eyebrow: "Our Moments",
-    title: "Gallery",
+    title: "A Love Written in Time",
     subtitle: "our favorite moments",
     description:
-      "From our first chapter to this beautiful season of commitment — every moment has been a testament to love, faith, and grace.",
-    footnote:
-      "More pictures will be added as we gather the rest of our favorite moments. Please check back — this gallery is still growing.",
+      "From the first moments that brought us together to the promises of forever, our story unfolds through a love nurtured by faith, guided by grace, and cherished through time.",
+    footnote: "", // line under the photos ("" hides it)
     // Corner florals (sized per corner like the loader), sprig above the title and
     // sprig under the footnote — "" hides any of them
     decos: {
@@ -710,7 +709,7 @@ export const siteConfig = {
   eventDetails: {
     eyebrow: "Our Celebration",
     title: "Event Details",
-    subtitle: "our special day",
+    subtitle: "", // script line under the title ("" hides it)
     description: "Everything you need to know about our special day.",
     // Line under the description — "" hides it
     verse: "Two hearts, one promise, and a day we can't wait to share with the people we love most.",
@@ -738,13 +737,13 @@ export const siteConfig = {
     // Cards, colors, images and which groups show → QUICK SETUP → ATTIRE
     attire: {
       title: "Attire Guidelines",
-      description: "Our day is dressed in soft butter yellows, pastel blues and warm creams, and we would love for you to wear them with us. As our ceremony is held in an Iglesia ni Cristo house of worship, we kindly ask that all attire be modest. Please find your role below.",
+      description: "Our wedding palette features soft butter yellow and pastel blue, and we would be delighted to have you celebrate with us in these lovely hues. We kindly request modest and church-appropriate attire.",
       image: ATTIRE.image,
       // Order and visibility come from ATTIRE.show (skips blanks, typos and repeats)
       groups: ATTIRE.show
         .filter((id, i, list) => ["entourage", "family", "sponsors", "guests"].includes(id) && list.indexOf(id) === i)
         .map((id) => ({ id, ...ATTIRE[id] })),
-      // Shared dress code palette (used by the "Strictly Formal" reminder)
+      // Shared dress code palette: shown under the description and in the "Dress Code" reminder
       palette: DRESS_CODE_PALETTE,
     },
     reminders: {

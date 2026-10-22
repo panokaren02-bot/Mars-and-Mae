@@ -516,12 +516,14 @@ export function Gallery() {
               ))}
             </div>
 
-            <p
-              className={`font-goudy-italic mx-auto mt-10 max-w-lg px-2 text-center leading-relaxed sm:mt-12 md:mt-14 ${sectionType.textRelaxed}`}
-              style={{ color: C.soft, textShadow: onBgGlow }}
-            >
-              {gallery.footnote}
-            </p>
+            {gallery.footnote ? (
+              <p
+                className={`font-goudy-italic mx-auto mt-10 max-w-lg px-2 text-center leading-relaxed sm:mt-12 md:mt-14 ${sectionType.textRelaxed}`}
+                style={{ color: C.soft, textShadow: onBgGlow }}
+              >
+                {gallery.footnote}
+              </p>
+            ) : null}
             <DecoImg
               src={decos.footerVine}
               className="mx-auto mt-6 block h-auto w-56 select-none opacity-90 sm:mt-8 sm:w-72 md:w-96"

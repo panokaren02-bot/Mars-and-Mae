@@ -118,14 +118,18 @@ function DetailsTitle({ title, subtitle }: { title: string; subtitle: string }) 
       >
         {title}
       </span>
-      <span
-        aria-hidden
-        className={`${aboveTheBeyond.className} mx-auto block w-fit max-w-full px-1 leading-[0.88] sm:leading-[0.9] mt-2 sm:mt-2.5 md:mt-3`}
-        style={{ fontSize: "var(--script-size)", ...onBg }}
-      >
-        {subtitle}
-      </span>
-      <span className="sr-only">{subtitle}</span>
+      {subtitle ? (
+        <>
+          <span
+            aria-hidden
+            className={`${aboveTheBeyond.className} mx-auto block w-fit max-w-full px-1 leading-[0.88] sm:leading-[0.9] mt-2 sm:mt-2.5 md:mt-3`}
+            style={{ fontSize: "var(--script-size)", ...onBg }}
+          >
+            {subtitle}
+          </span>
+          <span className="sr-only">{subtitle}</span>
+        </>
+      ) : null}
     </h2>
   )
 }
@@ -424,6 +428,14 @@ function SpecialCharFont({ text }: { text: string }) {
   )
 }
 
+// "Local Congregation of Santiago Norte, Ecclesiastical District of La Union" →
+// two lines; short ones like "San Juan, La Union" stay on one
+function splitAddress(address: string): string[] {
+  const comma = address.indexOf(", ")
+  if (address.length <= 32 || comma === -1) return [address]
+  return [address.slice(0, comma + 1), address.slice(comma + 2)]
+}
+
 type VenueLabels = {
   arrival: string
   at: string
@@ -520,11 +532,13 @@ function VenueRouteCard({
         style={{ background: cardStyle.background, boxShadow: cardStyle.boxShadow }}
       >
         <div className="text-center">
-          <p className={`${cinzel.className} ${ct.labelSm} font-semibold uppercase tracking-[0.26em]`} style={{ color: C.label }}>
-            {route.eyebrow}
-          </p>
+          {route.eyebrow ? (
+            <p className={`${cinzel.className} ${ct.labelSm} font-semibold uppercase tracking-[0.26em]`} style={{ color: C.label }}>
+              {route.eyebrow}
+            </p>
+          ) : null}
           <h3
-            className={`${theSeasons.className} ${ct.sectionTitle} mt-1.5 font-semibold uppercase leading-tight tracking-[0.12em]`}
+            className={`${theSeasons.className} ${ct.sectionTitle} ${route.eyebrow ? "mt-1.5" : ""} font-semibold uppercase leading-tight tracking-[0.12em]`}
             style={{ color: C.heading }}
           >
             {route.title}
@@ -587,7 +601,6 @@ type EventVenueCardProps = {
   arrivalTime?: string
   // Combined card: one row per event (e.g. Ceremony 3:00 PM / Reception 6:00 PM)
   schedule?: { label: string; time: string }[]
-  venueSectionLabel: string
   mapsLink: string
   // Place shown on the embedded map ("" hides the map)
   mapQuery?: string
@@ -597,6 +610,8 @@ type EventVenueCardProps = {
   onCopy: (text: string, id: string) => void
   onOpenMaps: (link: string) => void
   showDateDetails?: boolean
+  // false hides the "At <time>" / "Arrival: <time>" line
+  showTime?: boolean
   labels: VenueLabels
 }
 
@@ -611,7 +626,6 @@ function EventVenueCard({
   time,
   arrivalTime,
   schedule,
-  venueSectionLabel,
   mapsLink,
   mapQuery,
   copyId,
@@ -620,11 +634,15 @@ function EventVenueCard({
   onCopy,
   onOpenMaps,
   showDateDetails = true,
+  showTime = true,
   labels,
 }: EventVenueCardProps) {
   const { fg: qrFg, bg: qrBg } = useQrColors() // --color-qr-fg / --color-qr-bg in globals.css
   const eventDate = showDateDetails ? new Date(dateString) : null
   const copied = copiedItems.has(copyId)
+  const hasDate = Boolean(eventDate && !Number.isNaN(eventDate.getTime()))
+  const hasTimeLine = showTime && (!schedule || Boolean(arrivalTime))
+  const hasSchedule = Boolean(schedule && schedule.length > 0)
 
   return (
     <div className="relative group">
@@ -639,6 +657,63 @@ function EventVenueCard({
         className="relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem]"
         style={{ background: cardStyle.background, boxShadow: cardStyle.boxShadow }}
       >
+        {/* Date and time above the photo (left out when there's nothing to show) */}
+        {(hasDate || hasTimeLine || hasSchedule) && (
+        <div className="px-3 pt-5 pb-4 sm:px-5 sm:pt-7 sm:pb-6 md:px-7 md:pt-9 md:pb-8">
+          <div className="text-center space-y-2 sm:space-y-2.5 md:space-y-3">
+            {hasDate && eventDate && (
+              <>
+                <p className={`${cinzel.className} ${ct.label} font-semibold uppercase tracking-[0.2em]`} style={{ color: C.label }}>
+                  {day}
+                </p>
+                <p className={`${cinzel.className} ${ct.month} font-semibold leading-none`} style={{ color: C.heading }}>
+                  {eventDate.toLocaleString("default", { month: "long" })}
+                </p>
+                <div className="flex items-center justify-center gap-3 sm:gap-4 md:gap-5 py-1 sm:py-2">
+                  <p className={`${cinzel.className} ${ct.dayNum} font-semibold leading-none`} style={{ color: C.blue }}>
+                    {eventDate.getDate()}
+                  </p>
+                  <div
+                    className="h-10 sm:h-12 md:h-14 w-[2px] rounded-full"
+                    style={{ background: "var(--color-motif-medium)" }}
+                  />
+                  <p className={`${cinzel.className} ${ct.year} font-semibold leading-none`} style={{ color: C.heading }}>
+                    {eventDate.getFullYear()}
+                  </p>
+                </div>
+              </>
+            )}
+
+            {hasTimeLine && (
+              <p
+                className={`${cinzel.className} text-sm sm:text-base md:text-lg lg:text-xl font-semibold tracking-[0.12em] uppercase ${showDateDetails ? "" : "py-2 sm:py-3"}`}
+                style={{ color: C.heading }}
+              >
+                {arrivalTime ? `${labels.arrival}: ${arrivalTime}` : `${labels.at} ${time}`}
+              </p>
+            )}
+
+            {schedule && schedule.length > 0 && (
+              <div className="mx-auto flex max-w-sm items-stretch justify-center gap-3 pt-2 sm:gap-5 sm:pt-3">
+                {schedule.map((item, i) => (
+                  <div key={item.label} className="flex items-stretch gap-3 sm:gap-5">
+                    {i > 0 && <span className="w-px self-stretch" style={{ background: hairline }} aria-hidden />}
+                    <div className="flex flex-col items-center">
+                      <p className={`${cinzel.className} ${ct.labelSm} font-semibold uppercase tracking-[0.2em]`} style={{ color: C.label }}>
+                        {item.label}
+                      </p>
+                      <p className={`${cinzel.className} ${ct.bodyLg} mt-1 font-semibold tracking-[0.08em]`} style={{ color: C.blue }}>
+                        {item.time}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+        )}
+
         <div className={`relative w-full overflow-hidden ${images.length ? "h-64 sm:h-72 md:h-80 lg:h-96 xl:h-[30rem]" : "h-40 sm:h-44 md:h-48"}`} style={{ background: "color-mix(in srgb, var(--color-motif-blush) 40%, white)" }}>
           {images.map((src, index) => {
             const isActive = index === activeImageIndex
@@ -672,7 +747,25 @@ function EventVenueCard({
             }}
           />
 
-          <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 md:bottom-6 md:left-6 right-3 sm:right-4 md:right-6 z-30">
+          {/* Small directions QR in the photo's corner */}
+          <div
+            className="absolute bottom-3 right-3 z-30 rounded-md p-1 shadow-md sm:bottom-4 sm:right-4 sm:rounded-lg sm:p-1.5 md:bottom-6 md:right-6"
+            style={{ backgroundColor: qrBg }}
+            title={labels.scanForDirections}
+          >
+            <QRCodeSVG
+              value={mapsLink}
+              size={128}
+              level="M"
+              includeMargin={false}
+              fgColor={qrFg}
+              bgColor={qrBg}
+              className="block h-11 w-11 sm:h-14 sm:w-14 md:h-16 md:w-16"
+              aria-label={labels.scanForDirections}
+            />
+          </div>
+
+          <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 md:bottom-6 md:left-6 right-16 sm:right-22 md:right-26 z-30">
             <span
               className={`${cinzel.className} inline-block mb-2 px-3 py-1 rounded-full backdrop-blur-sm text-[10px] sm:text-xs uppercase tracking-[0.2em] border`}
               style={{
@@ -690,95 +783,20 @@ function EventVenueCard({
               <SpecialCharFont text={locationName} />
             </h3>
             <p
-              className={`${theSeasons.className} text-[10px] sm:text-xs md:text-sm lg:text-base drop-shadow-md tracking-[0.06em] leading-snug`}
+              className={`${theSeasons.className} text-[10px] sm:text-xs md:text-sm lg:text-base drop-shadow-md tracking-[0.06em] leading-snug whitespace-normal [overflow-wrap:anywhere]`}
               style={{ color: "var(--color-motif-silver)" }}
             >
-              <SpecialCharFont text={venueAddress} />
+              {/* Long addresses break after the first comma so nothing runs off the photo */}
+              {splitAddress(venueAddress).map((line, i) => (
+                <span key={i} className="block">
+                  <SpecialCharFont text={line} />
+                </span>
+              ))}
             </p>
           </div>
         </div>
 
         <div className="p-3 sm:p-5 md:p-7 lg:p-9">
-          <div className="text-center mb-5 sm:mb-8 md:mb-10 space-y-2 sm:space-y-2.5 md:space-y-3">
-            {showDateDetails && eventDate && !Number.isNaN(eventDate.getTime()) && (
-              <>
-                <p className={`${cinzel.className} ${ct.label} font-semibold uppercase tracking-[0.2em]`} style={{ color: C.label }}>
-                  {day}
-                </p>
-                <p className={`${cinzel.className} ${ct.month} font-semibold leading-none`} style={{ color: C.heading }}>
-                  {eventDate.toLocaleString("default", { month: "long" })}
-                </p>
-                <div className="flex items-center justify-center gap-3 sm:gap-4 md:gap-5 py-1 sm:py-2">
-                  <p className={`${cinzel.className} ${ct.dayNum} font-semibold leading-none`} style={{ color: C.blue }}>
-                    {eventDate.getDate()}
-                  </p>
-                  <div
-                    className="h-10 sm:h-12 md:h-14 w-[2px] rounded-full"
-                    style={{ background: "var(--color-motif-medium)" }}
-                  />
-                  <p className={`${cinzel.className} ${ct.year} font-semibold leading-none`} style={{ color: C.heading }}>
-                    {eventDate.getFullYear()}
-                  </p>
-                </div>
-              </>
-            )}
-
-            {(!schedule || arrivalTime) && (
-              <p
-                className={`${cinzel.className} text-sm sm:text-base md:text-lg lg:text-xl font-semibold tracking-[0.12em] uppercase ${showDateDetails ? "" : "py-2 sm:py-3"}`}
-                style={{ color: C.heading }}
-              >
-                {arrivalTime ? `${labels.arrival}: ${arrivalTime}` : `${labels.at} ${time}`}
-              </p>
-            )}
-
-            {schedule && schedule.length > 0 && (
-              <div className="mx-auto flex max-w-sm items-stretch justify-center gap-3 pt-2 sm:gap-5 sm:pt-3">
-                {schedule.map((item, i) => (
-                  <div key={item.label} className="flex items-stretch gap-3 sm:gap-5">
-                    {i > 0 && <span className="w-px self-stretch" style={{ background: hairline }} aria-hidden />}
-                    <div className="flex flex-col items-center">
-                      <p className={`${cinzel.className} ${ct.labelSm} font-semibold uppercase tracking-[0.2em]`} style={{ color: C.label }}>
-                        {item.label}
-                      </p>
-                      <p className={`${cinzel.className} ${ct.bodyLg} mt-1 font-semibold tracking-[0.08em]`} style={{ color: C.blue }}>
-                        {item.time}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="rounded-2xl p-3 sm:p-4 md:p-5 mb-4 sm:mb-6" style={{ backgroundColor: softPanelStyle.backgroundColor }}>
-            <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
-              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mt-0.5 flex-shrink-0" style={{ color: C.blue }} />
-              <div className="flex-1 min-w-0">
-                <p className={`${cinzel.className} ${ct.label} font-semibold mb-1.5 sm:mb-2 uppercase tracking-wide`} style={{ color: C.label }}>
-                  {venueSectionLabel}
-                </p>
-                <p
-                  className={`${theSeasons.className} text-sm sm:text-base md:text-lg lg:text-xl font-semibold leading-snug tracking-[0.06em] uppercase`}
-                  style={{ color: C.heading }}
-                >
-                  <SpecialCharFont text={locationName} />
-                </p>
-                <p className={`${theSeasons.className} ${ct.body} leading-relaxed mt-1 tracking-[0.04em]`} style={{ color: C.body }}>
-                  <SpecialCharFont text={venueAddress} />
-                </p>
-              </div>
-              <div className="flex flex-col items-center gap-1.5 sm:gap-2 flex-shrink-0">
-                <div className="p-1.5 sm:p-2 md:p-2.5 rounded-lg shadow-sm" style={{ backgroundColor: qrBg }}>
-                  <QRCodeSVG value={mapsLink} size={80} level="M" includeMargin={false} fgColor={qrFg} bgColor={qrBg} />
-                </div>
-                <p className={`font-goudy-italic ${ct.label} text-center max-w-[90px]`} style={{ color: C.label }}>
-                  {labels.scanForDirections}
-                </p>
-              </div>
-            </div>
-          </div>
-
           {mapQuery ? (
             <MapFrame
               src={placeEmbedUrl(mapQuery)}
@@ -971,7 +989,6 @@ export function Details() {
                   ? [{ label: venues.combined.receptionLabel, time: reception.time }]
                   : []),
               ]}
-              venueSectionLabel={venues.combined.sectionLabel}
               mapsLink={ceremony.map}
               mapQuery={ceremonyMapQuery}
               copyId="combined"
@@ -980,6 +997,7 @@ export function Details() {
               onCopy={copyToClipboard}
               onOpenMaps={openInMaps}
               showDateDetails={venues.combined.showDate}
+              showTime={venues.combined.showTime}
               labels={labels}
             />
           )}
@@ -995,7 +1013,6 @@ export function Details() {
               dateString={ceremony.date}
               time={ceremony.time}
               arrivalTime={venues.ceremony.showArrival ? ceremony.guestsTime : undefined}
-              venueSectionLabel={venues.ceremony.sectionLabel}
               mapsLink={ceremony.map}
               mapQuery={ceremonyMapQuery}
               copyId="ceremony"
@@ -1004,6 +1021,7 @@ export function Details() {
               onCopy={copyToClipboard}
               onOpenMaps={openInMaps}
               showDateDetails={venues.ceremony.showDate}
+              showTime={venues.ceremony.showTime}
               labels={labels}
             />
           )}
@@ -1028,7 +1046,6 @@ export function Details() {
               dateString={reception.date}
               time={reception.time}
               arrivalTime={venues.reception.showArrival ? ceremony.guestsTime : undefined}
-              venueSectionLabel={venues.reception.sectionLabel}
               mapsLink={receptionMapsLink}
               mapQuery={receptionMapQuery}
               copyId="reception"
@@ -1037,6 +1054,7 @@ export function Details() {
               onCopy={copyToClipboard}
               onOpenMaps={openInMaps}
               showDateDetails={venues.reception.showDate}
+              showTime={venues.reception.showTime}
               labels={labels}
             />
           )}
@@ -1056,6 +1074,12 @@ export function Details() {
             <p className={`font-goudy-italic ${ct.bodyLg} mt-3 leading-relaxed sm:mt-4`} style={{ ...onBgBody, fontWeight: 600 }}>
               {attire.description}
             </p>
+            {/* Butter yellow + pastel blue swatches (attire.palette) */}
+            {attire.palette.length > 0 && (
+              <div className="mx-auto mt-4 w-full max-w-xs sm:mt-5 sm:max-w-sm">
+                <DressCodePaletteSwatches palette={toPaletteColors(attire.palette)} compact />
+              </div>
+            )}
           </div>
           )}
 

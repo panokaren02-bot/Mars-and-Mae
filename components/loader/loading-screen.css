@@ -4064,6 +4064,12 @@
   text-shadow: none;
 }
 
+.home-hero--plain .home-hero-meta-address {
+  font-family: "SortsMillGoudy", Georgia, "Times New Roman", serif;
+  color: var(--hh-ink);
+  opacity: 0.85;
+}
+
 .home-hero--plain .home-hero-plain-corner-img {
   max-width: min(34vw, 130px);
 }

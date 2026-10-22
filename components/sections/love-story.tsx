@@ -143,7 +143,8 @@ export function LoveStory({ skyBackdrop = true }: { skyBackdrop?: boolean } = {}
     siteConfig.couple.brideNickname || siteConfig.couple.bride
 
   const chapters = useMemo(
-    () => loveStory.chapters ?? defaultSiteConfig.loveStory.chapters,
+    // inviteTwoOnly chapters show only on /invitetwo (applyInviteTwo clears the flag there)
+    () => (loveStory.chapters ?? defaultSiteConfig.loveStory.chapters).filter((chapter) => !chapter.inviteTwoOnly),
     [loveStory.chapters],
   )
   const eucalyptusDecos =

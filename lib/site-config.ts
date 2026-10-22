@@ -176,7 +176,7 @@ export function applyInviteTwo(config: SiteConfig): SiteConfig {
       chapters: config.loveStory.chapters.map((chapter) =>
         chapter.title === invitationChapter.title
           ? { ...chapter, paragraphs: invitationChapter.paragraphs }
-          : chapter,
+          : { ...chapter, inviteTwoOnly: false },
       ),
     },
     eventDetails: {
@@ -192,7 +192,7 @@ export function applyInviteTwo(config: SiteConfig): SiteConfig {
         layout: "separate",
         ceremony: { ...venues.ceremony, show: false },
         // Only card left, so it carries the big date
-        reception: { ...venues.reception, show: true, showDate: true },
+        reception: { ...venues.reception, show: true, showDate: true, showTime: true },
       },
       route: { ...(config.eventDetails.route ?? baseSiteConfig.eventDetails.route), show: false },
     },
