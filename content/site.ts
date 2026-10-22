@@ -1340,7 +1340,7 @@ export const siteConfig = {
   proposal: {
     decos: { ...CORNER_DECOS },
     coupleNameImage: BRAND.coupleNameImage, // unused: names are set in type like the loader
-    coupleImage: "/Details/specialInvitation.png", // couple illustration above the question
+    coupleImage: "/Details/Pastel Wedding Party Portrait.webp", // wedding party illustration above the question ("" hides it)
     ornament: DECOR.headerOrnament, // small sprig at the top of the card; "" to hide
     // Eucalyptus sprigs on either side of the couple name; "" to hide one
     nameDecos: { left: DECOR.sideLeft, right: DECOR.sideRight },
@@ -1349,10 +1349,17 @@ export const siteConfig = {
     honorAttendant: "Matron of Honor" as "Matron of Honor" | "Maid of Honor",
     roles: proposalRoleDefinitions,
     roleIdAliases: proposalRoleIdAliases,
+    // Personal note per role id, shown under "Will you be our …?" instead of the type's askNote,
+    // e.g. { "best-man": "You've been my brother since day one…" }. Placeholders work here too.
+    roleMessages: {} as Record<string, string>,
     // Shared labels used on every invitation.
     // Placeholders: {name} invitee, {role} role title, {groom} / {bride} nicknames.
     labels: {
       headerEyebrow: "A Personal Invitation",
+      // Title under the eyebrow, then the eyebrow + title under the illustration ("" hides one)
+      headline: "{groom} & {bride} Are Getting Married",
+      placeEyebrow: "A Special Place",
+      placeTitle: "In Our Wedding",
       headerScript: "written just for you",
       saveTheDate: "Save the Date",
       roleOffered: "Your role",
@@ -1360,6 +1367,8 @@ export const siteConfig = {
       askQuestion: "Will you be our",
       registeredName: "Your name on our list",
       returnButton: "Return to Our Wedding Page",
+      // Shown above the reply when the guest opens their link again after answering
+      alreadyAnswered: "You already replied — thank you!",
       saving: "Saving...",
       sending: "Sending...",
       sendButton: "Send My Response",
@@ -1411,7 +1420,7 @@ export const siteConfig = {
           script: "for telling us",
           subheader: "We completely understand",
           body: [
-            "Thank you for taking the time to read our letter and think it over. There are truly no hard feelings. Whether you're beside us or cheering from wherever you are, we're grateful to have you in our lives.",
+            "Thank you for taking the time to read our invitation and think it over. There are truly no hard feelings. Whether you're beside us or cheering from wherever you are, we're grateful to have you in our lives.",
           ],
         },
         sent: {
@@ -1455,7 +1464,7 @@ export const siteConfig = {
           script: "for your kindness",
           subheader: "We completely understand and respect your decision",
           body: [
-            "Thank you for reading our letter and giving our request your thought. There are no hard feelings at all. We're simply grateful for you, and we'd be happy to have your prayers and blessings in whatever way you can share them.",
+            "Thank you for reading our invitation and giving our request your thought. There are no hard feelings at all. We're simply grateful for you, and we'd be happy to have your prayers and blessings in whatever way you can share them.",
           ],
         },
         sent: {
@@ -1997,11 +2006,8 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     // "Puhon" banner — text comes from loveStory.closing*; photos crossfade behind it
     puhon: {
       show: true,
-      images: [
-        "/desktop-background/couples (18).webp",
-        "/desktop-background/couples (20).webp",
-        "/desktop-background/couples (3).webp",
-      ],
+      // Every portrait in /public/mobile-background
+      images: COUPLE_PHOTOS,
       intervalMs: 5000, // time each photo stays before fading to the next
     },
   },

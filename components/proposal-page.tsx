@@ -136,6 +136,32 @@ function isPlayful(key: CopyKey) {
   return key === "bearer" || key === "flowerGirl"
 }
 
+/* ── Remembered answer (per role + invitee, this browser only) ─────────────── */
+
+type SavedAnswer = { state: "yes_submitted" | "no_submitted"; name: string }
+
+const answerKey = (roleId: string, invitee: string) =>
+  `proposal-answer:${roleId}:${invitee.trim().toLowerCase()}`
+
+function readSavedAnswer(roleId: string, invitee: string): SavedAnswer | null {
+  try {
+    const raw = window.localStorage.getItem(answerKey(roleId, invitee))
+    if (!raw) return null
+    const saved = JSON.parse(raw) as SavedAnswer
+    return saved.state === "yes_submitted" || saved.state === "no_submitted" ? saved : null
+  } catch {
+    return null
+  }
+}
+
+function saveAnswer(roleId: string, invitee: string, answer: SavedAnswer) {
+  try {
+    window.localStorage.setItem(answerKey(roleId, invitee), JSON.stringify(answer))
+  } catch {
+    // storage blocked — the answer is still saved to the sheet
+  }
+}
+
 /* ── Small pieces ─────────────────────────────────────────────────────────── */
 
 /** Config text with emoji / apostrophes / "&" / "!" in a clean font (display fonts lack them). */
@@ -575,6 +601,38 @@ function ProposalDirectAsk({
   )
 }
 
+const BURST_HEARTS = 10
+
+/** Little hearts that fly out from the icon once (the "yes" card). */
+function HeartBurst() {
+  const reduceMotion = useReducedMotion()
+  if (reduceMotion) return null
+  return (
+    <div className="pointer-events-none absolute left-1/2 top-1/2" aria-hidden>
+      {Array.from({ length: BURST_HEARTS }, (_, i) => {
+        const angle = (i / BURST_HEARTS) * Math.PI * 2 - Math.PI / 2
+        const distance = 58 + (i % 3) * 14
+        return (
+          <motion.span
+            key={i}
+            className="absolute -ml-1.5 -mt-1.5"
+            initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
+            animate={{
+              x: Math.cos(angle) * distance,
+              y: Math.sin(angle) * distance,
+              scale: [0, 1.1, 0.9],
+              opacity: [0, 1, 0],
+            }}
+            transition={{ duration: 1.4, delay: 0.25 + (i % 4) * 0.05, ease: revealEase }}
+          >
+            <HeartMark className={i % 2 ? "h-3 w-3" : "h-2 w-2"} />
+          </motion.span>
+        )
+      })}
+    </div>
+  )
+}
+
 /** Header for the after-answer cards (icon + layered title + subheader). */
 function FlowHeader({
   icon,
@@ -582,12 +640,18 @@ function FlowHeader({
   script,
   subheader,
   animated = false,
+  burst = false,
+  note = "",
 }: {
   icon: ReactNode
   title: string
   script: string
   subheader: string
   animated?: boolean
+  /** Hearts fly out from the icon */
+  burst?: boolean
+  /** Small line above the icon (e.g. "You already replied") */
+  note?: string
 }) {
   const iconNode = (
     <div
@@ -603,7 +667,13 @@ function FlowHeader({
   )
   return (
     <div className="mb-6">
-      <div className="mb-6 flex justify-center">
+      {note ? (
+        <SmallCaps className="mb-4" color={palette.bodySoft}>
+          <T text={note} />
+        </SmallCaps>
+      ) : null}
+      <div className="relative mb-6 flex justify-center">
+        {burst ? <HeartBurst /> : null}
         {animated ? (
           <motion.div initial={{ scale: 0 }} animate={{ scale: [0, 1.2, 1] }} transition={{ duration: 0.6 }}>
             {iconNode}
@@ -668,11 +738,21 @@ function ProposalPageInner({ role }: ProposalPageProps) {
   const pageScrollLocked = loadingOverlayVisible || showInvitation
   const cinematicEntry = enteringFromInvite && proposalVisible
 
+  // Set when this browser already answered this invitation (shown above the reply)
+  const [answeredBefore, setAnsweredBefore] = useState(false)
+
   useEffect(() => {
     if (inviteeFromLink) {
       setPreferredName(inviteeFromLink)
     }
-  }, [inviteeFromLink])
+    // Reopening the link shows the earlier reply instead of asking (and saving) again
+    const saved = readSavedAnswer(role.id, inviteeFromLink)
+    if (saved) {
+      if (saved.name) setPreferredName(saved.name)
+      setFlowState(saved.state)
+      setAnsweredBefore(true)
+    }
+  }, [inviteeFromLink, role.id])
 
   const siteConfig = useSiteConfig()
   const { labels } = siteConfig.proposal
@@ -718,6 +798,10 @@ function ProposalPageInner({ role }: ProposalPageProps) {
     }
 
     window.dispatchEvent(new Event("entourageUpdated"))
+    saveAnswer(role.id, inviteeFromLink, {
+      state: status === "Confirmed" ? "yes_submitted" : "no_submitted",
+      name: status === "Confirmed" ? name : confirmedDisplayName,
+    })
   }
 
   const handleYesSubmit = async (e: React.FormEvent) => {
@@ -915,6 +999,8 @@ function ProposalPageInner({ role }: ProposalPageProps) {
               <ProposalCard>
                 <FlowHeader
                   animated
+                  burst={!answeredBefore}
+                  note={answeredBefore ? labels.alreadyAnswered : ""}
                   icon={<Sparkles className="h-7 w-7" style={{ color: CHAMPAGNE }} />}
                   title={fill(copy.yes.title)}
                   script={fill(copy.yes.script)}
@@ -989,6 +1075,7 @@ function ProposalPageInner({ role }: ProposalPageProps) {
             <motion.div key="no-sent" className="relative z-10 w-full" {...cardMotion}>
               <ProposalCard>
                 <FlowHeader
+                  note={answeredBefore ? labels.alreadyAnswered : ""}
                   icon={<Heart className="h-6 w-6" style={{ color: CHAMPAGNE }} />}
                   title={fill(copy.sent.title)}
                   script={fill(copy.sent.script)}
