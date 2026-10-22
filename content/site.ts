@@ -341,9 +341,9 @@ const SHOW_PHOTOS = DISPLAY_MODE === "photos"
 
 // ── Shared images ───────────────────────────────────────────────────────────
 const BRAND = {
-  monogram: "/monogram/monogram.png",
+  monogram: "/monogram/monogramnew.png",
   coupleNameImage: "/Details/newcoupelNames.png", // couple-name lettering (loader, envelope)
-  seal: "/monogram/seal.png", // envelope wax seal
+  seal: "/monogram/sealnew.png", // envelope wax seal
   backgroundMusic: "/background_music/Your Love - Juris Piano Cover by Gerard Chua (mp3cut.net).mp3",
 }
 
