@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react"
-import { Cinzel, Playfair_Display } from "next/font/google"
+import { cinzel, playfairDisplay as playfair } from "@/lib/fonts"
 import { useBodyScrollLock } from "@/hooks/use-body-scroll-lock"
 import { Button } from "@/components/ui/button"
 import { proposalRoleDefinitions } from "@/content/proposal-roles"
@@ -22,9 +22,6 @@ import {
   UserCheck,
   X,
 } from "lucide-react"
-
-const cinzel = Cinzel({ subsets: ["latin"], weight: ["500", "600"] })
-const playfair = Playfair_Display({ subsets: ["latin"], weight: ["500", "600"] })
 
 interface Entourage {
   Name: string

@@ -1,6 +1,5 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Great_Vibes, Inter, Imperial_Script, Cinzel } from "next/font/google"
 import localFont from "next/font/local"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
@@ -13,7 +12,7 @@ import {
   MARQUEE_IMAGE_QUALITY,
   MARQUEE_IMAGE_SIZES,
 } from "@/lib/loading-bg-photos"
-import { anastasiaScript } from "@/lib/fonts"
+import { anastasiaScript, greatVibes, inter, imperialScript, cinzel } from "@/lib/fonts"
 
 const canonicalUrl = canonicalSiteUrl
 const desktopHero = siteConfig.linkPreviewImage
@@ -73,10 +72,6 @@ const jsonLd = {
   eventHashtag: `#${siteConfig.couple.groomNickname}And${siteConfig.couple.brideNickname}SayIDo`,
 }
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
-const greatVibes = Great_Vibes({ subsets: ["latin"], weight: "400", variable: "--font-serif" })
-const imperialScript = Imperial_Script({ subsets: ["latin"], weight: "400", variable: "--font-imperial-script" })
-const cinzel = Cinzel({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-cinzel" })
 const brittany = localFont({
   src: "../Font/brittany-signature-script/BrittanySignatureScript.ttf",
   variable: "--font-brittany",

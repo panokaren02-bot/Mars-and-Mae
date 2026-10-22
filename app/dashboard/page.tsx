@@ -18,10 +18,7 @@ import { GuestMessages } from "@/components/guest-messages"
 import { type Message } from "@/app/api/messages/route"
 import { EntourageSponsors, type SponsorsList } from "@/components/entourage-sponsors"
 import { ProposalDashboard } from "@/components/proposal-dashboard"
-import { Cinzel, Playfair_Display } from "next/font/google"
-
-const cinzel = Cinzel({ subsets: ["latin"], weight: ["500", "600"] })
-const playfair = Playfair_Display({ subsets: ["latin"], weight: ["500", "600"], style: ["normal", "italic"] })
+import { cinzel, playfairDisplay as playfair } from "@/lib/fonts"
 
 interface GuestRequest {
   Name: string

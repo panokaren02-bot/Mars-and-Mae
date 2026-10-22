@@ -4,15 +4,10 @@ import type React from "react"
 import { useSiteConfig } from "@/hooks/use-site-config"
 import type { TimelineIconName } from "@/content/site"
 import { motion } from "motion/react"
-import { Cinzel } from "next/font/google"
+import { cinzel } from "@/lib/fonts"
 import localFont from "next/font/local"
 import { TintedDeco } from "@/components/tinted-deco"
 import { HEART_PATH, RisingHearts } from "@/components/rising-hearts"
-
-const cinzel = Cinzel({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-})
 
 const theSeasons = localFont({
   src: "../../Font/Fontspring-DEMO-theseasons-reg.otf",

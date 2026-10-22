@@ -1,10 +1,5 @@
 import type { CSSProperties } from "react"
-import { Inter } from "next/font/google"
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-})
+import { inter } from "@/lib/fonts"
 
 const EMOJI_FONT_FAMILY =
   '"Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif'

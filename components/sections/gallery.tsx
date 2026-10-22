@@ -5,7 +5,7 @@ import { createPortal } from "react-dom"
 import Image from "next/image"
 import localFont from "next/font/local"
 import { X, ChevronLeft, ChevronRight, Camera } from "lucide-react"
-import { Cinzel } from "next/font/google"
+import { cinzel } from "@/lib/fonts"
 import { Section } from "@/components/section"
 import { sectionType } from "@/lib/section-typography"
 import { useSiteConfig } from "@/hooks/use-site-config"
@@ -14,11 +14,6 @@ import { PlainBubbles } from "@/components/loader/PlainBubbles"
 import { DecoCorners } from "@/components/deco-corners"
 import { HEART_PATH } from "@/components/rising-hearts"
 import { SectionBackdrop } from "@/components/section-backdrop"
-
-const cinzel = Cinzel({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-})
 
 const theSeasons = localFont({
   src: "../../Font/Fontspring-DEMO-theseasons-reg.otf",

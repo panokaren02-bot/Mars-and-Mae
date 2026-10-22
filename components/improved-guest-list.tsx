@@ -4,10 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useBodyScrollLock } from '@/hooks/use-body-scroll-lock';
 import { Plus, Search, Trash2, Edit2, Star, CheckCircle, XCircle, Clock, Users as UsersIcon, Download, RefreshCw, X, UserRound, CalendarCheck, Minus, Info, UserPlus, Check, MessageSquareText, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Cinzel, Playfair_Display } from 'next/font/google';
-
-const cinzel = Cinzel({ subsets: ['latin'], weight: ['500', '600'] });
-const playfair = Playfair_Display({ subsets: ['latin'], weight: ['500', '600'] });
+import { cinzel, playfairDisplay as playfair } from "@/lib/fonts"
 
 const MIN_PAX = 1;
 const MAX_PAX = 20;

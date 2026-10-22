@@ -4,13 +4,8 @@ import React from "react"
 import { useEffect, useMemo, useState, useRef } from "react"
 import { Section } from "@/components/section"
 import { Loader2, Users } from "lucide-react"
-import { Cormorant_Garamond } from "next/font/google"
+import { cormorantGaramond as cormorant } from "@/lib/fonts"
 import { useSiteConfig } from "@/hooks/use-site-config"
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400"],
-})
 
 interface PrincipalSponsor {
   MalePrincipalSponsor: string
