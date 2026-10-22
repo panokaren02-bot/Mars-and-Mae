@@ -155,6 +155,31 @@ const VENUE_CARDS = {
   },
 }
 
+// ── /invitetwo — reception-only celebration ─────────────────────────────────
+// /invitetwo goes to a different guest list (googleAPI.guestListTwo) and a later
+// celebration: countdowns, hero, loader and Event Details use the date / time /
+// venue below, and only the reception card is shown (no ceremony card or route).
+// It also hides the timeline and uses its own FAQ (siteConfig.inviteTwo.faqItems).
+const INVITE_TWO = {
+  date: "December 27, 2026",
+  day: "Sunday",
+  time: "10:00 AM",
+  venue: {
+    name: "Aloha Nui Hotel & Event Center",
+    address: "Paras, Candon City, Ilocos Sur",
+    map: "https://maps.app.goo.gl/SU7aYMhJa2TAXvQG6",
+    mapQuery: "Aloha Nui Hotel & Event Center, Paras, Candon City, Ilocos Sur", // embedded map ⚠ check the pin
+    // Venue card photos — crossfade every few seconds
+    photos: [
+      "/Details/invitetwo-venue (1).jpg",
+      "/Details/invitetwo-venue (2).jpg",
+      "/Details/invitetwo-venue (3).jpg",
+    ] as string[],
+  },
+  // Guest list API used by RSVP search + Book of Guests on /invitetwo
+  guestListApi: "/api/guests?list=two",
+}
+
 // ── RSVP & contact ──────────────────────────────────────────────────────────
 const RSVP = {
   deadline: " November 30, 2026",
@@ -414,6 +439,7 @@ export const siteConfig = {
     messageForm: "https://docs.google.com/forms/d/e/1FAIpQLSc7lZyiyr3aZDA671r808snsFK9MZqRguf8O_0VO-MSE9YjOA/formResponse",   //done
     message: "https://script.google.com/macros/s/AKfycbxzUHsq0jgLBjvwyoZAEcNiXetYlmULGEJtT5wNFV_IlgWLrrJAztDOHTNnN-fGUKpPGw/exec",  //done
     guestList: "https://script.google.com/macros/s/AKfycbwxCJVBhbPT0N4otyEC4MBmcTWp8wNB0IiIEgVH5eO6HSxT3cYHd5QPzfQjW8nmf1rcIg/exec",  //done
+    guestListTwo:"https://script.google.com/macros/s/AKfycbwtoZVEORJYnC0l10BO3yoExG0FnbSCAR6onIVItAfU5bRY6v1UKc94i7JOExtYnyIjrg/exec",
     guestRequest: "https://script.google.com/macros/s/AKfycbwOKOO_Qx-FmxVon_LjfyuEuBf4l0-jp4gIBaabcrEB5ylI6XQlwdiEx2M_70zP-bWung/exec",   //done
     entourage: "https://script.google.com/macros/s/AKfycbyzu9cDfMgZfbFR66FwKzdkz7ZhYLybifE8EsuWO6ymKu2XWQLJm8dMw-JbCONFVW9tvg/exec",  //done
     sponsors: SPONSORS_API,  //done 
@@ -1552,6 +1578,160 @@ export const siteConfig = {
     // label: "Gcash",
     // accountNumber: "to be announced",
     // }
+  },
+  // Guest list API used by RSVP search + Book of Guests ("/api/guests?list=two" on /invitetwo)
+  guestListApi: "/api/guests",
+  // Reception-only overrides for /invitetwo — date / venue / guest list in QUICK SETUP → INVITE_TWO
+  inviteTwo: {
+    ...INVITE_TWO,
+    // Love story chapter (matched by title) whose paragraphs are replaced on /invitetwo
+    invitationChapter: {
+      title: "Please Celebrate With Us",
+      paragraphs: [
+        `With grateful hearts, we warmly invite you to celebrate with us at ${INVITE_TWO.venue.name}, ${INVITE_TWO.venue.address}.`,
+        "Your presence is the greatest gift we could ask for. We look forward to celebrating and giving thanks together with you. With all our love, {groom} & {bride}. ♡",
+      ],
+    },
+    // Event Details → attire: guests only (no entourage / principal sponsors)
+    attireGroups: ["guests"] as AttireGroupId[],
+    attireDescription:
+      "Our day is dressed in soft butter yellows, pastel blues and warm creams, and we would love for you to wear them with us. We kindly ask that all attire be modest.",
+    // Event Details → Gentle Reminders shown on /invitetwo instead of eventDetails.reminders.items
+    reminders: [
+      {
+        title: "Adults-Only Celebration",
+        variant: "accent" as "accent" | "soft",
+        showPalette: false,
+        paragraphs: [
+          "We love your kids, but consider this your day off! Please note that our celebration is adults-only.",
+        ],
+      },
+      {
+        title: "No Surprise Announcements",
+        variant: "soft" as "accent" | "soft",
+        showPalette: false,
+        paragraphs: [
+          "To keep the focus on the celebration, we kindly ask that there be no surprise announcements or proposals during our celebration.",
+        ],
+      },
+      {
+        title: "Keep Our Invitation Private",
+        variant: "soft" as "accent" | "soft",
+        showPalette: false,
+        paragraphs: [
+          "Please keep this just between us! Kindly refrain from posting our invitation online.",
+        ],
+      },
+      {
+        title: "Dress Code",
+        variant: "accent" as "accent" | "soft",
+        showPalette: true,
+        paragraphs: [
+          "Guests, kindly come in semi-formal attire in shades of butter yellow or pastel blue from our palette.",
+          "Please avoid casual clothes and all-white outfits.",
+        ],
+      },
+      {
+        title: "Arrival",
+        variant: "soft" as "accent" | "soft",
+        showPalette: false,
+        paragraphs: [
+          `To ensure everything runs smoothly, please arrive a little before ${INVITE_TWO.time}. This will give you enough time to find your seat and settle in comfortably before the program begins. We truly appreciate your punctuality and look forward to celebrating with you.`,
+        ],
+      },
+      {
+        title: "Reception Details",
+        variant: "accent" as "accent" | "soft",
+        showPalette: false,
+        paragraphs: [
+          `Please join us at ${INVITE_TWO.venue.name} for good food, laughter and a joyful celebration.`,
+        ],
+      },
+    ],
+    // FAQ shown on /invitetwo instead of faq.items below (same formatting rules)
+    faqItems: [
+      // ── The day ──
+      {
+        question: "When and where is the celebration?",
+        answer: `Our celebration will be on ${INVITE_TWO.day}, ${INVITE_TWO.date}, at ${INVITE_TWO.time}.\n\n• Reception — ${INVITE_TWO.venue.name}, ${INVITE_TWO.venue.address}. [Open in Google Maps](${INVITE_TWO.venue.map})`,
+      },
+      {
+        question: "What time should I arrive?",
+        answer: `Please arrive a little before ${INVITE_TWO.time}, so you have time to park, find your seat and settle in before the program begins.`,
+      },
+      {
+        question: "How do I get to the venue?",
+        answer: `Please arrange your own ride or carpool with family and friends, and use the [map link](${INVITE_TWO.venue.map}) to find ${INVITE_TWO.venue.name} in ${INVITE_TWO.venue.address}.`,
+      },
+      // ── RSVP & guests ──
+      {
+        question: "How do I RSVP?",
+        answer:
+          "Find your name on the [guest list](#guest-list) on this invitation and confirm your attendance. Kindly respond by {deadline}.\n\nFor any questions, please reach out to {coordinator}{contact}.",
+      },
+      {
+        question: 'We already said "Yes" to the couple. Do we still need to RSVP?',
+        answer:
+          "Yes, please. Your formal RSVP lets us finalize the headcount for catering and seating, so a place is ready for every guest.",
+      },
+      {
+        question: "What if I RSVP'd but can no longer attend?",
+        answer:
+          "We will miss you, and we understand that some things are beyond our control. Please let us know as soon as possible so we can offer your seat to someone else.",
+      },
+      {
+        question: 'Can I bring a "Plus One"?',
+        answer:
+          "As much as we would love to celebrate with everyone, our venue and guest list are limited. Our celebration is by invitation only, so we can only accommodate the seats reserved under your name on the guest list.",
+      },
+      {
+        question: "Are children invited?",
+        answer:
+          "We love your little ones, but our celebration is adults-only. We hope you enjoy a relaxing day off with us!",
+      },
+      // ── Attire, food & seating ──
+      {
+        question: "What should I wear?",
+        answer:
+          "Please see the [attire guide](#details) in Event Details.\n\n• Guests: semi-formal, in butter yellow, pastel blue or sky blue. Ladies, a modest dress or skirt below the knee, with sleeves; gentlemen, a collared polo or long-sleeve shirt with slacks.\n\nKindly keep attire modest, and please avoid casual wear and all-white outfits.",
+      },
+      {
+        question: "What if I have dietary restrictions or allergies?",
+        answer:
+          "Please message {coordinator}{contact} before {deadline} so we can let our caterer know and make sure there is something delicious for you.",
+      },
+      {
+        question: "May we choose our own seats?",
+        answer:
+          "We kindly ask that you take the seat reserved for you. Each table was arranged with care, so you can share the celebration with the people we hoped you would sit with.",
+      },
+      // ── Photos & sharing ──
+      {
+        question: "Can I take photos and videos during the celebration?",
+        answer: `Absolutely! Capture all the joy you can, tag your posts with ${HASHTAGS.join(" ")} and upload your favorites through [Snap and Share](#snap-share) so we can relive the day through your eyes.`,
+      },
+      {
+        question: "Can I share the invitation online?",
+        answer:
+          "Please keep this one just between us! Kindly don't post our invitation or its link on social media.",
+      },
+      // ── Gifts & the celebration ──
+      {
+        question: "What gift should we give?",
+        answer:
+          "Having you with us and keeping us in your prayers is truly all we could ask for. Should you wish to bless us further, please see our [gift guide](#registry).",
+      },
+      {
+        question: "When is the best time to take our leave?",
+        answer:
+          "It would mean so much if you could stay until the end of the program. We have planned the day with love, and we hope you will laugh and celebrate with us until the very end.",
+      },
+      {
+        question: "How can I help make the day special?",
+        answer:
+          "• Pray with us for good weather and the Lord's continued blessings on our new life as husband and wife.\n• RSVP as early as you can.\n• Dress according to the attire guide and color palette.\n• Arrive on time.\n• Take your reserved seat.\n• Stay until the end of the program.\n• Join the activities and enjoy every moment!",
+      },
+    ],
   },
   // Built from QUICK SETUP — edit the values at the top of the file
   ceremony: {

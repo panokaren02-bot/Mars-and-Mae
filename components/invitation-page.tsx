@@ -95,9 +95,11 @@ type InvitationPageProps = {
   sponsorsList?: SponsorsList
   /** false hides the entourage section (e.g. /inviteguest) */
   showEntourage?: boolean
+  /** false hides the wedding timeline (e.g. /invitetwo) */
+  showTimeline?: boolean
 }
 
-export function InvitationPage({ sponsorsList, showEntourage = true }: InvitationPageProps = {}) {
+export function InvitationPage({ sponsorsList, showEntourage = true, showTimeline = true }: InvitationPageProps = {}) {
   // Skip loading/landing only when returning from /gallery.
   // The flag is set by the "View Full Gallery" button and cleared immediately
   // here so a page refresh always replays the loading screen.
@@ -161,8 +163,8 @@ export function InvitationPage({ sponsorsList, showEntourage = true }: Invitatio
   const cinematicEntry = enteringFromInvite && detailsVisible
 
   useEffect(() => {
-    prefetchInvitationData({ sponsorsList, entourage: showEntourage })
-  }, [sponsorsList, showEntourage])
+    prefetchInvitationData({ sponsorsList, entourage: showEntourage, guestsUrl: siteConfig.guestListApi || "/api/guests" })
+  }, [sponsorsList, showEntourage, siteConfig.guestListApi])
 
   return (
       <div className={`relative min-h-screen bg-cloud text-charcoal selection:bg-birch selection:text-nut font-sans ${pageScrollLocked ? "overflow-hidden" : ""}`}>
@@ -272,7 +274,7 @@ export function InvitationPage({ sponsorsList, showEntourage = true }: Invitatio
               {/* <MessageVideo /> */}
               <Messages />
               <Details />
-              <WeddingTimeline />
+              {showTimeline && <WeddingTimeline />}
               {showEntourage && <Entourage sponsorsList={sponsorsList} />}
               <GuestList />
               {/* One continuous circle pattern behind Book of Guests and FAQ — no seam between them */}

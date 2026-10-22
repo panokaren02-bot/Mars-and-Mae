@@ -9,14 +9,15 @@ const inflight = new Map<string, Promise<unknown[]>>()
 export function prefetchInvitationData({
   sponsorsList,
   entourage = true,
-}: { sponsorsList?: "one" | "two"; entourage?: boolean } = {}) {
+  guestsUrl = "/api/guests",
+}: { sponsorsList?: "one" | "two"; entourage?: boolean; guestsUrl?: string } = {}) {
   const urls: string[] = entourage
     ? [
-        "/api/guests",
+        guestsUrl,
         "/api/entourage",
         sponsorsList ? `/api/principal-sponsor?list=${sponsorsList}` : "/api/principal-sponsor",
       ]
-    : ["/api/guests"]
+    : [guestsUrl]
   for (const url of urls) {
     void fetchInvitationList(url).catch(() => undefined)
   }

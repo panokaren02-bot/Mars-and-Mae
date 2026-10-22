@@ -130,3 +130,72 @@ export async function getSiteConfig(): Promise<SiteConfig> {
     return baseSiteConfig
   }
 }
+
+/**
+ * /invitetwo: reception-only celebration on another date and venue (siteConfig.inviteTwo).
+ * Countdowns, hero and loader read ceremony / wedding, so they point at the reception too;
+ * Event Details and the footer show only the reception card. No ceremony text: FAQ, reminders,
+ * attire (guests only) and the love story invitation chapter come from inviteTwo.
+ */
+export function applyInviteTwo(config: SiteConfig): SiteConfig {
+  // Read from content/site.ts, not the fetched config: inviteTwo isn't sheet-driven, and a
+  // config served by /api/wedding-details from an older build won't have it
+  const {
+    date, day, time, venue, guestListApi, faqItems,
+    invitationChapter, attireGroups, attireDescription, reminders,
+  } = baseSiteConfig.inviteTwo
+  const venues = config.eventDetails.venues
+  return {
+    ...config,
+    guestListApi,
+    wedding: { ...config.wedding, date, time, venue: venue.name },
+    ceremony: {
+      ...config.ceremony,
+      location: venue.name,
+      venue: venue.address,
+      map: venue.map,
+      mapQuery: venue.mapQuery,
+      date,
+      day,
+      time,
+      image: venue.photos,
+    },
+    reception: {
+      ...config.reception,
+      location: venue.name,
+      venue: venue.address,
+      map: venue.map,
+      mapQuery: venue.mapQuery,
+      date,
+      day,
+      time,
+      image: venue.photos,
+    },
+    loveStory: {
+      ...config.loveStory,
+      chapters: config.loveStory.chapters.map((chapter) =>
+        chapter.title === invitationChapter.title
+          ? { ...chapter, paragraphs: invitationChapter.paragraphs }
+          : chapter,
+      ),
+    },
+    eventDetails: {
+      ...config.eventDetails,
+      attire: {
+        ...config.eventDetails.attire,
+        description: attireDescription,
+        groups: config.eventDetails.attire.groups.filter((group) => attireGroups.includes(group.id)),
+      },
+      reminders: { ...config.eventDetails.reminders, items: reminders },
+      venues: {
+        ...venues,
+        layout: "separate",
+        ceremony: { ...venues.ceremony, show: false },
+        // Only card left, so it carries the big date
+        reception: { ...venues.reception, show: true, showDate: true },
+      },
+      route: { ...(config.eventDetails.route ?? baseSiteConfig.eventDetails.route), show: false },
+    },
+    faq: { ...config.faq, items: faqItems },
+  }
+}

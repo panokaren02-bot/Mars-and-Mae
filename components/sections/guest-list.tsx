@@ -190,13 +190,15 @@ function mapApiGuests(data: ApiGuest[]): Guest[] {
     }))
 }
 
-async function loadGuestsFromApi(signal?: AbortSignal, reload = false): Promise<Guest[]> {
-  const data = await fetchInvitationList<ApiGuest>("/api/guests", { signal, reload })
+async function loadGuestsFromApi(url: string, signal?: AbortSignal, reload = false): Promise<Guest[]> {
+  const data = await fetchInvitationList<ApiGuest>(url, { signal, reload })
   return mapApiGuests(data)
 }
 
 export function GuestList() {
   const siteConfig = useSiteConfig()
+  // "/api/guests", or "/api/guests?list=two" on /invitetwo
+  const guestsApi = siteConfig.guestListApi || "/api/guests"
   const copy = siteConfig.rsvp
   const [guests, setGuests] = useState<Guest[]>([])
   const [filteredGuests, setFilteredGuests] = useState<Guest[]>([])
@@ -301,7 +303,7 @@ export function GuestList() {
     const controller = new AbortController()
     guestsLoadRef.current = controller
 
-    const cached = readCachedInvitationList<ApiGuest>("/api/guests")
+    const cached = readCachedInvitationList<ApiGuest>(guestsApi)
     const cachedGuests = cached ? mapApiGuests(cached) : []
     if (cachedGuests.length > 0) {
       setGuests(cachedGuests)
@@ -312,7 +314,7 @@ export function GuestList() {
     try {
       const mappedGuests = await fetchUntilReady({
         signal: controller.signal,
-        load: (signal) => loadGuestsFromApi(signal, reload),
+        load: (signal) => loadGuestsFromApi(guestsApi, signal, reload),
         isReady: (list) => list.length > 0,
         maxAttempts: 4,
         maxDelayMs: 3000,
@@ -391,8 +393,8 @@ export function GuestList() {
 
   const fetchGuests = async () => {
     try {
-      invalidateInvitationData("/api/guests")
-      const mappedGuests = await loadGuestsFromApi(undefined, true)
+      invalidateInvitationData(guestsApi)
+      const mappedGuests = await loadGuestsFromApi(guestsApi, undefined, true)
       if (mappedGuests.length > 0) {
         setGuests(mappedGuests)
       }
@@ -461,7 +463,7 @@ export function GuestList() {
     const status = formData.RSVP === "Yes" ? "confirmed" : formData.RSVP === "No" ? "declined" : "pending"
 
     try {
-      const response = await fetch("/api/guests", {
+      const response = await fetch(guestsApi, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

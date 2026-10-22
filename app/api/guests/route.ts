@@ -13,6 +13,14 @@ import {
 // This should be the URL from deploying google-apps-script/guest-management.js
 const GOOGLE_SCRIPT_URL = siteConfig.googleAPI.guestList
 
+// ?list=two → /invitetwo guest sheet (googleAPI.guestListTwo); anything else → main list
+function guestSheet(request: NextRequest) {
+  const two = request.nextUrl.searchParams.get("list") === "two"
+  return two
+    ? { scriptUrl: siteConfig.googleAPI.guestListTwo, cacheKey: `${SHEETS_CACHE_KEYS.guests}:two` }
+    : { scriptUrl: GOOGLE_SCRIPT_URL, cacheKey: SHEETS_CACHE_KEYS.guests }
+}
+
 // New Guest interface matching the improved system
 export interface Guest {
   id: string | number  // Support both UUID strings and numeric IDs
@@ -41,10 +49,11 @@ export interface LegacyGuest {
 }
 
 // GET: Fetch all guests from Google Sheets
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const { scriptUrl, cacheKey } = guestSheet(request)
   try {
-    const normalizedData = await withSheetsCache(SHEETS_CACHE_KEYS.guests, async () => {
-      const data = await fetchGoogleScriptJson(GOOGLE_SCRIPT_URL)
+    const normalizedData = await withSheetsCache(cacheKey, async () => {
+      const data = await fetchGoogleScriptJson(scriptUrl)
 
       if (data && typeof data === "object" && "error" in data && (data as { error?: string }).error) {
         throw new Error((data as { error: string }).error)
@@ -82,6 +91,7 @@ export async function GET() {
 
 // POST: Add a new guest
 export async function POST(request: NextRequest) {
+  const { scriptUrl, cacheKey } = guestSheet(request)
   try {
     const body = await request.json()
 
@@ -124,9 +134,9 @@ export async function POST(request: NextRequest) {
       addedBy: body.addedBy?.trim() || '',
     }
 
-    const data = await postGoogleScriptJson(GOOGLE_SCRIPT_URL, guestData)
+    const data = await postGoogleScriptJson(scriptUrl, guestData)
 
-    invalidateSheetsCache(SHEETS_CACHE_KEYS.guests)
+    invalidateSheetsCache(cacheKey)
     return NextResponse.json(data ?? { success: true }, { status: 201 })
   } catch (error) {
     console.error('Error adding guest:', error)
@@ -139,6 +149,7 @@ export async function POST(request: NextRequest) {
 
 // PUT: Update an existing guest
 export async function PUT(request: NextRequest) {
+  const { scriptUrl, cacheKey } = guestSheet(request)
   try {
     const body = await request.json()
 
@@ -156,9 +167,9 @@ export async function PUT(request: NextRequest) {
       id: guestId,
     }
 
-    const data = await postGoogleScriptJson(GOOGLE_SCRIPT_URL, updateData)
+    const data = await postGoogleScriptJson(scriptUrl, updateData)
 
-    invalidateSheetsCache(SHEETS_CACHE_KEYS.guests)
+    invalidateSheetsCache(cacheKey)
     return NextResponse.json(data ?? { success: true }, { status: 200 })
   } catch (error: any) {
     console.error('Error updating guest:', error)
@@ -171,6 +182,7 @@ export async function PUT(request: NextRequest) {
 
 // DELETE: Delete a guest
 export async function DELETE(request: NextRequest) {
+  const { scriptUrl, cacheKey } = guestSheet(request)
   try {
     const body = await request.json()
 
@@ -182,12 +194,12 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    const data = await postGoogleScriptJson(GOOGLE_SCRIPT_URL, {
+    const data = await postGoogleScriptJson(scriptUrl, {
       action: 'delete',
       id: guestId,
     })
 
-    invalidateSheetsCache(SHEETS_CACHE_KEYS.guests)
+    invalidateSheetsCache(cacheKey)
     return NextResponse.json(data ?? { success: true }, { status: 200 })
   } catch (error) {
     console.error('Error deleting guest:', error)

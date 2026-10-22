@@ -234,7 +234,7 @@ export function BookOfGuests({ background = true }: { background?: boolean } = {
     if (showLoading) setIsRefreshing(true)
     
     try {
-      const data = await fetchInvitationList<Guest>("/api/guests")
+      const data = await fetchInvitationList<Guest>(siteConfig.guestListApi || "/api/guests")
 
       // Filter only confirmed/attending guests
       const attendingGuests = data.filter((guest) => guest.status === "confirmed")

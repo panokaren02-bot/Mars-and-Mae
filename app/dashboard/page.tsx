@@ -50,6 +50,11 @@ export default function DashboardPage() {
   const [filteredGuests, setFilteredGuests] = useState<Guest[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  // Which invite's guest sheet the Guest List tab manages ("two" = /invitetwo, googleAPI.guestListTwo)
+  const [guestList, setGuestList] = useState<SponsorsList>("one")
+  const guestListRef = useRef<SponsorsList>("one")
+  const guestsApi = (list: SponsorsList = guestListRef.current) =>
+    list === "two" ? "/api/guests?list=two" : "/api/guests"
   const [activeTab, setActiveTab] = useState<"dashboard" | "guests" | "requests" | "messages" | "entourage" | "proposals">("dashboard")
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
   
@@ -87,10 +92,10 @@ export default function DashboardPage() {
     }
   }, [])
 
-  const fetchGuests = async () => {
+  const fetchGuests = async (list: SponsorsList = guestListRef.current) => {
     setIsLoading(true)
     try {
-      const response = await fetch("/api/guests")
+      const response = await fetch(guestsApi(list))
       if (!response.ok) {
         throw new Error("Failed to fetch guests")
       }
@@ -101,6 +106,7 @@ export default function DashboardPage() {
         throw new Error(data.error)
       }
       
+      if (list !== guestListRef.current) return // switched lists while loading
       setGuests(Array.isArray(data) ? data : [])
       setFilteredGuests(Array.isArray(data) ? data : [])
     } catch (error) {
@@ -214,6 +220,15 @@ export default function DashboardPage() {
     void fetchPrincipalSponsors(list)
   }
 
+  const handleGuestListChange = (list: SponsorsList) => {
+    if (list === guestListRef.current) return
+    guestListRef.current = list
+    setGuestList(list)
+    setGuests([])
+    setFilteredGuests([])
+    void fetchGuests(list)
+  }
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     if (password === DASHBOARD_PASSWORD) {
@@ -313,7 +328,7 @@ export default function DashboardPage() {
     setSuccessMessage(null)
 
     try {
-      const response = await fetch("/api/guests", {
+      const response = await fetch(guestsApi(), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -349,7 +364,7 @@ export default function DashboardPage() {
     setSuccessMessage(null)
 
     try {
-      const response = await fetch("/api/guests", {
+      const response = await fetch(guestsApi(), {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -386,7 +401,7 @@ export default function DashboardPage() {
     setSuccessMessage(null)
 
     try {
-      const response = await fetch("/api/guests", {
+      const response = await fetch(guestsApi(), {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -594,6 +609,31 @@ export default function DashboardPage() {
           {activeTab === "guests" && (
             <div>
               <h2 className="text-xl font-bold text-dash-ink mb-4 sm:text-2xl sm:mb-6">Guest Management</h2>
+              {/* Guest sheet switch: main list, or the /invitetwo list (googleAPI.guestListTwo) */}
+              <div className="mb-4 grid grid-cols-2 gap-1 rounded-xl border border-dash-border bg-dash-surface p-1 sm:mb-6" role="tablist">
+                {(
+                  [
+                    { id: "one", label: "Invite One", path: "Main guest list" },
+                    { id: "two", label: "Invite Two", path: "/invitetwo" },
+                  ] as const
+                ).map((list) => {
+                  const active = guestList === list.id
+                  return (
+                    <button
+                      key={list.id}
+                      role="tab"
+                      aria-selected={active}
+                      onClick={() => handleGuestListChange(list.id)}
+                      className={`flex flex-col items-center justify-center rounded-lg px-2 py-2 text-xs font-semibold transition-all sm:flex-row sm:gap-2 sm:text-sm ${
+                        active ? "bg-white text-dash-ink shadow-sm ring-1 ring-dash-border" : "text-gray-500 hover:text-dash-ink"
+                      }`}
+                    >
+                      {list.label}
+                      <span className={`text-[10px] font-medium sm:text-xs ${active ? "text-dash-primary" : "text-gray-400"}`}>{list.path}</span>
+                    </button>
+                  )
+                })}
+              </div>
               <div className="sm:bg-white sm:rounded-xl sm:shadow-sm sm:border sm:border-dash-border sm:p-6">
                 <ImprovedGuestList
                   guests={filteredGuests}

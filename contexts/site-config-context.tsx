@@ -4,6 +4,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useState,
   type ReactNode,
 } from "react"
@@ -57,6 +58,27 @@ export function SiteConfigProvider({ children }: { children: ReactNode }) {
 
   return (
     <SiteConfigContext.Provider value={{ siteConfig, isLoading, error }}>
+      {children}
+    </SiteConfigContext.Provider>
+  )
+}
+
+/** Re-provides the surrounding site config with a page-specific change (e.g. /invitetwo). */
+export function SiteConfigOverride({
+  transform,
+  children,
+}: {
+  transform: (config: SiteConfig) => SiteConfig
+  children: ReactNode
+}) {
+  const context = useContext(SiteConfigContext)
+  if (!context) {
+    throw new Error("SiteConfigOverride must be used within a SiteConfigProvider")
+  }
+  const siteConfig = useMemo(() => transform(context.siteConfig), [transform, context.siteConfig])
+
+  return (
+    <SiteConfigContext.Provider value={{ ...context, siteConfig }}>
       {children}
     </SiteConfigContext.Provider>
   )
