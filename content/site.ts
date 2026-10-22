@@ -324,7 +324,7 @@ const ATTIRE = {
 
 // ── Website address (used for QR codes, link previews, table finder) ────────
 // NEXT_PUBLIC_SITE_URL (env) overrides this when set.
-const SITE_URL = "https://mars-and-mae.weddinginvitationrsvp.com/"
+const SITE_URL = "https://mars-and-yanyan.weddinginvitationrsvp.com/"
 // Image shown when the link is shared (Facebook, Messenger, Viber, X, …) — 1200×630 JPG in /public
 // Use a NEW filename whenever the image changes — Facebook caches images by URL.
 const LINK_PREVIEW_IMAGE = "/Details/newLink.png"
