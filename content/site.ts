@@ -90,14 +90,29 @@ const CEREMONY_VENUE = {
   address: "Local Congregation of Santiago Norte, Ecclesiastical District of La Union",
   // ⚠ check — Google Maps search link; swap for the exact pin when available
   map: "https://www.google.com/maps/search/?api=1&query=Iglesia+ni+Cristo+Santiago+Norte+San+Fernando+La+Union",
-  photos: ['/Details/Watercolor Iglesia ni Cristo Chapel in Bloom.png'] as string[], // no venue photos yet
+  // Place searched for the embedded map + church → reception route ⚠ check the pin lands on the chapel
+  mapQuery: "Iglesia ni Cristo Santiago Norte, San Fernando, La Union",
+  photos: ["/Details/Watercolor Iglesia ni Cristo Chapel in Bloom.webp"] as string[],
 }
 const RECEPTION_VENUE = {
   name: "The Mansion Estates La Union",
   address: "San Juan, La Union",
   // ⚠ check — Google Maps search link; swap for the exact pin when available
   map: "https://www.google.com/maps/search/?api=1&query=The+Mansion+Estates+San+Juan+La+Union",
-  photos: ["/Details/Golden Hour Villa Fountain Estate.png"] as string[], // no venue photos yet
+  mapQuery: "The Mansion Estates, San Juan, La Union", // embedded map + route ⚠ check the pin
+  photos: ["/Details/Golden Hour Villa Fountain Estate.webp"] as string[],
+}
+
+// Route card between the church and reception cards (Event Details, "separate" layout):
+// embedded driving route from CEREMONY_VENUE.mapQuery to RECEPTION_VENUE.mapQuery
+const VENUE_ROUTE = {
+  show: true,
+  eyebrow: "On to the Reception",
+  title: "From the Church to the Reception",
+  travelTime: "13 minutes by car",
+  fromLabel: "Church",
+  toLabel: "Reception",
+  buttonText: "Open Route in Google Maps",
 }
 
 // ── Venue cards (Event Details section) ─────────────────────────────────────
@@ -149,16 +164,17 @@ const RSVP = {
 const HASHTAGS = ["#MarsAndMae2026"] // ⚠ check — placeholder, confirm with the couple
 
 // ── Attire guide (Event Details → Attire Guidelines) ────────────────────────
-// SHOW = which cards to display AND their order, top to bottom. Examples:
+// One card for everyone: ATTIRE.image on top, then one block per group (title, dress
+// code, ladies / gentlemen, palette).
+// SHOW = which groups to display AND their order, top to bottom. Examples:
 //   ["guests"]                            guests only
 //   ["entourage", "guests"]               entourage + guests
 //   ["sponsors", "entourage", "guests"]   complete
 //   ["guests", "sponsors"]                guests first, then sponsors
 //   []                                    hide the whole attire guide
-// Leave out a name to hide that card. Unknown or empty entries are ignored.
-// Each card: fill in only what you need — anything left "" or [] is hidden.
-//   image:     illustration path in /public ("" = no image; any size/shape works)
-//   palette:   colors for this card — "#9CAF88" or { name: "Sage", hex: "#9CAF88" }
+// Leave out a name to hide that group. Unknown or empty entries are ignored.
+// Each group: fill in only what you need — anything left "" or [] is hidden.
+//   palette:   colors for this group — "#9CAF88" or { name: "Sage", hex: "#9CAF88" }
 //              (names show on the swatches; [] = no palette)
 //   ladies / gentlemen:
 //     label:     e.g. "Ninang", "Bridesmaids", "Ladies"
@@ -179,36 +195,37 @@ const DRESS_CODE_PALETTE: AttireColor[] = [
 //   Each side (ladies / gentlemen) has a label, an optional intro (details, with an
 //   optional highlighted phrase) and an optional list of roles with what they wear.
 const ATTIRE = {
-  show: ["entourage", "sponsors", "guests"] as AttireGroupId[],
+  show: ["guests", "entourage", "sponsors"] as AttireGroupId[],
+  // Shared illustration at the top of the attire card ("" = no image; any size/shape works)
+  image: "/Details/Pastel Wedding Party Portrait.png",
 
   entourage: {
     title: "Entourage",
-    image: "/Details/entourage.png",
     dressCode: "Formal Attire",
     palette: [
       { name: "Butter Yellow", hex: "#FFF4C2" },
       { name: "Pastel Blue", hex: "#D9EAF7" },
       { name: "Sky Blue", hex: "#B7D1E8" },
+      { name: "Cream", hex: "#F4EBDD" },
       { name: "Soft Gold", hex: "#D6B779" },
     ] as AttireColor[],
     note: "Butter yellow beside pastel blue — the heart of our wedding palette, worn by the ones standing closest to us.",
     ladies: {
       label: "Bridesmaids & Flower Girls",
-      details: "Butter yellow or pastel blue gowns, soft and flowing, in the same sunny shades as our day.",
-      highlight: "Butter yellow or pastel blue gowns",
+      details: "Floor-length butter yellow or pastel blue gowns in soft, flowing fabric, with sleeves or a matching shawl for the ceremony.",
+      highlight: "butter yellow or pastel blue gowns",
       roles: [] as { role: string; attire: string }[],
     },
     gentlemen: {
       label: "Groomsmen & Bearers",
-      details: "Sky blue suits — clean, classic and polished, the perfect match for the yellow.",
-      highlight: "Sky blue suits",
+      details: "Pastel blue or cream suits over a white shirt, finished with a butter yellow or pastel blue necktie.",
+      highlight: "Pastel blue or cream suits",
       roles: [] as { role: string; attire: string }[],
     },
   },
 
   family: {
     title: "Family",
-    image: "/Details/Family.png",
     dressCode: "Formal Attire",
     palette: [
       { name: "Blue", hex: "#4E86B7" },
@@ -238,7 +255,6 @@ const ATTIRE = {
 
   sponsors: {
     title: "Principal Sponsors",
-    image: "/Details/sponsors.png",
     dressCode: "Formal Attire",
     palette: [
       { name: "Ivory Cream", hex: "#F4EBDD" },
@@ -246,37 +262,36 @@ const ATTIRE = {
       { name: "Beige", hex: "#D9C4A8" },
       { name: "Black", hex: "#2B2627" },
     ] as AttireColor[],
-    note: "We invite our principal sponsors to dress in soft cream and beige — a warm, timeless frame around our butter yellow and pastel blue celebration.",
+    note: "Soft cream and beige — a warm, timeless frame around our butter yellow and pastel blue celebration.",
     ladies: {
       label: "Ninang",
-      details: "A formal dress or long gown in shades of cream or beige.",
-      highlight: "formal dress or long gown",
+      details: "An elegant long gown or formal dress with sleeves, in ivory, cream or beige.",
+      highlight: "long gown or formal dress",
       roles: [] as { role: string; attire: string }[],
     },
     gentlemen: {
       label: "Ninong",
-      details: "A long-sleeve barong paired with black pants.",
-      highlight: "long-sleeve barong",
+      details: "A long-sleeve Barong Tagalog worn with black slacks and dress shoes.",
+      highlight: "long-sleeve Barong Tagalog",
       roles: [] as { role: string; attire: string }[],
     },
   },
 
   guests: {
     title: "Wedding Guests",
-    image: "/Details/guest.png",
     dressCode: "Semi-Formal Attire",
     palette: DRESS_CODE_PALETTE,
-    note: "Any shade of butter yellow or pastel blue from the palette below — mix and match, and come as you are, comfortable and lovely.",
+    note: "Any shade from the palette below — mix and match, and come comfortable and lovely.",
     ladies: {
       label: "Ladies",
-      details: "A short or long dress in butter yellow, pastel blue or sky blue.",
-      highlight: "short or long dress",
+      details: "A modest dress or skirt that falls below the knee, with sleeves, in butter yellow, pastel blue or sky blue.",
+      highlight: "modest dress or skirt",
       roles: [] as { role: string; attire: string }[],
     },
     gentlemen: {
       label: "Gentlemen",
-      details: "A polo or long-sleeve shirt with pants, in yellow or blue tones.",
-      highlight: "polo or long-sleeve shirt",
+      details: "A collared polo or long-sleeve shirt in yellow or blue tones, with slacks or neat trousers.",
+      highlight: "collared polo or long-sleeve shirt",
       roles: [] as { role: string; attire: string }[],
     },
   },
@@ -317,8 +332,8 @@ const COUPLE_PHOTOS = Array.from(
 // Portraits for the envelope reveal + the main cover photo (soft natural light, no heavy filters)
 const COUPLE_PORTRAITS = {
   groom: "/mobile-background/couples (2).webp", // left photo in the envelope
-  bride: "/mobile-background/couples (15).webp", // right photo in the envelope
-  cover: "/mobile-background/couples (18).webp", // photo pulled out of the envelope + home hero cover photo
+  bride: "/mobile-background/couples (4).webp", // right photo in the envelope
+  cover: "/mobile-background/couples (8).webp", // photo pulled out of the envelope + home hero cover photo
 }
 
 // Sliding photo marquee behind the loader and envelope.
@@ -385,7 +400,7 @@ const COUPLE_LABEL = `${COUPLE.groomNickname} & ${COUPLE.brideNickname}`
    ============================================================================ */
 
 // Principal sponsors Google Apps Script — used by the main page and /inviteone
-const SPONSORS_API = "https://script.google.com/macros/s/AKfycby7M6t7JviMyLoKJsB1FvvG1rWkbiH015la4oz0GSjCc-gUYPqSXyyf6EU1V6w6jYmh/exec"
+const SPONSORS_API = "https://script.google.com/macros/s/AKfycbx5jkzDs9ZQfRQlH1ogiyZNxV9R-pzUMu3XhZ8-joppLz5B3asEfT2YkQX-p0Gk6ziHog/exec"
 
 export const siteConfig = {
   siteUrl: SITE_URL,
@@ -396,17 +411,17 @@ export const siteConfig = {
     backgroundMusic: BRAND.backgroundMusic,
   },
   googleAPI:{
-    messageForm: "https://docs.google.com/forms/d/e/1FAIpQLSc810xSLNaREulbPIVCNLPdg56Mlpwp2e4qeF6-nHbyjPI74w/formResponse",   //done
-    message: "https://script.google.com/macros/s/AKfycbzg5yVfq3uKuUhEmJzIN1r45931eG7e5jUqqlM0devYirCrtWFRZ-c3TyIdSW6iKR_2/exec",  //done
-    guestList: "https://script.google.com/macros/s/AKfycbw4Tan1N6kU2sc5xJ1rLInqRY1QtbqMkPFfGMlUA7tIZZlbIWdlFfO_EFQ1i3T_q1dQ/exec",  //done
-    guestRequest: "https://script.google.com/macros/s/AKfycbztTh-VUhzAljOhuBpUONxje5ZcdX3bIETFStQRgylkIh5VEyY0h-zU12iIFK0t28k/exec",   //done
-    entourage: "https://script.google.com/macros/s/AKfycbziOpP366r3Oot92Mgcdu5FpvEQdM5WL4bXdc-kRRIEZLGIM2d6eNJ1oalmlbdNcG7F/exec",  //done
+    messageForm: "https://docs.google.com/forms/d/e/1FAIpQLSc7lZyiyr3aZDA671r808snsFK9MZqRguf8O_0VO-MSE9YjOA/formResponse",   //done
+    message: "https://script.google.com/macros/s/AKfycbxzUHsq0jgLBjvwyoZAEcNiXetYlmULGEJtT5wNFV_IlgWLrrJAztDOHTNnN-fGUKpPGw/exec",  //done
+    guestList: "https://script.google.com/macros/s/AKfycbwxCJVBhbPT0N4otyEC4MBmcTWp8wNB0IiIEgVH5eO6HSxT3cYHd5QPzfQjW8nmf1rcIg/exec",  //done
+    guestRequest: "https://script.google.com/macros/s/AKfycbwOKOO_Qx-FmxVon_LjfyuEuBf4l0-jp4gIBaabcrEB5ylI6XQlwdiEx2M_70zP-bWung/exec",   //done
+    entourage: "https://script.google.com/macros/s/AKfycbyzu9cDfMgZfbFR66FwKzdkz7ZhYLybifE8EsuWO6ymKu2XWQLJm8dMw-JbCONFVW9tvg/exec",  //done
     sponsors: SPONSORS_API,  //done 
     // Principal sponsors shown on /inviteone and /invitetwo (entourage section)
     sponsorsInviteOne: SPONSORS_API, // same sheet as sponsors above
-    sponsorsInviteTwo: "https://script.google.com/macros/s/AKfycby7M6t7JviMyLoKJsB1FvvG1rWkbiH015la4oz0GSjCc-gUYPqSXyyf6EU1V6w6jYmh/exec",
+    sponsorsInviteTwo: "https://script.google.com/macros/s/AKfycbx5jkzDs9ZQfRQlH1ogiyZNxV9R-pzUMu3XhZ8-joppLz5B3asEfT2YkQX-p0Gk6ziHog/exec",
 ////google share 
-    googleShare: "https://docs.google.com/spreadsheets/d/1l0KK55B5AL70ESWv1Omxa-PE7b5dNvTSaYojf5l5CN4/edit?usp=sharing",
+    googleShare: "https://docs.google.com/spreadsheets/d/1WZZu2afoyhetz5599muIPW4lEpKF3DiG3FgpjRgtnnw/edit?usp=sharing",
     videoMessageForm:
       "https://docs.google.com/forms/d/e/1FAIpQLSfeGlEl4CMXWefdvCw6AOPHFS1ROku_rs-Gbofa2LkVJ0sLGQ/viewform", 
   },
@@ -471,16 +486,16 @@ export const siteConfig = {
     enterButtonText: "View the Invitation",
     sealImage: BRAND.seal,
     // Revealed when the envelope opens: one portrait of each, side by side (groom left, bride right)
-    // ("" hides them — plain display has no photos yet)
+    // ("" hides them)
     portraits: {
-      groom: SHOW_PHOTOS ? COUPLE_PORTRAITS.groom : "",
-      bride: SHOW_PHOTOS ? COUPLE_PORTRAITS.bride : "",
+      groom: COUPLE_PORTRAITS.groom,
+      bride: COUPLE_PORTRAITS.bride,
     },
     // Bouquet tucked inside the open envelope, peeking out on both sides ("" to hide)
     envelopeFlowers: "/deco/new-deco/Blush Garden Rose Corner Bouquet.png",
     // Main page cover photo (home hero, plain display) — one natural, candid couple photo
     // "" = no cover photo (the envelope opens with the curtain reveal instead of the photo pull)
-    coverPhoto: SHOW_PHOTOS ? COUPLE_PORTRAITS.cover : "",
+    coverPhoto: COUPLE_PORTRAITS.cover,
     coverPhotoAlt: COUPLE_LABEL,
     // All four corner florals (top two are drawn smaller in CSS; "" hides a corner)
     cornerDecos: { ...CORNER_DECOS },
@@ -553,11 +568,13 @@ export const siteConfig = {
       sectionBottom: DECOR.headerOrnament, // dusty-blue sprig under the closing verse ("" hides it)
     },
     // The story, one chapter at a time (fields: see StoryChapter above). Plain display shows
-    // each chapter as a card without photos. Add, remove or reorder chapters freely — sides alternate on their own.
+    // each chapter as a card with its couple photo beside it ("" image = card only).
+    // Add, remove or reorder chapters freely — photo and card swap sides on their own.
     chapters: [
       {
         date: "To God",
         title: "All Glory Belongs to Him",
+        image: "/mobile-background/couples (2).webp",
         paragraphs: [
           "Above all, we thank our Almighty God, who brought {groom} and {bride} together and has guided every step of our journey. It is by His will and grace that we stand before Him to be joined in marriage.",
           "We pray that He will remain at the center of our home, today and for all the years to come.",
@@ -566,6 +583,7 @@ export const siteConfig = {
       {
         date: "To Our Parents",
         title: "Thank You for Everything",
+        image: "/mobile-background/couples (3).webp",
         paragraphs: [
           "To our dearest parents: thank you for your unconditional love, your countless sacrifices and the faith you planted in our hearts. You showed us what it means to love patiently and to stay together through every season.",
           "Everything we bring into our marriage, we first learned from you. We hope to make you proud.",
@@ -574,6 +592,7 @@ export const siteConfig = {
       {
         date: "To Our Families",
         title: "Two Families, One Home",
+        image: "/mobile-background/couples (4).webp",
         paragraphs: [
           "To the Vallejo and Abejon families — our siblings, grandparents, aunts, uncles and cousins: thank you for the warmth, the laughter and the support you have always given us.",
           "On this day our two families become one, and we are grateful to be welcomed with such open arms.",
@@ -582,6 +601,7 @@ export const siteConfig = {
       {
         date: "To Our Brethren",
         title: "Our Family in Faith",
+        image: "/mobile-background/couples (5).webp",
         paragraphs: [
           "To our brethren in the Church, especially the Local Congregation of Santiago Norte: thank you for your prayers, your guidance and the encouragement you have shown us as we prepared for this day.",
           "We are blessed to begin our married life surrounded by a family in faith.",
@@ -590,6 +610,7 @@ export const siteConfig = {
       {
         date: "To Our Sponsors",
         title: "Our Guides and Mentors",
+        image: "/mobile-background/couples (6).webp",
         paragraphs: [
           "To our beloved sponsors: thank you for agreeing to stand with us as we make our vows. Your wisdom and example mean so much to us.",
           "We are honored to have you guide us as we begin our life as husband and wife.",
@@ -598,6 +619,7 @@ export const siteConfig = {
       {
         date: "To Our Entourage & Friends",
         title: "Walking Beside Us",
+        image: "/mobile-background/couples (7).webp",
         paragraphs: [
           "To our entourage and our dear friends: thank you for saying yes to standing with us, for the encouragement, the advice and for always showing up for us.",
           "Your time, your effort and your joy make this celebration even more beautiful.",
@@ -606,6 +628,7 @@ export const siteConfig = {
       {
         date: "Our Invitation",
         title: "Please Celebrate With Us",
+        image: "/mobile-background/couples (8).webp",
         paragraphs: [
           `With grateful hearts, we warmly invite you to witness our wedding at the ${CEREMONY_VENUE.name}, ${CEREMONY_VENUE.address}, and to celebrate with us afterwards at ${RECEPTION_VENUE.name}.`,
           "Your presence is the greatest gift we could ask for. We look forward to celebrating and giving thanks together with you. With all our love, {groom} & {bride}. ♡",
@@ -622,8 +645,6 @@ export const siteConfig = {
       "From our first chapter to this beautiful season of commitment — every moment has been a testament to love, faith, and grace.",
     footnote:
       "More pictures will be added as we gather the rest of our favorite moments. Please check back — this gallery is still growing.",
-    buttonText: "View Full Gallery",
-    buttonHref: "/gallery",
     // Corner florals (sized per corner like the loader), sprig above the title and
     // sprig under the footnote — "" hides any of them
     decos: {
@@ -644,9 +665,21 @@ export const siteConfig = {
       label: "Gallery", // top bar, beside the couple's names
       emptyText: "No images to display.",
     },
-    // Uses COUPLE_PHOTOS; replace with your own list if the gallery should differ.
+    // Photos shown in the gallery, in order (files live in /public)
     // text → caption used as the photo's description
-    images: COUPLE_PHOTOS.map((image, i) => ({ image, text: `${COUPLE.groomNickname} and ${COUPLE.brideNickname}, photo ${i + 1}` })),
+    images: [
+      "/mobile-background/couples (1).webp",
+      "/mobile-background/couples (2).webp",
+      "/mobile-background/couples (3).webp",
+      "/mobile-background/couples (4).webp",
+      "/mobile-background/couples (5).webp",
+      "/mobile-background/couples (6).webp",
+      "/mobile-background/couples (7).webp",
+      "/mobile-background/couples (8).webp",
+      "/mobile-background/couples (9).webp",
+      "/mobile-background/couples (10).webp",
+      "/mobile-background/couples (11).webp",
+    ].map((image, i) => ({ image, text: `${COUPLE.groomNickname} and ${COUPLE.brideNickname}, photo ${i + 1}` })),
   },
 
   // Event details section (components/sections/details.tsx)
@@ -670,6 +703,7 @@ export const siteConfig = {
     //                the card lists both times (ceremony.time + reception.time).
     // Set in QUICK SETUP → VENUE_CARDS
     venues: VENUE_CARDS,
+    route: VENUE_ROUTE,
     labels: {
       arrival: "Arrival",
       at: "At",
@@ -677,16 +711,13 @@ export const siteConfig = {
       getDirections: "Get Directions",
       copyAddress: "Copy Address",
       copied: "Copied!",
+      mapTitle: "Map", // screen-reader title of each embedded map ("<venue> map")
     },
     // Cards, colors, images and which groups show → QUICK SETUP → ATTIRE
     attire: {
       title: "Attire Guidelines",
-      description: "Our day is dressed in soft butter yellows, pastel blues and warm creams, and we would love for you to wear them with us. Please find your role below.",
-      // Shown above a card's palette
-      paletteTitle: "Dress Code Palette",
-      paletteSubtitle: "", // script line under the palette title — "" hides it
-      colorGuideTitle: "Color Guide",
-      colorGuideNote: "Choose any shade from the palette below. Solid colors and soft, flowy fabrics are all welcome.",
+      description: "Our day is dressed in soft butter yellows, pastel blues and warm creams, and we would love for you to wear them with us. As our ceremony is held in an Iglesia ni Cristo house of worship, we kindly ask that all attire be modest. Please find your role below.",
+      image: ATTIRE.image,
       // Order and visibility come from ATTIRE.show (skips blanks, typos and repeats)
       groups: ATTIRE.show
         .filter((id, i, list) => ["entourage", "family", "sponsors", "guests"].includes(id) && list.indexOf(id) === i)
@@ -697,13 +728,6 @@ export const siteConfig = {
     reminders: {
       title: "Gentle Reminders",
       description: "A few thoughtful notes to help everyone enjoy our celebration.",
-      // Small photos that take turns above the "Gentle Reminders" title (files in /public/box)
-      images: [
-        "/box/box(1).jpg",
-        "/box/box(2).jpg",
-        "/box/box(3).jpg",
-        "/box/box(4).jpg",
-      ],
       // showPalette: shows the dress code palette after the first paragraph
       items: [
         {
@@ -836,15 +860,6 @@ export const siteConfig = {
         location: "{ceremony}",
         image: "/weddingtimeline/PhotoSession.png",
         icon: "rings" as TimelineIconName,
-      },
-      {
-        show: true,
-        time: "4:45 PM", // ⚠ check — not confirmed yet
-        title: "Refreshments",
-        description: "Light snacks and drinks while we make our way to the reception.",
-        location: "{reception}",
-        image: "", // CockTailHour.png shows champagne glasses — kept off for an INC celebration
-        icon: "guests" as TimelineIconName,
       },
       {
         show: true,
@@ -1189,7 +1204,7 @@ export const siteConfig = {
       {
         question: "What should I wear?",
         answer:
-          "Please see the [attire guide](#details) in Event Details.\n\n• Guests: semi-formal, in butter yellow, pastel blue or sky blue. Ladies, a short or long dress; gentlemen, a polo or long-sleeve shirt with pants.\n• Principal sponsors: Ninang in a formal dress or long gown in cream or beige; Ninong in a long-sleeve barong with black pants.\n• Entourage: butter yellow or pastel blue gowns for the bridesmaids and flower girls; sky blue suits for the groomsmen and bearers.\n\nKindly avoid casual wear and all-white outfits.",
+          "Please see the [attire guide](#details) in Event Details.\n\n• Guests: semi-formal, in butter yellow, pastel blue or sky blue. Ladies, a modest dress or skirt below the knee, with sleeves; gentlemen, a collared polo or long-sleeve shirt with slacks.\n• Entourage: butter yellow or pastel blue gowns for the bridesmaids and flower girls; pastel blue or cream suits for the groomsmen and bearers.\n• Principal sponsors: Ninang in a long gown or formal dress in ivory, cream or beige; Ninong in a long-sleeve Barong Tagalog with black slacks.\n\nAs our ceremony is held in an Iglesia ni Cristo house of worship, kindly keep attire modest, and please avoid casual wear and all-white outfits.",
       },
       {
         question: "What if I have dietary restrictions or allergies?",
@@ -1543,6 +1558,7 @@ export const siteConfig = {
     location: CEREMONY_VENUE.name,
     venue: CEREMONY_VENUE.address,
     map: CEREMONY_VENUE.map,
+    mapQuery: CEREMONY_VENUE.mapQuery,
     date: WEDDING_DATE,
     day: WEDDING_DAY,
     time: TIMES.ceremony,
@@ -1554,6 +1570,7 @@ export const siteConfig = {
     location: RECEPTION_VENUE.name,
     venue: RECEPTION_VENUE.address,
     map: RECEPTION_VENUE.map,
+    mapQuery: RECEPTION_VENUE.mapQuery,
     date: WEDDING_DATE,
     day: WEDDING_DAY,
     time: TIMES.reception,
@@ -1648,8 +1665,8 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     showFrame: true,
     embedUrl:
     //https://open.spotify.com/embed/playlist/5sT43YjdM8pJ3xtEkrxyEY?utm_source=generator&si=e5e64aa63fd04356
-      "https://open.spotify.com/embed/playlist/0SdYLUZpEHZGMo1owKcjxI?utm_source=generator&si=6da5134092444970",
-    spotifyUrl: "https://open.spotify.com/playlist/0SdYLUZpEHZGMo1owKcjxI",
+      "https://open.spotify.com/embed/playlist/3CDN0SxoU8D99qtLaCTeUs?utm_source=generator&si=1cf3161938d244e0",
+    spotifyUrl: "https://open.spotify.com/playlist/3CDN0SxoU8D99qtLaCTeUs",
   },
   // Closing "See you there!" section (components/sections/see-you-there.tsx).
   //   photos mode (loadingScreen.display "photos") → full-screen couple photo

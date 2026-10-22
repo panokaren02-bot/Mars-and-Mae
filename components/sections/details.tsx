@@ -9,12 +9,13 @@ import type { AttireColor } from "@/content/site"
 import Image from "next/image"
 import localFont from "next/font/local"
 import { Cinzel } from "next/font/google"
-import { Shirt, Copy, Check, Navigation, Heart, MapPin } from "lucide-react"
+import { Shirt, Copy, Check, Navigation, MapPin, Car } from "lucide-react"
 import { motion, useReducedMotion, type Variants } from "motion/react"
 import { PlainBubbles } from "@/components/loader/PlainBubbles"
 import { TintedDeco } from "@/components/tinted-deco"
 import { DecoCorners } from "@/components/deco-corners"
 import { SectionBackdrop } from "@/components/section-backdrop"
+import { siteConfig as defaultSiteConfig } from "@/content/site"
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -157,55 +158,6 @@ function toPaletteColors(colors: readonly AttireColor[]): PaletteColor[] {
   return colors.map((c) => (typeof c === "string" ? { name: "", hex: c } : c))
 }
 
-function DressCodePaletteHeader({
-  title,
-  subtitle,
-  guideTitle,
-  guideNote,
-}: {
-  title: string
-  subtitle: string
-  guideTitle: string
-  guideNote: string
-}) {
-  return (
-    <div className="px-3 py-4 sm:px-4 sm:py-5 md:px-5 md:py-6">
-    <div className="mx-auto max-w-3xl text-center">
-      <h5
-        className={`${cinzel.className} text-sm font-semibold uppercase tracking-[0.14em] sm:text-base md:text-lg lg:text-xl`}
-        style={{ color: C.heading }}
-      >
-        {title}
-      </h5>
-      {subtitle ? (
-        <p
-          className={`${aboveTheBeyond.className} mt-1 text-lg leading-none sm:mt-1.5 sm:text-xl md:text-2xl`}
-          style={{ color: C.blue }}
-        >
-          {subtitle}
-        </p>
-      ) : null}
-
-      <div className="mx-auto mt-3 flex max-w-xs items-center justify-center gap-2 sm:mt-4 sm:max-w-sm md:max-w-md">
-        <span className="h-px flex-1" style={{ background: "linear-gradient(to right, transparent, var(--color-motif-medium))" }} />
-        <Heart className="h-2.5 w-2.5 shrink-0 sm:h-3 sm:w-3" style={{ color: C.accent, fill: C.accent }} aria-hidden />
-        <span className="h-px flex-1" style={{ background: "linear-gradient(to left, transparent, var(--color-motif-medium))" }} />
-      </div>
-
-      <p
-        className={`${cinzel.className} mt-3 text-[10px] font-bold uppercase tracking-[0.12em] sm:mt-4 sm:text-xs md:text-sm`}
-        style={{ color: C.label }}
-      >
-        {guideTitle}
-      </p>
-      <p className="font-goudy-italic mt-1.5 text-[10px] italic leading-relaxed sm:mt-2 sm:text-xs md:text-sm" style={{ color: C.body }}>
-        {guideNote}
-      </p>
-    </div>
-    </div>
-  )
-}
-
 // Light swatches (cream, blush) get charcoal names; darker ones get white
 function isLightHex(hex: string) {
   const h = hex.replace("#", "")
@@ -215,7 +167,7 @@ function isLightHex(hex: string) {
 }
 
 // Full-width color strip: every color gets an equal share of the card width
-function DressCodePaletteSwatches({ palette }: { palette: readonly PaletteColor[] }) {
+function DressCodePaletteSwatches({ palette, compact = false }: { palette: readonly PaletteColor[]; compact?: boolean }) {
   const named = palette.filter((c) => c.name)
   return (
     <div
@@ -231,7 +183,9 @@ function DressCodePaletteSwatches({ palette }: { palette: readonly PaletteColor[
       {palette.map((color, index) => (
         <div
           key={`${color.hex}-${index}`}
-          className={`relative flex min-h-[88px] min-w-0 flex-1 items-center justify-center sm:min-h-[108px] md:min-h-[128px] lg:min-h-[148px] ${
+          className={`relative flex min-w-0 flex-1 items-center justify-center ${
+            compact ? "min-h-[64px] sm:min-h-[76px] md:min-h-[88px]" : "min-h-[88px] sm:min-h-[108px] md:min-h-[128px] lg:min-h-[148px]"
+          } ${
             index === palette.length - 1 ? "" : "border-r border-white/80"
           }`}
           style={{ backgroundColor: color.hex }}
@@ -270,42 +224,6 @@ function ColorPalette({ colors }: { colors: readonly string[] }) {
       {colors.map((color) => (
         <div key={color} className="min-w-0 flex-1" style={{ backgroundColor: color }} title={color} />
       ))}
-    </div>
-  )
-}
-
-function CoupleImagesCarousel({
-  coupleImages,
-  currentImageIndex,
-  rotationOffset,
-}: {
-  coupleImages: readonly string[]
-  currentImageIndex: number
-  rotationOffset: number
-}) {
-  return (
-    // Phones: photos overlap like a small stack; tablet/desktop: spaced row
-    <div className="mb-4 flex justify-center sm:mb-5 sm:gap-2.5">
-      {coupleImages.map((image, index) => {
-        const isActive = index === currentImageIndex
-        const baseRotation = index % 2 === 0 ? -5 + index : 5 - index
-        const currentRotation = isActive
-          ? baseRotation + Math.sin((rotationOffset * Math.PI) / 180) * 2
-          : baseRotation
-        const scale = isActive ? "scale(1.1)" : "scale(1)"
-
-        return (
-          <div
-            key={image}
-            className={`relative h-16 w-16 overflow-hidden rounded-lg border-[3px] shadow-md transition-all duration-700 ease-in-out ${
-              index > 0 ? "-ml-2 sm:ml-0" : ""
-            } ${isActive ? "z-10" : "opacity-90 sm:opacity-75"}`}
-            style={{ transform: `rotate(${currentRotation}deg) ${scale}`, borderColor: C.light }}
-          >
-            <Image src={encodeURI(image)} alt={`Wedding couple ${index + 1}`} fill className="object-cover" sizes="64px" />
-          </div>
-        )
-      })}
     </div>
   )
 }
@@ -439,6 +357,7 @@ function AttireCard({
         className="relative flex h-full flex-col overflow-hidden rounded-[1.5rem] sm:rounded-[2rem]"
         style={{ background: cardStyle.background, boxShadow: cardStyle.boxShadow }}
       >
+        {title || dressCode ? (
         <div className="flex flex-col items-center gap-1.5 px-4 pt-4 pb-2 sm:pt-6">
           <h4
             className={`${cinzel.className} text-sm sm:text-lg md:text-xl text-center uppercase tracking-[0.2em] font-semibold leading-tight`}
@@ -459,6 +378,7 @@ function AttireCard({
             </span>
           ) : null}
         </div>
+        ) : null}
 
         {image ? (
           <div
@@ -516,6 +436,148 @@ type VenueLabels = {
   getDirections: string
   copyAddress: string
   copied: string
+  mapTitle?: string
+}
+
+// Keyless Google Maps embeds: a pin for one place, or the driving route between two
+const placeEmbedUrl = (query: string) =>
+  `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=15&output=embed`
+const routeEmbedUrl = (from: string, to: string) =>
+  `https://maps.google.com/maps?saddr=${encodeURIComponent(from)}&daddr=${encodeURIComponent(to)}&dirflg=d&output=embed`
+const routeLink = (from: string, to: string) =>
+  `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(from)}&destination=${encodeURIComponent(to)}&travelmode=driving`
+
+// Embedded map in a blush-edged frame; lazy so it only loads near the viewport
+function MapFrame({ src, title, className = "" }: { src: string; title: string; className?: string }) {
+  return (
+    <div
+      className={`relative w-full overflow-hidden rounded-2xl ${className}`}
+      style={{
+        background: "color-mix(in srgb, var(--color-motif-blush) 30%, white)",
+        boxShadow: `0 0 0 1px ${blushEdge}, 0 12px 26px -18px color-mix(in srgb, var(--color-welcome-navy) 45%, transparent)`,
+      }}
+    >
+      <iframe
+        src={src}
+        title={title}
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        allowFullScreen
+        className="absolute inset-0 h-full w-full border-0"
+      />
+    </div>
+  )
+}
+
+type RouteContent = {
+  show: boolean
+  eyebrow: string
+  title: string
+  travelTime: string
+  fromLabel: string
+  toLabel: string
+  buttonText: string
+}
+
+// Church → reception: both stops, the travel time and the driving route on a map
+function VenueRouteCard({
+  route,
+  from,
+  to,
+  onOpenMaps,
+}: {
+  route: RouteContent
+  from: { name: string; query: string }
+  to: { name: string; query: string }
+  onOpenMaps: (link: string) => void
+}) {
+  const reduceMotion = useReducedMotion()
+  const stop = (letter: string, label: string, name: string) => (
+    <div className="flex min-w-0 flex-1 flex-col items-center text-center">
+      <span
+        className={`${cinzel.className} flex h-7 w-7 items-center justify-center rounded-full text-[0.7rem] font-semibold sm:h-8 sm:w-8 sm:text-xs`}
+        style={{ background: primaryButtonBg, color: "#FFFFFF", boxShadow: "0 0 0 3px #FFFFFF" }}
+      >
+        {letter}
+      </span>
+      <p className={`${cinzel.className} ${ct.labelSm} mt-2 font-semibold uppercase tracking-[0.2em]`} style={{ color: C.label }}>
+        {label}
+      </p>
+      <p
+        className={`${theSeasons.className} mt-0.5 text-[0.72rem] leading-snug tracking-[0.05em] uppercase sm:text-sm`}
+        style={{ color: C.heading }}
+      >
+        <SpecialCharFont text={name} />
+      </p>
+    </div>
+  )
+
+  return (
+    <motion.div
+      className="relative group"
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.85, ease: revealEase }}
+    >
+      <div
+        className="relative overflow-hidden rounded-[1.5rem] p-3 sm:rounded-[2rem] sm:p-5 md:p-7 lg:p-9"
+        style={{ background: cardStyle.background, boxShadow: cardStyle.boxShadow }}
+      >
+        <div className="text-center">
+          <p className={`${cinzel.className} ${ct.labelSm} font-semibold uppercase tracking-[0.26em]`} style={{ color: C.label }}>
+            {route.eyebrow}
+          </p>
+          <h3
+            className={`${theSeasons.className} ${ct.sectionTitle} mt-1.5 font-semibold uppercase leading-tight tracking-[0.12em]`}
+            style={{ color: C.heading }}
+          >
+            {route.title}
+          </h3>
+        </div>
+
+        {/* Church ── car + travel time ── Reception */}
+        <div className="mx-auto mt-5 flex max-w-xl items-start gap-2 sm:mt-6 sm:gap-4">
+          {stop("A", route.fromLabel, from.name)}
+          <div className="flex shrink-0 flex-col items-center pt-1.5 sm:pt-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="h-px w-5 border-t border-dashed sm:w-10" style={{ borderColor: "var(--color-motif-medium)" }} />
+              <Car className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: C.blue }} aria-hidden />
+              <span className="h-px w-5 border-t border-dashed sm:w-10" style={{ borderColor: "var(--color-motif-medium)" }} />
+            </div>
+            <span
+              className={`${cinzel.className} mt-2 rounded-full px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.12em] whitespace-nowrap sm:px-3 sm:text-[0.7rem]`}
+              style={{ color: C.blue, ...softPanelStyle, border: `1px solid ${blushEdge}` }}
+            >
+              {route.travelTime}
+            </span>
+          </div>
+          {stop("B", route.toLabel, to.name)}
+        </div>
+
+        <MapFrame
+          src={routeEmbedUrl(from.query, to.query)}
+          title={`Driving route from ${from.name} to ${to.name}`}
+          className="mt-5 aspect-[4/5] sm:mt-6 sm:aspect-[16/10]"
+        />
+
+        <button
+          type="button"
+          onClick={() => onOpenMaps(routeLink(from.query, to.query))}
+          className={`${cinzel.className} mt-4 flex w-full items-center justify-center gap-1.5 rounded-full border px-4 py-2.5 font-semibold uppercase tracking-[0.12em] sm:mt-6 sm:gap-2 sm:py-3 md:py-3.5 ${ct.btn} transition-all duration-300 hover:scale-[1.01] hover:brightness-110 active:scale-[0.98]`}
+          style={{
+            background: primaryButtonBg,
+            borderColor: "rgb(255 255 255 / 70%)",
+            color: "#FFFFFF",
+            boxShadow: "0 12px 24px -10px color-mix(in srgb, var(--color-welcome-navy) 60%, transparent)",
+          }}
+        >
+          <Navigation className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" />
+          <span>{route.buttonText}</span>
+        </button>
+      </div>
+    </motion.div>
+  )
 }
 
 type EventVenueCardProps = {
@@ -532,6 +594,8 @@ type EventVenueCardProps = {
   schedule?: { label: string; time: string }[]
   venueSectionLabel: string
   mapsLink: string
+  // Place shown on the embedded map ("" hides the map)
+  mapQuery?: string
   copyId: string
   fullVenue: string
   copiedItems: Set<string>
@@ -554,6 +618,7 @@ function EventVenueCard({
   schedule,
   venueSectionLabel,
   mapsLink,
+  mapQuery,
   copyId,
   fullVenue,
   copiedItems,
@@ -719,6 +784,14 @@ function EventVenueCard({
             </div>
           </div>
 
+          {mapQuery ? (
+            <MapFrame
+              src={placeEmbedUrl(mapQuery)}
+              title={`${locationName} ${labels.mapTitle ?? "Map"}`}
+              className="mb-4 aspect-[4/3] sm:mb-6 sm:aspect-[16/9]"
+            />
+          ) : null}
+
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4">
             <button
               type="button"
@@ -764,21 +837,18 @@ export function Details() {
   const siteConfig = useSiteConfig()
   const content = siteConfig.eventDetails
   const { decos, venues, labels, attire, reminders } = content
+  const route = content.route ?? defaultSiteConfig.eventDetails.route
   const { ceremony, reception } = siteConfig
 
   const [copiedItems, setCopiedItems] = useState<Set<string>>(new Set())
   const [ceremonyImageIndex, setCeremonyImageIndex] = useState(0)
   const [receptionImageIndex, setReceptionImageIndex] = useState(0)
-  const [reminderImageIndex, setReminderImageIndex] = useState(0)
-  const [rotationOffset, setRotationOffset] = useState(0)
   const reduceMotion = useReducedMotion()
 
   // "combined" = one card for both events at the ceremony venue (eventDetails.venues.layout)
   const isCombined = venues.layout === "combined"
   const ceremonyImages = ceremony.image
   const receptionImages = isCombined ? [] : reception.image
-  // Photos above the reminders (shown in every display mode)
-  const reminderImages = reminders.images
   const paletteHexes = toPaletteColors(attire.palette).map((c) => c.hex)
   // Guard against null entries (e.g. a stray comma in ATTIRE.show)
   const attireGroups = attire.groups.filter(Boolean)
@@ -794,16 +864,6 @@ export function Details() {
     const timer = setInterval(() => setReceptionImageIndex((prev) => (prev + 1) % receptionImages.length), 4500)
     return () => clearInterval(timer)
   }, [receptionImages.length])
-
-  // Gentle reminders couple photos — subtle carousel + wobble animation
-  useEffect(() => {
-    if (reminderImages.length === 0) return
-    const interval = setInterval(() => {
-      setReminderImageIndex((prev) => (prev + 1) % reminderImages.length)
-      setRotationOffset((prev) => (prev + 10) % 360)
-    }, 2600)
-    return () => clearInterval(interval)
-  }, [reminderImages.length])
 
   const copyToClipboard = async (text: string, itemId: string) => {
     try {
@@ -831,6 +891,9 @@ export function Details() {
   const ceremonyVenue = `${ceremony.location}, ${ceremony.venue}`
   const receptionVenue = `${reception.location}, ${reception.venue}`
   const receptionMapsLink = reception.map || `https://maps.google.com/?q=${encodeURIComponent(receptionVenue)}`
+  const ceremonyMapQuery = ceremony.mapQuery || ceremonyVenue
+  const receptionMapQuery = reception.mapQuery || receptionVenue
+  const showRoute = !isCombined && route.show && venues.ceremony.show && venues.reception.show
 
   return (
     <div
@@ -915,6 +978,7 @@ export function Details() {
               ]}
               venueSectionLabel={venues.combined.sectionLabel}
               mapsLink={ceremony.map}
+              mapQuery={ceremonyMapQuery}
               copyId="combined"
               fullVenue={ceremonyVenue}
               copiedItems={copiedItems}
@@ -938,6 +1002,7 @@ export function Details() {
               arrivalTime={venues.ceremony.showArrival ? ceremony.guestsTime : undefined}
               venueSectionLabel={venues.ceremony.sectionLabel}
               mapsLink={ceremony.map}
+              mapQuery={ceremonyMapQuery}
               copyId="ceremony"
               fullVenue={ceremonyVenue}
               copiedItems={copiedItems}
@@ -945,6 +1010,15 @@ export function Details() {
               onOpenMaps={openInMaps}
               showDateDetails={venues.ceremony.showDate}
               labels={labels}
+            />
+          )}
+
+          {showRoute && (
+            <VenueRouteCard
+              route={route}
+              from={{ name: ceremony.location, query: ceremonyMapQuery }}
+              to={{ name: reception.location, query: receptionMapQuery }}
+              onOpenMaps={openInMaps}
             />
           )}
 
@@ -961,6 +1035,7 @@ export function Details() {
               arrivalTime={venues.reception.showArrival ? ceremony.guestsTime : undefined}
               venueSectionLabel={venues.reception.sectionLabel}
               mapsLink={receptionMapsLink}
+              mapQuery={receptionMapQuery}
               copyId="reception"
               fullVenue={receptionVenue}
               copiedItems={copiedItems}
@@ -990,51 +1065,75 @@ export function Details() {
           )}
 
 
-          <div className="mx-auto mb-6 w-full max-w-3xl space-y-5 sm:mb-8 sm:space-y-6 md:mb-10">
-            {attireGroups.map((group) => {
-              const palette = toPaletteColors(group.palette)
-              const hasPalette = palette.length > 0
-              const halves = [group.ladies, group.gentlemen].filter(
-                (half) => half.details.trim() || half.roles.length > 0,
-              )
-              return (
-                <AttireCard
-                  key={group.id}
-                  title={group.title}
-                  image={group.image}
-                  alt={`${group.title} attire guide`}
-                  dressCode={group.dressCode}
-                >
-                  <div className="space-y-4 sm:space-y-5">
-                    {halves.map((half) => (
-                      <AttirePaletteGroup
-                        key={half.label}
-                        label={half.label}
-                        description={half.details.trim() ? highlightPhrase(half.details, half.highlight) : undefined}
-                        roles={half.roles}
-                      />
-                    ))}
-                    {/* Palette at the bottom of the card (only cards that have colors) */}
-                    {hasPalette ? (
-                      <div>
-                        <DressCodePaletteHeader
-                          title={attire.paletteTitle}
-                          subtitle={attire.paletteSubtitle}
-                          guideTitle={attire.colorGuideTitle}
-                          guideNote={group.note?.trim() || attire.colorGuideNote}
-                        />
-                        <DressCodePaletteSwatches palette={palette} />
-                      </div>
-                    ) : group.note?.trim() ? (
-                      <p className="font-goudy-italic text-center text-[0.78rem] leading-snug sm:text-sm" style={{ color: C.body }}>
-                        {group.note}
-                      </p>
-                    ) : null}
-                  </div>
-                </AttireCard>
-              )
-            })}
-          </div>
+          {/* One card for everyone: shared image, then each group with its palette below */}
+          {attireGroups.length > 0 && (
+            <div className="mx-auto mb-6 w-full max-w-3xl sm:mb-8 md:mb-10">
+              <AttireCard title="" image={attire.image} alt="Entourage in butter yellow, pastel blue and cream — attire guide">
+                <div className="space-y-6 sm:space-y-8">
+                  {attireGroups.map((group, index) => {
+                    const palette = toPaletteColors(group.palette)
+                    const halves = [group.ladies, group.gentlemen].filter(
+                      (half) => half.details.trim() || half.roles.length > 0,
+                    )
+                    return (
+                      <section key={group.id} aria-label={`${group.title} attire`} className="space-y-3 sm:space-y-4">
+                        {index > 0 ? (
+                          <span
+                            className="mx-auto mb-5 block h-px w-2/3 sm:mb-7"
+                            style={{ background: "linear-gradient(to right, transparent, var(--color-motif-medium), transparent)" }}
+                            aria-hidden
+                          />
+                        ) : null}
+                        <div className="flex flex-col items-center gap-1.5">
+                          <h4
+                            className={`${cinzel.className} ${ct.attireCardTitle} text-center font-semibold uppercase leading-tight tracking-[0.2em]`}
+                            style={{ color: C.heading }}
+                          >
+                            {group.title}
+                          </h4>
+                          {group.dressCode ? (
+                            <span
+                              className={`${cinzel.className} rounded-full px-2.5 py-0.5 text-[0.55rem] font-semibold uppercase tracking-[0.18em] sm:text-[0.62rem]`}
+                              style={{
+                                color: C.blue,
+                                background: "color-mix(in srgb, var(--color-motif-blush) 35%, white)",
+                                border: `1px solid ${blushEdge}`,
+                              }}
+                            >
+                              {group.dressCode}
+                            </span>
+                          ) : null}
+                        </div>
+                        {halves.map((half) => (
+                          <AttirePaletteGroup
+                            key={half.label}
+                            label={half.label}
+                            description={half.details.trim() ? highlightPhrase(half.details, half.highlight) : undefined}
+                            roles={half.roles}
+                          />
+                        ))}
+                        {/* Palette below the descriptions */}
+                        {palette.length > 0 ? (
+                          <div className="space-y-2 pt-1">
+                            {group.note?.trim() ? (
+                              <p className="font-goudy-italic text-center text-[0.72rem] leading-snug sm:text-[0.8rem]" style={{ color: C.soft }}>
+                                {group.note}
+                              </p>
+                            ) : null}
+                            <DressCodePaletteSwatches palette={palette} compact />
+                          </div>
+                        ) : group.note?.trim() ? (
+                          <p className="font-goudy-italic text-center text-[0.78rem] leading-snug sm:text-sm" style={{ color: C.body }}>
+                            {group.note}
+                          </p>
+                        ) : null}
+                      </section>
+                    )
+                  })}
+                </div>
+              </AttireCard>
+            </div>
+          )}
 
           {/* Gentle Reminders */}
           <motion.div
@@ -1056,18 +1155,6 @@ export function Details() {
                 viewport={{ once: true, amount: 0.15 }}
               >
                 <motion.div variants={reminderItemVariants} className="flex flex-col items-center">
-                  {reminderImages.length > 0 ? (
-                    <CoupleImagesCarousel
-                      coupleImages={reminderImages}
-                      currentImageIndex={reminderImageIndex}
-                      rotationOffset={rotationOffset}
-                    />
-                  ) : (
-                    <DecoImg
-                      src={decos.headerOrnament}
-                      className="mx-auto mb-3 block h-auto w-20 select-none sm:w-24"
-                    />
-                  )}
                   <h3
                     className={`${theSeasons.className} ${ct.sectionTitle} font-semibold uppercase tracking-[0.18em]`}
                     style={{ color: C.heading }}

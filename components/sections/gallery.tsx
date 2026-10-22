@@ -3,7 +3,6 @@
 import { useState, useEffect, useLayoutEffect, useCallback, useRef } from "react"
 import { createPortal } from "react-dom"
 import Image from "next/image"
-import Link from "next/link"
 import localFont from "next/font/local"
 import { X, ChevronLeft, ChevronRight, Camera } from "lucide-react"
 import { Cinzel } from "next/font/google"
@@ -522,23 +521,8 @@ export function Gallery() {
               ))}
             </div>
 
-            <div className="mt-10 flex justify-center sm:mt-12 md:mt-14">
-              <Link
-                href={gallery.buttonHref}
-                className={`${cinzel.className} inline-flex items-center justify-center rounded-full border px-8 py-3 text-[0.625rem] font-semibold uppercase tracking-[0.18em] transition-all duration-300 hover:scale-[1.03] hover:brightness-110 active:scale-[0.98] sm:text-[0.6875rem] sm:tracking-[0.22em]`}
-                style={{
-                  background: C.blue,
-                  borderColor: "rgb(255 255 255 / 70%)",
-                  color: "#FFFFFF",
-                  boxShadow: "0 0 0 4px rgb(255 255 255 / 35%), 0 10px 22px -10px color-mix(in srgb, var(--color-welcome-navy) 55%, transparent)",
-                }}
-              >
-                {gallery.buttonText}
-              </Link>
-            </div>
-
             <p
-              className={`font-goudy-italic mx-auto mt-6 max-w-lg px-2 text-center leading-relaxed sm:mt-8 ${sectionType.textRelaxed}`}
+              className={`font-goudy-italic mx-auto mt-10 max-w-lg px-2 text-center leading-relaxed sm:mt-12 md:mt-14 ${sectionType.textRelaxed}`}
               style={{ color: C.soft, textShadow: onBgGlow }}
             >
               {gallery.footnote}

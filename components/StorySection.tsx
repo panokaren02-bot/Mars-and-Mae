@@ -1,8 +1,8 @@
 "use client"
 
-import React, { useRef } from "react"
+import React, { useRef, useState } from "react"
 import localFont from "next/font/local"
-import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react"
+import { motion, useInView, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react"
 import { sectionType, storyChapterTitleSize } from "@/lib/section-typography"
 import Image from "next/image"
 import { TornPaperEdge } from "./TornPaperEdge"
@@ -91,8 +91,10 @@ function PlainChapterDivider({ dark }: { dark: boolean }) {
 }
 
 /**
- * Plain mode: one card per chapter (no photo). Cards zig-zag left / right on
- * tablet and up (centered on phones), alternate butter-yellow and pastel-blue
+ * Plain mode: one card per chapter, with an optional couple photo. Without a photo,
+ * cards zig-zag left / right on tablet and up (centered on phones). With one, the
+ * photo and card sit side by side and swap sides each chapter (side by side
+ * on phones too — compact card text there). Cards alternate butter-yellow and pastel-blue
  * tones, and slide in from the left on scroll with their lines staggered.
  * Two florals bloom on opposite corners of each card (pairs alternate) and
  * sway gently. A large faint chapter number drifts behind each card
@@ -109,6 +111,9 @@ function PlainStoryCard({
   showNumber,
   showDivider,
   corners,
+  imageSrc,
+  imageAlt,
+  imagePosition,
 }: {
   date?: string
   title?: string
@@ -120,6 +125,9 @@ function PlainStoryCard({
   showNumber: boolean
   showDivider: boolean
   corners?: StoryCardCorners
+  imageSrc?: string
+  imageAlt?: string
+  imagePosition?: string
 }) {
   const reduceMotion = useReducedMotion()
   const rowRef = useRef<HTMLDivElement>(null)
@@ -162,15 +170,76 @@ function PlainStoryCard({
     hidden: { opacity: 0, scale: 0.55, rotate: -12 },
     show: { opacity: 1, scale: 1, rotate: 0, transition: { duration: 1.1, delay: 0.55, ease: revealEase } },
   }
+  // Photo slides in from its own side and settles with a slight tilt; hover / tap slides it
+  // outward (away from the card), straightens it and brings it to the front so it shows in full
+  const photoRef = useRef<HTMLElement>(null)
+  const photoInView = useInView(photoRef, { once: true, margin: "-12%" })
+  const [photoOpen, setPhotoOpen] = useState(false)
+  const photoTilt = alignLeft ? -3 : 3
+  const photoVariants: Variants = {
+    hidden: { opacity: 0, x: alignLeft ? -56 : 56, rotate: 0, scale: 0.94, zIndex: 0 },
+    show: { opacity: 1, x: 0, rotate: photoTilt, scale: 1, zIndex: 0, transition: { duration: 1, ease: revealEase } },
+    open: {
+      opacity: 1,
+      x: alignLeft ? "-8%" : "8%",
+      rotate: 0,
+      scale: 1.04,
+      zIndex: 3,
+      transition: { duration: 0.45, ease: revealEase },
+    },
+  }
+  const photoState = reduceMotion
+    ? photoOpen ? "open" : "show"
+    : photoOpen ? "open" : photoInView ? "show" : "hidden"
 
   return (
     <div ref={rowRef} className={`${theSeasons.variable} story-card-row relative z-[2] px-5 sm:px-8 md:px-10`}>
       <RisingHearts />
       <div
         className={`relative mx-auto flex max-w-5xl justify-center py-8 sm:py-10 md:py-12 ${
-          alignLeft ? "md:justify-start" : "md:justify-end"
+          imageSrc
+            ? `story-card-pair items-center ${alignLeft ? "flex-row" : "flex-row-reverse"}`
+            : alignLeft
+              ? "md:justify-start"
+              : "md:justify-end"
         }`}
       >
+        {/* Couple photo (loveStory.chapters[].image) — opposite the card, tucked slightly behind it; sides swap each chapter */}
+        {imageSrc && (
+          <motion.figure
+            ref={photoRef}
+            className={`story-card-photo ${alignLeft ? "story-card-photo--left" : "story-card-photo--right"}`}
+            variants={photoVariants}
+            initial={reduceMotion ? "show" : "hidden"}
+            animate={photoState}
+            whileHover={photoInView || reduceMotion ? "open" : undefined}
+            onClick={() => setPhotoOpen((open) => !open)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault()
+                setPhotoOpen((open) => !open)
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-pressed={photoOpen}
+            aria-label={imageAlt ? `Show full photo: ${imageAlt}` : "Show full photo"}
+          >
+            <div className="story-card-photo__frame">
+              <Image
+                src={encodeURI(imageSrc)}
+                alt={imageAlt ?? ""}
+                fill
+                sizes="(max-width: 767px) 46vw, 380px"
+                className="object-cover"
+                style={{ objectPosition: imagePosition ?? "center 30%" }}
+                quality={85}
+                priority={chapterIndex < 1}
+              />
+            </div>
+          </motion.figure>
+        )}
+
         {/* Faint chapter number behind the card (loveStory.showChapterNumbers) */}
         {showNumber && (
           <motion.span
@@ -247,6 +316,7 @@ function PlainStoryCard({
 export const StorySection: React.FC<StorySectionProps> = ({
   imageSrc,
   imageAlt,
+  imagePosition,
   date,
   title,
   text,
@@ -274,9 +344,12 @@ export const StorySection: React.FC<StorySectionProps> = ({
         isLast={isLast}
         chapterIndex={chapterIndex}
         fallbackLabel={`${chapterLabelText} ${String(chapterIndex + 1).padStart(2, "0")}`}
-        showNumber={showNumber}
+        showNumber={showNumber && !imageSrc}
         showDivider={showDivider}
         corners={cardCorners}
+        imageSrc={imageSrc}
+        imageAlt={imageAlt}
+        imagePosition={imagePosition}
       />
     )
   }

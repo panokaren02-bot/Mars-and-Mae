@@ -4602,3 +4602,90 @@
 @media (prefers-reduced-motion: reduce) {
   .story-card__corner-img { animation: none; }
 }
+
+/* Couple photo beside each card — tall white print with a soft shadow, tucked
+   slightly behind the card (overlap). Side by side at every width; sides alternate */
+.story-card-photo {
+  position: relative;
+  z-index: 0;
+  flex: 0 0 auto;
+  margin: 0;
+  width: 46%;
+  padding: clamp(0.3rem, 1.4vw, 0.7rem);
+  background: #fff;
+  border-radius: 4px;
+  box-shadow:
+    0 22px 40px -24px color-mix(in srgb, var(--color-welcome-navy) 55%, transparent),
+    0 4px 12px -6px color-mix(in srgb, var(--color-welcome-navy) 22%, transparent);
+}
+
+.story-card-photo__frame {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.story-card-pair .story-card {
+  z-index: 2;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Overlap: the card covers under 10% of the photo's inner edge (photo stays 90%+ visible) */
+.story-card-photo--left { margin-right: -4%; }
+.story-card-photo--right { margin-left: -4%; }
+
+.story-card-photo {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.story-card-photo:focus-visible {
+  outline: 2px solid var(--color-welcome-gold);
+  outline-offset: 3px;
+}
+
+/* Phones: half-width card — tighter padding, smaller type and florals */
+@media (max-width: 767px) {
+  .story-card-pair .story-card {
+    padding: 1.6rem 0.75rem 1.1rem;
+    border-radius: 0.9rem;
+  }
+  .story-card-pair .story-card__frame { inset: 0.3rem; }
+  .story-card-pair .story-card__corner { width: 3.4rem; }
+  .story-card-pair .story-card__corner--bl,
+  .story-card-pair .story-card__corner--br { width: 4rem; }
+  .story-card-pair .story-card__corner--tl,
+  .story-card-pair .story-card__corner--tr { top: -0.8rem; }
+  .story-card-pair .story-card__corner--tl,
+  .story-card-pair .story-card__corner--bl { left: -0.6rem; }
+  .story-card-pair .story-card__corner--tr,
+  .story-card-pair .story-card__corner--br { right: -0.6rem; }
+  .story-card-pair .story-card__corner--bl,
+  .story-card-pair .story-card__corner--br { bottom: -0.6rem; }
+  .story-card-pair .story-card__badge { width: 1.5rem; height: 1.5rem; }
+  .story-card-pair .story-open-date {
+    padding-inline: 0.4rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.14em;
+  }
+  .story-card-pair .story-open-title {
+    font-size: clamp(0.95rem, 4.6vw, 1.2rem);
+    letter-spacing: 0.04em;
+  }
+  .story-card-pair .story-open-text {
+    font-size: clamp(0.72rem, 3.3vw, 0.85rem);
+    line-height: 1.5;
+  }
+  .story-card-pair .story-open-text > * + * { margin-top: 0.5rem; }
+}
+
+@media (min-width: 768px) {
+  .story-card-photo {
+    width: clamp(16rem, 32vw, 23rem);
+  }
+  .story-card-photo--left { margin-right: -1.5rem; }
+  .story-card-photo--right { margin-left: -1.5rem; }
+}
