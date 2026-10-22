@@ -129,16 +129,15 @@ export function Welcome() {
                   className={`font-goudy-italic ${sectionType.textSnug}`}
                   style={{ color: "var(--color-welcome-navy)" }}
                 >
-                  &ldquo;He hath made every thing beautiful in his time: also he hath set the world in
-                  their heart, so that no man can find out the work that God maketh from the beginning to
-                  the end.&rdquo;
+                  &ldquo;Every love story is beautiful, but ours is our favorite — and we would love for you
+                  to be part of its next chapter.&rdquo;
                 </p>
                 <figcaption className="mt-2 sm:mt-2.5">
                   <cite
                     className={`${cinzel.className} ${sectionType.label} not-italic uppercase tracking-[0.2em] sm:tracking-[0.24em]`}
                     style={{ color: "var(--color-welcome-navy)" }}
                   >
-                    Ecclesiastes 3:11
+                    {groomName} &amp; {brideName}
                   </cite>
                 </figcaption>
               </blockquote>

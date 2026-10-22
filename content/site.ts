@@ -209,8 +209,6 @@ const HASHTAGS = ["#MarsAndMae2026"] // ⚠ check — placeholder, confirm with 
 const DRESS_CODE_PALETTE: AttireColor[] = [
   { name: "Butter Yellow", hex: "#FFF4C2" },
   { name: "Pastel Blue", hex: "#D9EAF7" },
-  { name: "Sky Blue", hex: "#B7D1E8" },
-  { name: "Soft Gold", hex: "#D6B779" },
 ];
 
 // Attire groups shown in the Details section (components/sections/details.tsx).
@@ -220,7 +218,7 @@ const DRESS_CODE_PALETTE: AttireColor[] = [
 //   Each side (ladies / gentlemen) has a label, an optional intro (details, with an
 //   optional highlighted phrase) and an optional list of roles with what they wear.
 const ATTIRE = {
-  show: ["guests", "entourage", "sponsors"] as AttireGroupId[],
+  show: ["guests", "sponsors"] as AttireGroupId[],
   // Shared illustration at the top of the attire card ("" = no image; any size/shape works)
   image: "/Details/Pastel Wedding Party Portrait.png",
 
@@ -284,13 +282,11 @@ const ATTIRE = {
     palette: [
       { name: "Ivory Cream", hex: "#F4EBDD" },
       { name: "Cream", hex: "#EADBC6" },
-      { name: "Beige", hex: "#D9C4A8" },
-      { name: "Black", hex: "#2B2627" },
     ] as AttireColor[],
-    note: "Soft cream and beige — a warm, timeless frame around our butter yellow and pastel blue celebration.",
+    note: "Soft ivory and cream — a warm, timeless frame around our butter yellow and pastel blue celebration.",
     ladies: {
       label: "Ninang",
-      details: "An elegant long gown or formal dress with sleeves, in ivory, cream or beige.",
+      details: "An elegant long gown or formal dress with sleeves, in ivory or cream.",
       highlight: "long gown or formal dress",
       roles: [] as { role: string; attire: string }[],
     },
@@ -309,7 +305,7 @@ const ATTIRE = {
     note: "Any shade from the palette below — mix and match, and come comfortable and lovely.",
     ladies: {
       label: "Ladies",
-      details: "A modest dress or skirt that falls below the knee, with sleeves, in butter yellow, pastel blue or sky blue.",
+      details: "A modest dress or skirt that falls below the knee, with sleeves, in butter yellow or pastel blue.",
       highlight: "modest dress or skirt",
       roles: [] as { role: string; attire: string }[],
     },
@@ -577,12 +573,12 @@ export const siteConfig = {
     cardCorners: { ...CORNER_DECOS },
     // Small heart divider between chapters
     showChapterDividers: true,
-    // Closing block: big word, hashtag, then the verse (also shown in Snap & Share)
+    // Closing block: big word, hashtag, then the quote (also shown in Snap & Share)
     closingEyebrow: "", // large word on top (was "Puhon") — "" hides it
     closingHashtag: "", // hashtag under it (was HASHTAGS[0]) — "" hides it
     closingQuoteLead: "", // bold first line ("" for none)
-    closingQuote: "“Wherefore they are no more twain, but one flesh. What therefore God hath joined together, let not man put asunder.”",
-    closingCitation: "Matthew 19:6",
+    closingQuote: "“Whatever our souls are made of, his and mine are the same.”",
+    closingCitation: "Emily Brontë",
     // Four corner florals framing the section, sized per corner like the loader ("" hides a corner)
     decos: { ...CORNER_DECOS },
     // Thin double border around the section, under the corner florals (false hides it)
@@ -591,7 +587,7 @@ export const siteConfig = {
       topLeft: DECOR.sideLeft,
       bottomRight: DECOR.sideRight,
       timelineTop: DECOR.headerOrnament,
-      sectionBottom: DECOR.headerOrnament, // dusty-blue sprig under the closing verse ("" hides it)
+      sectionBottom: DECOR.headerOrnament, // dusty-blue sprig under the closing quote ("" hides it)
     },
     // The story, one chapter at a time (fields: see StoryChapter above). Plain display shows
     // each chapter as a card with its couple photo beside it ("" image = card only).
@@ -716,9 +712,9 @@ export const siteConfig = {
     title: "Event Details",
     subtitle: "our special day",
     description: "Everything you need to know about our special day.",
-    // Verse under the description — "" hides it
-    verse: "And now abideth faith, hope, charity, these three; but the greatest of these is charity.",
-    verseCitation: "1 Corinthians 13:13",
+    // Line under the description — "" hides it
+    verse: "Two hearts, one promise, and a day we can't wait to share with the people we love most.",
+    verseCitation: "",
     decos: { ...SECTION_DECOS },
     // Thin double border around the section (false hides it)
     showFrame: true,
@@ -756,22 +752,6 @@ export const siteConfig = {
       description: "A few thoughtful notes to help everyone enjoy our celebration.",
       // showPalette: shows the dress code palette after the first paragraph
       items: [
-        {
-          title: "Adults-Only Celebration",
-          variant: "accent" as "accent" | "soft",
-          showPalette: false,
-          paragraphs: [
-            "We love your kids, but consider this your night off! Please note that our celebration is adults-only.",
-          ],
-        },
-        {
-          title: "No Surprise Announcements",
-          variant: "soft" as "accent" | "soft",
-          showPalette: false,
-          paragraphs: [
-            "To keep the focus on the celebration, we kindly ask that there be no surprise announcements or proposals during our wedding.",
-          ],
-        },
         {
           title: "Keep Our Invitation Private",
           variant: "soft" as "accent" | "soft",
@@ -831,7 +811,7 @@ export const siteConfig = {
     subtitle: "our wedding day",
     description:
       "From the first arrival to the last farewell, here is how we will spend this day together.",
-    // "" hides the verse — Ecclesiastes 3:11 is in Welcome, Matthew 19:6 closes the Love Story
+    // "" hides the quote
     quote: "",
     quoteCitation: "",
     // Optional corner decorations — leave "" to hide
@@ -1230,7 +1210,7 @@ export const siteConfig = {
       {
         question: "What should I wear?",
         answer:
-          "Please see the [attire guide](#details) in Event Details.\n\n• Guests: semi-formal, in butter yellow, pastel blue or sky blue. Ladies, a modest dress or skirt below the knee, with sleeves; gentlemen, a collared polo or long-sleeve shirt with slacks.\n• Entourage: butter yellow or pastel blue gowns for the bridesmaids and flower girls; pastel blue or cream suits for the groomsmen and bearers.\n• Principal sponsors: Ninang in a long gown or formal dress in ivory, cream or beige; Ninong in a long-sleeve Barong Tagalog with black slacks.\n\nAs our ceremony is held in an Iglesia ni Cristo house of worship, kindly keep attire modest, and please avoid casual wear and all-white outfits.",
+          "Please see the [attire guide](#details) in Event Details.\n\n• Guests: semi-formal, in butter yellow or pastel blue. Ladies, a modest dress or skirt below the knee, with sleeves; gentlemen, a collared polo or long-sleeve shirt with slacks.\n• Entourage: butter yellow or pastel blue gowns for the bridesmaids and flower girls; pastel blue or cream suits for the groomsmen and bearers.\n• Principal sponsors: Ninang in a long gown or formal dress in ivory or cream; Ninong in a long-sleeve Barong Tagalog with black slacks.\n\nAs our ceremony is held in an Iglesia ni Cristo house of worship, kindly keep attire modest, and please avoid casual wear and all-white outfits.",
       },
       {
         question: "What if I have dietary restrictions or allergies?",
@@ -1608,22 +1588,6 @@ export const siteConfig = {
     // Event Details → Gentle Reminders shown on /invitetwo instead of eventDetails.reminders.items
     reminders: [
       {
-        title: "Adults-Only Celebration",
-        variant: "accent" as "accent" | "soft",
-        showPalette: false,
-        paragraphs: [
-          "We love your kids, but consider this your day off! Please note that our celebration is adults-only.",
-        ],
-      },
-      {
-        title: "No Surprise Announcements",
-        variant: "soft" as "accent" | "soft",
-        showPalette: false,
-        paragraphs: [
-          "To keep the focus on the celebration, we kindly ask that there be no surprise announcements or proposals during our celebration.",
-        ],
-      },
-      {
         title: "Keep Our Invitation Private",
         variant: "soft" as "accent" | "soft",
         showPalette: false,
@@ -1702,7 +1666,7 @@ export const siteConfig = {
       {
         question: "What should I wear?",
         answer:
-          "Please see the [attire guide](#details) in Event Details.\n\n• Guests: semi-formal, in butter yellow, pastel blue or sky blue. Ladies, a modest dress or skirt below the knee, with sleeves; gentlemen, a collared polo or long-sleeve shirt with slacks.\n\nKindly keep attire modest, and please avoid casual wear and all-white outfits.",
+          "Please see the [attire guide](#details) in Event Details.\n\n• Guests: semi-formal, in butter yellow or pastel blue. Ladies, a modest dress or skirt below the knee, with sleeves; gentlemen, a collared polo or long-sleeve shirt with slacks.\n\nKindly keep attire modest, and please avoid casual wear and all-white outfits.",
       },
       {
         question: "What if I have dietary restrictions or allergies?",
@@ -1892,7 +1856,7 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     noteTitle: "A Note From Us",
     // Typed out one after another
     quotes: [
-      '"I have found the one whom my soul loves." – Song of Solomon 3:4',
+      "Two paths became one, and now we're ready to walk it together — with all of you beside us.",
       "Welcome to our wedding website! We've found a love that's a true blessing, and we give thanks to God for writing the beautiful story of our journey together.",
       "Thank you for your love, prayers, and support. We can't wait to celebrate this joyful day together!",
     ],
