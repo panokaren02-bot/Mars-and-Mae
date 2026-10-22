@@ -87,7 +87,7 @@ const TIMES = {
 
 const CEREMONY_VENUE = {
   name: "Iglesia ni Cristo",
-  address: "Local Congregation of Santiago Norte, Ecclesiastical District of La Union",
+  address: "Ecclesiastical District Of La Union",
   // ⚠ check — Google Maps search link; swap for the exact pin when available
   map: "https://www.google.com/maps/search/?api=1&query=Iglesia+ni+Cristo+Santiago+Norte+San+Fernando+La+Union",
   // Place searched for the embedded map + church → reception route ⚠ check the pin lands on the chapel
@@ -107,7 +107,7 @@ const RECEPTION_VENUE = {
 // embedded driving route from CEREMONY_VENUE.mapQuery to RECEPTION_VENUE.mapQuery
 const VENUE_ROUTE = {
   show: true,
-  eyebrow: "", // small line above the title ("" hides it)
+  eyebrow: "On to the Reception",
   title: "From the Church to the Reception",
   travelTime: "13 minutes by car",
   fromLabel: "Church",
@@ -121,16 +121,16 @@ const VENUE_ROUTE = {
 //   "combined" = ONE card for both — use when ceremony and reception share a venue.
 //                Name, address, map and photos come from CEREMONY_VENUE.
 // badge        = small pill on the photo (e.g. "Ceremony & Reception")
-// showDate     = show the big Month / Day / Year (above the photo)
-// showTime     = show the time line under the date
-// showArrival  = time line reads "Arrival: <guest arrival time>" (otherwise "At <time>")
+// sectionLabel = label above the venue name (e.g. "Venue")
+// showDate     = show the big Month / Day / Year
+// showArrival  = show "Arrival: <guest arrival time>" (otherwise "At <time>")
 const VENUE_CARDS = {
   layout: "separate" as "separate" | "combined",
   // Used when layout is "combined"
   combined: {
     badge: "Ceremony & Reception",
+    sectionLabel: "Venue",
     showDate: true,
-    showTime: true,
     showArrival: false,
     // Time rows on the card, e.g. "Ceremony 4:30 PM | Reception 7:00 PM"
     ceremonyLabel: "Ceremony",
@@ -142,15 +142,15 @@ const VENUE_CARDS = {
   ceremony: {
     show: true,
     badge: "Ceremony",
+    sectionLabel: "Ceremony Venue",
     showDate: true,
-    showTime: true,
     showArrival: true,
   },
   reception: {
     show: true,
     badge: "Reception",
+    sectionLabel: "Reception Venue",
     showDate: false,
-    showTime: false,
     showArrival: false,
   },
 }
@@ -649,11 +649,14 @@ export const siteConfig = {
       },
       {
         date: "Our Invitation",
-        title: "Please Celebrate With Us",
+        title: "A Day of Love, A Lifetime of Memories",
         image: "/mobile-background/couples (8).webp",
         paragraphs: [
-          `With grateful hearts, we warmly invite you to witness our wedding at the ${CEREMONY_VENUE.name}, ${CEREMONY_VENUE.address}, and to celebrate with us afterwards at ${RECEPTION_VENUE.name}.`,
-          "Your presence is the greatest gift we could ask for. We look forward to celebrating and giving thanks together with you. With all our love, {groom} & {bride}. ♡",
+          `With grateful hearts and a love made beautiful by God’s grace, we invite you to witness the beginning of our forever at the (underline gold) Iglesia ni Cristo, Local Congregation of Santiago Norte, Ecclesiastical District of La Union.`,
+          "As we exchange our vows and begin this new chapter together, we would be honored to have you join us in celebrating at (underline gold) The Mansion Estates La Union.",
+          "Your presence would make our day all the more meaningful, as we gather in love, share in our joy, and give thanks for the blessings that have brought us here.",
+          "With love and grateful hearts,",
+          "Mars & Yanyan"
         ],
       },
     ] as StoryChapter[],
@@ -661,11 +664,12 @@ export const siteConfig = {
   // Gallery section (components/sections/gallery.tsx)
   gallery: {
     eyebrow: "Our Moments",
-    title: "A Love Written in Time",
+    title: "Gallery",
     subtitle: "our favorite moments",
     description:
-      "From the first moments that brought us together to the promises of forever, our story unfolds through a love nurtured by faith, guided by grace, and cherished through time.",
-    footnote: "", // line under the photos ("" hides it)
+      "From our first chapter to this beautiful season of commitment — every moment has been a testament to love, faith, and grace.",
+    footnote:
+      "More pictures will be added as we gather the rest of our favorite moments. Please check back — this gallery is still growing.",
     // Corner florals (sized per corner like the loader), sprig above the title and
     // sprig under the footnote — "" hides any of them
     decos: {
@@ -709,7 +713,7 @@ export const siteConfig = {
   eventDetails: {
     eyebrow: "Our Celebration",
     title: "Event Details",
-    subtitle: "", // script line under the title ("" hides it)
+    subtitle: "our special day",
     description: "Everything you need to know about our special day.",
     // Line under the description — "" hides it
     verse: "Two hearts, one promise, and a day we can't wait to share with the people we love most.",
@@ -737,13 +741,13 @@ export const siteConfig = {
     // Cards, colors, images and which groups show → QUICK SETUP → ATTIRE
     attire: {
       title: "Attire Guidelines",
-      description: "Our wedding palette features soft butter yellow and pastel blue, and we would be delighted to have you celebrate with us in these lovely hues. We kindly request modest and church-appropriate attire.",
+      description: "Our day is dressed in soft butter yellows, pastel blues and warm creams, and we would love for you to wear them with us. As our ceremony is held in an Iglesia ni Cristo house of worship, we kindly ask that all attire be modest. Please find your role below.",
       image: ATTIRE.image,
       // Order and visibility come from ATTIRE.show (skips blanks, typos and repeats)
       groups: ATTIRE.show
         .filter((id, i, list) => ["entourage", "family", "sponsors", "guests"].includes(id) && list.indexOf(id) === i)
         .map((id) => ({ id, ...ATTIRE[id] })),
-      // Shared dress code palette: shown under the description and in the "Dress Code" reminder
+      // Shared dress code palette (used by the "Strictly Formal" reminder)
       palette: DRESS_CODE_PALETTE,
     },
     reminders: {
