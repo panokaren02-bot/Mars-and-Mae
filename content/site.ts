@@ -68,7 +68,7 @@ export type AttireColor = string | { name: string; hex: string }
 // ── The couple ──────────────────────────────────────────────────────────────
 const COUPLE = {
   bride: "Jaeviane Mae A. Abejon",
-  brideNickname: "Mae",
+  brideNickname: "Yanyan",
   groom: "Mars J. Vallejo",
   groomNickname: "Mars",
 }
@@ -327,7 +327,7 @@ const ATTIRE = {
 const SITE_URL = "https://mars-and-mae.weddinginvitationrsvp.com/"
 // Image shown when the link is shared (Facebook, Messenger, Viber, X, …) — 1200×630 JPG in /public
 // Use a NEW filename whenever the image changes — Facebook caches images by URL.
-const LINK_PREVIEW_IMAGE = "/Details/LinkPreviewnew.png"
+const LINK_PREVIEW_IMAGE = "/Details/newLink.png"
 
 // Site address with env override applied and no trailing slash — no need to edit
 export const canonicalSiteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL).replace(/\/$/, "")
