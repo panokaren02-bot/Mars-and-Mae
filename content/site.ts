@@ -67,9 +67,9 @@ export type AttireColor = string | { name: string; hex: string }
 
 // ── The couple ──────────────────────────────────────────────────────────────
 const COUPLE = {
-  bride: "Jaeviane Mae A. Abejon",
+  bride: "Jaeviane Mae Abejon",
   brideNickname: "Yanyan",
-  groom: "Mars J. Vallejo",
+  groom: "Mars Vallejo",
   groomNickname: "Mars",
 }
 
@@ -87,7 +87,7 @@ const TIMES = {
 
 const CEREMONY_VENUE = {
   name: "Iglesia ni Cristo",
-  address: "Ecclesiastical District Of La Union",
+  address: "Local Congregation of Santiago Norte Ecclesiastical District of La Union",
   // ⚠ check — Google Maps search link; swap for the exact pin when available
   map: "https://www.google.com/maps/search/?api=1&query=Iglesia+ni+Cristo+Santiago+Norte+San+Fernando+La+Union",
   // Place searched for the embedded map + church → reception route ⚠ check the pin lands on the chapel
@@ -124,6 +124,7 @@ const VENUE_ROUTE = {
 // sectionLabel = label above the venue name (e.g. "Venue")
 // showDate     = show the big Month / Day / Year
 // showArrival  = show "Arrival: <guest arrival time>" (otherwise "At <time>")
+// showTime     = false hides the time line on that card
 const VENUE_CARDS = {
   layout: "separate" as "separate" | "combined",
   // Used when layout is "combined"
@@ -132,6 +133,7 @@ const VENUE_CARDS = {
     sectionLabel: "Venue",
     showDate: true,
     showArrival: false,
+    showTime: true,
     // Time rows on the card, e.g. "Ceremony 4:30 PM | Reception 7:00 PM"
     ceremonyLabel: "Ceremony",
     receptionLabel: "Reception",
@@ -145,6 +147,7 @@ const VENUE_CARDS = {
     sectionLabel: "Ceremony Venue",
     showDate: true,
     showArrival: true,
+    showTime: true,
   },
   reception: {
     show: true,
@@ -152,6 +155,7 @@ const VENUE_CARDS = {
     sectionLabel: "Reception Venue",
     showDate: false,
     showArrival: false,
+    showTime: false, // reception card shows no time
   },
 }
 
@@ -186,7 +190,7 @@ const RSVP = {
   coordinator: "{groom} / {bride}", // {groom} / {bride} → couple nicknames
   phone: "to be announced",
 }
-const HASHTAGS = ["#MarsAndMae2026"] // ⚠ check — placeholder, confirm with the couple
+const HASHTAGS = ["#MYwedding"]
 
 // ── Attire guide (Event Details → Attire Guidelines) ────────────────────────
 // One card for everyone: ATTIRE.image on top, then one block per group (title, dress
@@ -205,7 +209,7 @@ const HASHTAGS = ["#MarsAndMae2026"] // ⚠ check — placeholder, confirm with 
 //     label:     e.g. "Ninang", "Bridesmaids", "Ladies"
 //     details:   the dress code text ("" hides this half of the card)
 //     highlight: phrase inside details shown bold + underlined ("" for none)
-// Guest dress code colors — also shown in the "Dress Code" gentle reminder
+// Guest dress code colors
 const DRESS_CODE_PALETTE: AttireColor[] = [
   { name: "Butter Yellow", hex: "#FFF4C2" },
   { name: "Pastel Blue", hex: "#D9EAF7" },
@@ -220,7 +224,7 @@ const DRESS_CODE_PALETTE: AttireColor[] = [
 const ATTIRE = {
   show: ["guests", "sponsors"] as AttireGroupId[],
   // Shared illustration at the top of the attire card ("" = no image; any size/shape works)
-  image: "/Details/Pastel Wedding Party Portrait.png",
+  image: "/Details/AtttireGuide.png",
 
   entourage: {
     title: "Entourage",
@@ -323,7 +327,7 @@ const ATTIRE = {
 const SITE_URL = "https://mars-and-yanyan.weddinginvitationrsvp.com/"
 // Image shown when the link is shared (Facebook, Messenger, Viber, X, …) — 1200×630 JPG in /public
 // Use a NEW filename whenever the image changes — Facebook caches images by URL.
-const LINK_PREVIEW_IMAGE = "/Details/newLink.png"
+const LINK_PREVIEW_IMAGE = "/Details/newLinkPreview.png"
 
 // Site address with env override applied and no trailing slash — no need to edit
 export const canonicalSiteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL).replace(/\/$/, "")
@@ -578,8 +582,8 @@ export const siteConfig = {
     closingEyebrow: "", // large word on top (was "Puhon") — "" hides it
     closingHashtag: "", // hashtag under it (was HASHTAGS[0]) — "" hides it
     closingQuoteLead: "", // bold first line ("" for none)
-    closingQuote: "“Whatever our souls are made of, his and mine are the same.”",
-    closingCitation: "Emily Brontë",
+    closingQuote: "", // "" hides the quote block
+    closingCitation: "", // "" hides it
     // Four corner florals framing the section, sized per corner like the loader ("" hides a corner)
     decos: { ...CORNER_DECOS },
     // Thin double border around the section, under the corner florals (false hides it)
@@ -622,15 +626,15 @@ export const siteConfig = {
           "On this day our two families become one, and we are grateful to be welcomed with such open arms.",
         ],
       },
-      {
-        date: "To Our Brethren",
-        title: "Our Family in Faith",
-        image: "/mobile-background/couples (5).webp",
-        paragraphs: [
-          "To our brethren in the Church, especially the Local Congregation of Santiago Norte: thank you for your prayers, your guidance and the encouragement you have shown us as we prepared for this day.",
-          "We are blessed to begin our married life surrounded by a family in faith.",
-        ],
-      },
+      // {
+      //   date: "To Our Brethren",
+      //   title: "Our Family in Faith",
+      //   image: "/mobile-background/couples (5).webp",
+      //   paragraphs: [
+      //     "To our brethren in the Church, especially the Local Congregation of Santiago Norte: thank you for your prayers, your guidance and the encouragement you have shown us as we prepared for this day.",
+      //     "We are blessed to begin our married life surrounded by a family in faith.",
+      //   ],
+      // },
       {
         date: "To Our Sponsors",
         title: "Our Guides and Mentors",
@@ -652,11 +656,12 @@ export const siteConfig = {
         title: "A Day of Love, A Lifetime of Memories",
         image: "/mobile-background/couples (8).webp",
         paragraphs: [
-          `With grateful hearts and a love made beautiful by God’s grace, we invite you to witness the beginning of our forever at the (underline gold) Iglesia ni Cristo, Local Congregation of Santiago Norte, Ecclesiastical District of La Union.`,
-          "As we exchange our vows and begin this new chapter together, we would be honored to have you join us in celebrating at (underline gold) The Mansion Estates La Union.",
-          "Your presence would make our day all the more meaningful, as we gather in love, share in our joy, and give thanks for the blessings that have brought us here.",
+          // **text** = bold with a gold underline
+          "With grateful hearts and a love made beautiful by God’s grace, we joyfully invite you to witness the beginning of our forever at the **Iglesia ni Cristo, Local Congregation of Santiago Norte, Ecclesiastical District of La Union**.",
+          "As we exchange our vows and begin this new chapter together, we would be honored to have you join us for the celebration that follows at **The Mansion Estates La Union**.",
+          "Your presence would make our day all the more meaningful as we gather in love, share in our joy and give thanks for the blessings that have brought us here.",
           "With love and grateful hearts,",
-          "Mars & Yanyan"
+          "{groom} & {bride}",
         ],
       },
     ] as StoryChapter[],
@@ -668,8 +673,7 @@ export const siteConfig = {
     subtitle: "our favorite moments",
     description:
       "From our first chapter to this beautiful season of commitment — every moment has been a testament to love, faith, and grace.",
-    footnote:
-      "More pictures will be added as we gather the rest of our favorite moments. Please check back — this gallery is still growing.",
+    footnote: "", // line under the photos ("" hides it)
     // Corner florals (sized per corner like the loader), sprig above the title and
     // sprig under the footnote — "" hides any of them
     decos: {
@@ -777,15 +781,6 @@ export const siteConfig = {
           showPalette: false,
           paragraphs: [
             "We're having a mostly unplugged ceremony. Guests may take photos, but we kindly ask that it be kept minimal. Please avoid blocking or crowding our official photographers so they can capture the special moments. We'd love for everyone to stay present and share the moment with us. Don't worry—professional photos will be shared with you after the event. Thank you for your understanding.",
-          ],
-        },
-        {
-          title: "Dress Code",
-          variant: "accent" as "accent" | "soft",
-          showPalette: true,
-          paragraphs: [
-            "Guests, kindly come in semi-formal attire in shades of butter yellow or pastel blue from our palette.",
-            "Please avoid casual clothes and all-white outfits.",
           ],
         },
         {
@@ -1163,7 +1158,7 @@ export const siteConfig = {
       // ── The day ──
       {
         question: "When and where is the wedding?",
-        answer: `Our wedding will be on ${WEDDING_DAY}, ${WEDDING_DATE}.\n\n• Ceremony — ${TIMES.ceremony} at ${CEREMONY_VENUE.name}, ${CEREMONY_VENUE.address}. [Open in Google Maps](${CEREMONY_VENUE.map})\n• Reception — ${TIMES.reception} at ${RECEPTION_VENUE.name}, ${RECEPTION_VENUE.address}. [Open in Google Maps](${RECEPTION_VENUE.map})`,
+        answer: `Our wedding will be on ${WEDDING_DAY}, ${WEDDING_DATE}.\n\n• Ceremony — ${CEREMONY_VENUE.name}, ${CEREMONY_VENUE.address}. [Open in Google Maps](${CEREMONY_VENUE.map})\n• Reception — ${RECEPTION_VENUE.name}, ${RECEPTION_VENUE.address}. [Open in Google Maps](${RECEPTION_VENUE.map})`,
       },
       {
         question: "What time should I arrive?",
@@ -1204,11 +1199,6 @@ export const siteConfig = {
         answer:
           "As much as we would love to celebrate with everyone, our venue and guest list are limited. Our wedding is by invitation only, so we can only accommodate the seats reserved under your name on the guest list.",
       },
-      {
-        question: "Are children invited?",
-        answer:
-          "We love your little ones, but apart from the children in our entourage, our celebration is adults-only. We hope you enjoy a relaxing evening off with us!",
-      },
       // ── Attire, food & seating ──
       {
         question: "What should I wear?",
@@ -1233,18 +1223,19 @@ export const siteConfig = {
       },
       {
         question: "Can I take photos and videos during the reception?",
-        answer: `Absolutely! Capture all the joy you can, tag your posts with ${HASHTAGS.join(" ")} and upload your favorites through [Snap and Share](#snap-share) so we can relive the day through your eyes.`,
+        // #hashtags in FAQ answers show bold and colored
+        answer: `Absolutely! Capture all the joy you can, tag your post with ${HASHTAGS.join(" ")}`,
       },
       {
         question: "Can I share the invitation online?",
         answer:
           "Please keep this one just between us! Kindly don't post our invitation or its link on social media.",
       },
-      {
-        question: "May I make an announcement or a proposal during the wedding?",
-        answer:
-          "To keep the day centered on our celebration, we kindly ask that there be no surprise announcements or proposals during our wedding.",
-      },
+      // {
+      //   question: "May I make an announcement or a proposal during the wedding?",
+      //   answer:
+      //     "To keep the day centered on our celebration, we kindly ask that there be no surprise announcements or proposals during our wedding.",
+      // },
       // ── Gifts & the celebration ──
       {
         question: "What gift should we give?",
@@ -1599,15 +1590,6 @@ export const siteConfig = {
         ],
       },
       {
-        title: "Dress Code",
-        variant: "accent" as "accent" | "soft",
-        showPalette: true,
-        paragraphs: [
-          "Guests, kindly come in semi-formal attire in shades of butter yellow or pastel blue from our palette.",
-          "Please avoid casual clothes and all-white outfits.",
-        ],
-      },
-      {
         title: "Arrival",
         variant: "soft" as "accent" | "soft",
         showPalette: false,
@@ -1839,6 +1821,8 @@ Now, as they prepare to say yes before God and the people they love most, Cather
       eyebrow: "Until we meet",
       script: "with love, {couple}",
       message: "We can't wait to celebrate this beautiful day with you.",
+      // Fanned photo trio above the title — left, center (front), right; [] hides it
+      photos: [COUPLE_PHOTOS[1], COUPLE_PHOTOS[4], COUPLE_PHOTOS[9]],
       // Corner florals — top two here, bottom two on the footer below; "" hides any of them
       decos: { ...CORNER_DECOS, footerVine: DECOR.headerOrnament },
       // Thin double border around See You There + footer (false hides it)

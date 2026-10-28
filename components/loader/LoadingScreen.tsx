@@ -84,6 +84,11 @@ const PLAIN_MOTES = Array.from({ length: 14 }, (_, i) => ({
   petal: i % 3 === 0,
 }))
 
+// "Mars J. Vallejo" → "Mars Vallejo": drops middle initials from a full name
+function withoutMiddleInitials(name: string) {
+  return name.replace(/\s+\p{L}\.(?=\s)/gu, '');
+}
+
 function startOfDay(date: Date) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
 }
@@ -169,7 +174,9 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete, onFade
     }) as React.CSSProperties;
 
   const ceremonyLine = siteConfig.ceremony.time ?? '';
-  const coupleNames = `${siteConfig.couple.groomNickname} & ${siteConfig.couple.brideNickname}`;
+  const groomName = withoutMiddleInitials(siteConfig.couple.groom);
+  const brideName = withoutMiddleInitials(siteConfig.couple.bride);
+  const coupleNames = `${groomName} & ${brideName}`;
 
 
   useEffect(() => {
@@ -373,14 +380,14 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete, onFade
 
         <div className="loading-screen__std-names-slot ls-reveal" style={revealDelay(450, 400)}>
           <h2 className="loading-screen__std-names loading-screen__std-names--text" aria-label={coupleNames}>
-            <span className={`${theSeasons.className} ls-names__nick`} aria-hidden="true">
-              {siteConfig.couple.groomNickname}
+            <span className={`${theSeasons.className} ls-names__nick ls-names__nick--full`} aria-hidden="true">
+              {groomName}
             </span>
             <span className={`${aboveTheBeyond.className} ls-names__and`} aria-hidden="true">
               and
             </span>
-            <span className={`${theSeasons.className} ls-names__nick`} aria-hidden="true">
-              {siteConfig.couple.brideNickname}
+            <span className={`${theSeasons.className} ls-names__nick ls-names__nick--full`} aria-hidden="true">
+              {brideName}
             </span>
           </h2>
         </div>

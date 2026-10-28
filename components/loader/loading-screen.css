@@ -3372,6 +3372,19 @@
   letter-spacing: 0.06em;
 }
 
+.ls-names__nick--full {
+  /* Full names are much longer than nicknames — smaller and tighter, wrapping evenly if needed */
+  font-size: clamp(1.85rem, 7.6vw, 3.4rem);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-wrap: balance;
+}
+
+/* Breathing room above and below "and" between the full names */
+.ls-names__nick--full + .ls-names__and {
+  margin: 0.25em 0;
+}
+
 .ls-names__and {
   margin: -0.2em 0 -0.1em;
   font-size: clamp(1.5rem, 6.5vw, 2.4rem);
@@ -3927,6 +3940,16 @@
 }
 
 /* Special characters in love story text (&, _, dashes, ♡) — components lib/story-glyph-text.tsx */
+/* **text** in a love story paragraph: bold with a soft gold underline */
+.story-highlight {
+  font-weight: 700;
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-welcome-gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  text-decoration-skip-ink: none;
+}
+
 .story-glyph {
   font-family: "Playfair Display", "Cormorant Garamond", Georgia, serif;
   font-style: italic;

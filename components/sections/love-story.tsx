@@ -100,6 +100,24 @@ function LoveStoryTitle({
   )
 }
 
+// **text** in a paragraph → bold with a gold underline (e.g. venue names)
+function StoryParagraphText({ text }: { text: string }) {
+  const parts = text.split(/\*\*(.+?)\*\*/g)
+  return (
+    <>
+      {parts.map((part, index) =>
+        index % 2 === 1 ? (
+          <strong key={index} className="story-highlight">
+            <StoryGlyphText text={part} />
+          </strong>
+        ) : (
+          <StoryGlyphText key={index} text={part} />
+        ),
+      )}
+    </>
+  )
+}
+
 function chapterTextFromParagraphs(
   paragraphs: readonly string[],
   groom: string,
@@ -114,7 +132,7 @@ function chapterTextFromParagraphs(
             paragraphs.length > 1 && index < paragraphs.length - 1 ? "mb-4" : undefined
           }
         >
-          <StoryGlyphText text={formatStoryParagraph(paragraph, groom, bride)} />
+          <StoryParagraphText text={formatStoryParagraph(paragraph, groom, bride)} />
         </p>
       ))}
     </>

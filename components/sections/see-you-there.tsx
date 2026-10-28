@@ -71,6 +71,51 @@ function SpecialCharFont({ text }: { text: string }) {
   )
 }
 
+// Fanned trio: sides tilt out behind the larger center photo
+const fan = [
+  { rotate: -8, x: "-58%", y: 18, z: 1, width: "w-[36%]" },
+  { rotate: 0, x: "0%", y: 0, z: 3, width: "w-[42%]" },
+  { rotate: 8, x: "58%", y: 18, z: 2, width: "w-[36%]" },
+] as const
+
+function PhotoFan({ photos, alt }: { photos: readonly string[]; alt: string }) {
+  const reduceMotion = useReducedMotion()
+  const shown = photos.slice(0, 3)
+  if (shown.length === 0) return null
+  const slots = shown.length === 3 ? fan : shown.length === 2 ? [fan[0], fan[2]] : [fan[1]]
+
+  return (
+    <div className="relative mx-auto mb-8 aspect-[5/4] w-full max-w-[22rem] sm:mb-10 sm:max-w-md" aria-label={alt} role="img">
+      {shown.map((src, i) => {
+        const slot = slots[i]
+        return (
+          <motion.div
+            key={src}
+            className={`absolute left-1/2 top-0 ${slot.width}`}
+            style={{ zIndex: slot.z }}
+            initial={reduceMotion ? false : { opacity: 0, x: "-50%", y: 30, rotate: 0, scale: 0.92 }}
+            whileInView={{ opacity: 1, x: `calc(-50% + ${slot.x})`, y: slot.y, rotate: slot.rotate, scale: 1 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 1, delay: 0.15 + i * 0.12, ease: entryEase }}
+          >
+            <div
+              className="rounded-[3px] p-1.5 sm:p-2"
+              style={{
+                background: IVORY,
+                boxShadow: "0 1px 2px rgb(42 34 28 / 12%), 0 10px 28px rgb(42 34 28 / 22%)",
+              }}
+            >
+              <div className="relative aspect-[9/16] w-full overflow-hidden rounded-[2px]">
+                <Image src={encodeURI(src)} alt="" fill sizes="(min-width: 640px) 190px, 40vw" className="object-cover" />
+              </div>
+            </div>
+          </motion.div>
+        )
+      })}
+    </div>
+  )
+}
+
 function PlainSeeYouThere({ background = true }: { background?: boolean }) {
   const siteConfig = useSiteConfig()
   const content = siteConfig.seeYouThere
@@ -102,6 +147,8 @@ function PlainSeeYouThere({ background = true }: { background?: boolean }) {
         whileInView="show"
         viewport={{ once: true, amount: 0.3 }}
       >
+        <PhotoFan photos={plain.photos ?? []} alt={fill(content.photoAlt)} />
+
         {plain.eyebrow ? (
           <motion.p
             variants={rise}

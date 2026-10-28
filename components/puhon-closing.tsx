@@ -69,6 +69,7 @@ export function PuhonText({ className = "", tone = "dark" }: { className?: strin
           {closingHashtag}
         </p>
       ) : null}
+      {closingQuoteLead || closingQuote ? (
       <blockquote className="relative mx-auto mt-6 max-w-lg px-7 pt-6 pb-2 sm:mt-8 sm:px-12 sm:pt-8">
         {/* Large open / close quotation marks framing the verse */}
         <span
@@ -100,6 +101,7 @@ export function PuhonText({ className = "", tone = "dark" }: { className?: strin
           <StoryGlyphText text={closingQuote} />
         </p>
       </blockquote>
+      ) : null}
       {closingCitation ? (
         <p className="mt-5 flex items-center justify-center gap-2.5 sm:mt-5 sm:gap-3">
           <span className="h-px w-8 sm:w-12" style={{ background: `linear-gradient(to right, transparent, ${t.rule})` }} />

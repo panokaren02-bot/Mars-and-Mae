@@ -127,13 +127,26 @@ function FaqTitle({ title, subtitle }: { title: string; subtitle: string }) {
   )
 }
 
+// "#MYwedding" → bold hashtag in the dusty-blue accent
+function renderHashtags(text: string, key: number): ReactNode[] {
+  return text.split(/(#[\p{L}\p{N}_]+)/u).map((part, i) =>
+    i % 2 === 1 ? (
+      <strong key={`${key}-${i}`} className="font-bold not-italic" style={{ color: "var(--color-welcome-heading)" }}>
+        {part}
+      </strong>
+    ) : (
+      part
+    ),
+  )
+}
+
 // "[guest list](#guest-list)" → smooth-scrolling link; "[label](https://…)" → opens in a
-// new tab; everything else stays text
+// new tab; "#hashtag" → bold accent; everything else stays text
 function renderInline(text: string): ReactNode[] {
   const parts = text.split(/(\[[^\]]+\]\((?:#|https?:\/\/)[^)]+\))/g)
-  return parts.map((part, i) => {
+  return parts.flatMap((part, i) => {
     const match = part.match(/^\[([^\]]+)\]\(((?:#|https?:\/\/)[^)]+)\)$/)
-    if (!match) return part
+    if (!match) return renderHashtags(part, i)
     const [, label, href] = match
     const isAnchor = href.startsWith("#")
     return (
