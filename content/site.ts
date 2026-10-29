@@ -327,7 +327,7 @@ const ATTIRE = {
 const SITE_URL = "https://mars-and-yanyan.weddinginvitationrsvp.com/"
 // Image shown when the link is shared (Facebook, Messenger, Viber, X, …) — 1200×630 JPG in /public
 // Use a NEW filename whenever the image changes — Facebook caches images by URL.
-const LINK_PREVIEW_IMAGE = "/Details/newLinkPreview.png"
+const LINK_PREVIEW_IMAGE = "/Details/newLinkPreviewnew.png"
 
 // Site address with env override applied and no trailing slash — no need to edit
 export const canonicalSiteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL).replace(/\/$/, "")
@@ -1803,7 +1803,7 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     showFrame: true,
     embedUrl:
     //https://open.spotify.com/embed/playlist/5sT43YjdM8pJ3xtEkrxyEY?utm_source=generator&si=e5e64aa63fd04356
-      "https://open.spotify.com/embed/playlist/3CDN0SxoU8D99qtLaCTeUs?utm_source=generator&si=1cf3161938d244e0",
+      "https://open.spotify.com/embed/playlist/3CDN0SxoU8D99qtLaCTeUs?utm_source=generator&si=d25742c411cf4bfd",
     spotifyUrl: "https://open.spotify.com/playlist/3CDN0SxoU8D99qtLaCTeUs",
   },
   // Closing "See you there!" section (components/sections/see-you-there.tsx).

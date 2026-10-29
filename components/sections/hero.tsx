@@ -413,7 +413,12 @@ export function Hero() {
           </span>
           {ceremonyAddress && (
             <span className="home-hero-meta-address mt-1 max-w-[22rem] text-[clamp(0.78rem,3.2vw,0.95rem)] leading-snug sm:max-w-md">
-              {ceremonyAddress}
+              {/* Break the district onto its own line */}
+              {ceremonyAddress.split(/\s+(?=Ecclesiastical District)/).map((line, i) => (
+                <span key={i} className="block">
+                  {line}
+                </span>
+              ))}
             </span>
           )}
         </motion.div>
