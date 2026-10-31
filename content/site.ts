@@ -79,8 +79,8 @@ const WEDDING_DAY = "Monday"
 const TIMES = {
   entourageCall: "2:00 PM", // entourage assembly ⚠ check — not confirmed yet
   guestArrival: "2:30 PM", // guests arrival / assembly (shown in Event Details + reminders) ⚠ check — not confirmed yet
-  ceremony: "3:00 PM",
-  reception: "5:30 PM", // start of program ⚠ check — not confirmed yet
+  ceremony: "2:30 PM",
+  reception: "4:30 PM", // start of program
 }
 
 // ── Venues ──────────────────────────────────────────────────────────────────
@@ -1803,7 +1803,7 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     showFrame: true,
     embedUrl:
     //https://open.spotify.com/embed/playlist/5sT43YjdM8pJ3xtEkrxyEY?utm_source=generator&si=e5e64aa63fd04356
-      "https://open.spotify.com/embed/playlist/3CDN0SxoU8D99qtLaCTeUs?utm_source=generator&si=d25742c411cf4bfd",
+      "https://open.spotify.com/embed/playlist/3CDN0SxoU8D99qtLaCTeUs?utm_source=generator&si=521a75df21d64062",
     spotifyUrl: "https://open.spotify.com/playlist/3CDN0SxoU8D99qtLaCTeUs",
   },
   // Closing "See you there!" section (components/sections/see-you-there.tsx).
@@ -1919,7 +1919,7 @@ Now, as they prepare to say yes before God and the people they love most, Cather
       images: COUPLE_PHOTOS.slice(0, 3),
     },
     website: {
-      show: true,
+      show: false,
       title: "Share Our Wedding Website",
       description:
         "Spread the word about {couple}'s celebration. Share this QR code so friends and family can join us.",
@@ -1935,7 +1935,7 @@ Now, as they prepare to say yes before God and the people they love most, Cather
       allCopied: "All Copied!",
     },
     social: {
-      show: true,
+      show: false,
       title: "Share on Social Media",
       description: "Help spread the word about {couple}'s wedding across your favorite platforms.",
       // Remove any you don't want: "instagram" | "facebook" | "tiktok" | "twitter"

@@ -4718,3 +4718,111 @@
   .story-card-photo--left { margin-right: -1.5rem; }
   .story-card-photo--right { margin-left: -1.5rem; }
 }
+
+/* ---- Couple names stacked (groom / and / bride); each name stays on ONE line ---- */
+.loading-screen__std-names-slot {
+  container-type: inline-size;
+}
+
+.ls-names__nick--full {
+  /* Scales with the slot width so the longest name never wraps, even on small phones */
+  font-size: clamp(1.2rem, 8.8cqi, 3.7rem);
+  letter-spacing: 0.015em;
+  white-space: nowrap;
+  text-wrap: nowrap;
+}
+
+/* Give the names the full slot width so the bigger size still fits on one line */
+.loading-screen__std-names--text,
+.loading-screen--plain .loading-screen__std-names--text {
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* ---- Ceremony block: time (kicker with hairlines) → venue name (engraved caps) → address (italic) ---- */
+.loading-screen__std-venue,
+.loading-screen--plain .loading-screen__std-venue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  max-width: 24rem;
+  margin: 0 auto 0.9rem;
+  text-align: center;
+}
+
+/* "3:00 PM" framed by short hairlines */
+.loading-screen__std-venue-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-family: "Cinzel", Georgia, serif;
+  font-size: clamp(0.62rem, 2.6vw, 0.74rem);
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  /* letter-spacing adds trailing space; pull it back so the text sits centered */
+  margin-right: -0.3em;
+  line-height: 1;
+}
+
+.loading-screen__std-venue-time::before,
+.loading-screen__std-venue-time::after {
+  content: "";
+  width: 1.6rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+}
+
+/* Venue name: engraved small caps, the anchor of the block */
+.loading-screen__std-venue-name,
+.loading-screen--plain .loading-screen__std-venue-name {
+  margin-top: 0.55rem;
+  font-family: "Cinzel", Georgia, serif;
+  font-size: clamp(0.82rem, 3.5vw, 1.05rem);
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.loading-screen--plain .loading-screen__std-venue-name {
+  color: var(--ls-text-accent-dark, var(--color-welcome-heading));
+  -webkit-text-fill-color: var(--ls-text-accent-dark, var(--color-welcome-heading));
+}
+
+/* Address: upright serif, full-strength ink and open line height for easy reading */
+.loading-screen__std-venue-address,
+.loading-screen--plain .loading-screen__std-venue-address {
+  max-width: 20rem;
+  margin-top: 0.35rem;
+  font-family: "SortsMillGoudy", Georgia, "Times New Roman", serif;
+  font-size: clamp(0.9rem, 3.7vw, 1.02rem);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  line-height: 1.45;
+  color: var(--ls-type-muted);
+  text-wrap: balance;
+}
+
+.loading-screen--plain .loading-screen__std-venue-address {
+  color: var(--ls-text-dark, var(--color-welcome-text));
+  -webkit-text-fill-color: var(--ls-text-dark, var(--color-welcome-text));
+  text-shadow: none;
+}
+
+@media (max-height: 680px) {
+  .loading-screen__std-venue,
+  .loading-screen--plain .loading-screen__std-venue {
+    margin-bottom: 0.5rem;
+  }
+  .loading-screen__std-venue-name,
+  .loading-screen--plain .loading-screen__std-venue-name {
+    margin-top: 0.4rem;
+  }
+}

@@ -284,7 +284,7 @@ export function InvitationPage({ sponsorsList, showEntourage = true, showTimelin
                 {/* Pink paper wash + rising hearts (section-backdrop.tsx) + one double border around both sections */}
                 <SectionBackdrop />
                 {siteConfig.bookOfGuests.showFrame && <div className="deco-frame" aria-hidden="true" />}
-                <BookOfGuests background={false} />
+                {/* <BookOfGuests background={false} /> */}
                 <FAQ background={false} />
               </div>
               <Registry />

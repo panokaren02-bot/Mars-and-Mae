@@ -465,20 +465,18 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete, onFade
         )}
 
         <footer className="loading-screen__std-footer flex flex-col items-center w-full pt-1 px-6 flex-shrink-0">
-          {content.showCeremonyDetails && (ceremonyLine || siteConfig.ceremony.location) && (
+          {content.showCeremonyDetails &&
+            (ceremonyLine || siteConfig.ceremony.location || siteConfig.ceremony.venue) && (
             <div className="loading-screen__std-venue ls-reveal" style={revealDelay(900, 3200)}>
               {ceremonyLine && <span className="loading-screen__std-venue-time">{ceremonyLine}</span>}
               {siteConfig.ceremony.location && (
                 <span className="loading-screen__std-venue-name">{siteConfig.ceremony.location}</span>
               )}
+              {siteConfig.ceremony.venue && (
+                <span className="loading-screen__std-venue-address">{siteConfig.ceremony.venue}</span>
+              )}
             </div>
           )}
-          <p className="loading-screen__std-eyebrow ls-reveal" style={revealDelay(1100, 3400)}>
-            {content.eyebrow}
-          </p>
-          <p className="loading-screen__std-copy ls-reveal" style={revealDelay(1250, 3550)}>
-            {content.message}
-          </p>
           <div className="loading-screen__std-rule" aria-hidden="true" />
           {statusMessages.length > 0 && (
             <p key={statusIndex} className="loading-screen__std-status">

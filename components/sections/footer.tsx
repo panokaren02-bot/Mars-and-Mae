@@ -251,6 +251,7 @@ export function Footer({ background = true }: { background?: boolean } = {}) {
     Icon: typeof Landmark
     label: string
     place: string
+    address: string
     times: { label: string; time: string; showLabel: boolean }[]
   }
   const summaryRows: SummaryRow[] = isCombined
@@ -260,6 +261,7 @@ export function Footer({ background = true }: { background?: boolean } = {}) {
           Icon: Landmark,
           label: venues.combined.badge,
           place: ceremony.location,
+          address: ceremony.venue,
           times: [
             { label: venues.combined.ceremonyLabel, time: ceremony.time, showLabel: true },
             ...(venues.combined.showReceptionTime
@@ -275,6 +277,7 @@ export function Footer({ background = true }: { background?: boolean } = {}) {
               Icon: Landmark,
               label: content.summary.ceremonyLabel,
               place: ceremony.location,
+              address: ceremony.venue,
               times: ceremony.time ? [{ label: content.summary.ceremonyLabel, time: ceremony.time, showLabel: false }] : [],
             }]
           : []),
@@ -284,10 +287,11 @@ export function Footer({ background = true }: { background?: boolean } = {}) {
               Icon: GlassWater,
               label: content.summary.receptionLabel,
               place: reception.location,
+              address: reception.venue,
               times: reception.time ? [{ label: content.summary.receptionLabel, time: reception.time, showLabel: false }] : [],
             }]
           : []),
-      ].filter((row) => row.place || row.times.length > 0)
+      ].filter((row) => row.place || row.address || row.times.length > 0)
 
   const initial = reduceMotion ? false : "hidden"
 
@@ -443,44 +447,53 @@ export function Footer({ background = true }: { background?: boolean } = {}) {
                 {/* Day at a glance — mirrors the Event Details cards (eventDetails.venues.layout) */}
                 {content.summary.show && summaryRows.length > 0 && (
                   <div className="mt-4 space-y-2">
-                    {summaryRows.map(({ key, Icon, label, place, times }) => (
+                    {summaryRows.map(({ key, Icon, label, place, address, times }) => (
                       <div
                         key={key}
-                        className="flex items-start gap-3 rounded-2xl px-3 py-2.5"
+                        className="flex items-start gap-3 rounded-2xl px-3.5 py-3"
                         style={{ background: "color-mix(in srgb, var(--color-motif-medium) 14%, white)", boxShadow: `inset 0 0 0 1px ${HAIRLINE}` }}
                       >
                         <span
-                          className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+                          className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
                           style={{ background: IVORY, boxShadow: `inset 0 0 0 1px ${HAIRLINE}` }}
                           aria-hidden
                         >
                           <Icon className="h-4 w-4" style={{ color: palette.accent }} />
                         </span>
                         <div className="min-w-0 flex-1">
-                          <p className={`${cinzel.className} text-[0.66rem] font-semibold uppercase tracking-[0.16em]`} style={{ color: palette.heading }}>
-                            {label}
-                          </p>
+                          {/* Event label + time on one line */}
+                          <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+                            <p className={`${cinzel.className} text-[0.66rem] font-semibold uppercase tracking-[0.18em]`} style={{ color: palette.label }}>
+                              {label}
+                            </p>
+                            {times.length > 0 && (
+                              <div className="flex flex-wrap gap-1.5">
+                                {times.map((t) => (
+                                  <span
+                                    key={t.label}
+                                    className={`${cinzel.className} inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.64rem] font-semibold tracking-[0.06em]`}
+                                    style={{ background: IVORY, color: palette.heading, boxShadow: `inset 0 0 0 1px ${HAIRLINE}` }}
+                                  >
+                                    <Clock className="h-3 w-3" aria-hidden />
+                                    {t.showLabel ? <span className="uppercase tracking-[0.12em]">{t.label}</span> : null}
+                                    {t.time}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                          {/* Venue name, then its address */}
                           {place ? (
-                            <p className={`font-goudy-italic mt-0.5 flex items-start gap-1 text-[0.82rem] leading-snug`} style={{ color: palette.body }}>
-                              <MapPin className="mt-[0.2em] h-3 w-3 shrink-0" style={{ color: palette.soft }} aria-hidden />
-                              <span className="min-w-0">{place}</span>
+                            <p className={`${cinzel.className} mt-1.5 text-[0.84rem] font-semibold leading-snug tracking-[0.04em]`} style={{ color: palette.heading }}>
+                              {place}
                             </p>
                           ) : null}
-                          {times.length > 0 && (
-                            <div className="mt-1.5 flex flex-wrap gap-1.5">
-                              {times.map((t) => (
-                                <span
-                                  key={t.label}
-                                  className={`${cinzel.className} inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.62rem] font-semibold tracking-[0.06em]`}
-                                  style={{ background: IVORY, color: palette.label, boxShadow: `inset 0 0 0 1px ${HAIRLINE}` }}
-                                >
-                                  <Clock className="h-3 w-3" aria-hidden />
-                                  {t.showLabel ? <span className="uppercase tracking-[0.12em]">{t.label}</span> : null}
-                                  {t.time}
-                                </span>
-                              ))}
-                            </div>
-                          )}
+                          {address ? (
+                            <p className="mt-0.5 flex items-start gap-1.5 text-[0.86rem] leading-[1.45]" style={{ color: palette.body, fontFamily: '"SortsMillGoudy", Georgia, serif' }}>
+                              <MapPin className="mt-[0.25em] h-3.5 w-3.5 shrink-0" style={{ color: palette.accent }} aria-hidden />
+                              <span className="min-w-0">{address}</span>
+                            </p>
+                          ) : null}
                         </div>
                       </div>
                     ))}
