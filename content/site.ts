@@ -79,7 +79,7 @@ const WEDDING_DAY = "Monday"
 const TIMES = {
   entourageCall: "2:00 PM", // entourage assembly ⚠ check — not confirmed yet
   guestArrival: "2:30 PM", // guests arrival / assembly (shown in Event Details + reminders) ⚠ check — not confirmed yet
-  ceremony: "2:30 PM",
+  ceremony: "3:00 PM",
   reception: "4:30 PM", // start of program
 }
 
