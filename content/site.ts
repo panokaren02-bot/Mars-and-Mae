@@ -439,8 +439,8 @@ export const siteConfig = {
   googleAPI:{
     messageForm: "https://docs.google.com/forms/d/e/1FAIpQLSc7lZyiyr3aZDA671r808snsFK9MZqRguf8O_0VO-MSE9YjOA/formResponse",   //done
     message: "https://script.google.com/macros/s/AKfycbxzUHsq0jgLBjvwyoZAEcNiXetYlmULGEJtT5wNFV_IlgWLrrJAztDOHTNnN-fGUKpPGw/exec",  //done
-    guestList: "https://script.google.com/macros/s/AKfycbwxCJVBhbPT0N4otyEC4MBmcTWp8wNB0IiIEgVH5eO6HSxT3cYHd5QPzfQjW8nmf1rcIg/exec",  //done
-    guestListTwo:"https://script.google.com/macros/s/AKfycbwtoZVEORJYnC0l10BO3yoExG0FnbSCAR6onIVItAfU5bRY6v1UKc94i7JOExtYnyIjrg/exec",
+    guestList: "https://script.google.com/macros/s/AKfycbwaGzmNQONuDvs-BCpS0bNvJp2tmw2Wd2apYBlEX_RSU7aYVIzxoumS7q1eDepb4kHr3g/exec",  //done
+    guestListTwo:"https://script.google.com/macros/s/AKfycbznifjBa3D5E-KjOjtOWtx09BXBINKBwPMhUkzzFXrvwfrPLN_nQOWRNfFLLvZaWw-v3g/exec",
     guestRequest: "https://script.google.com/macros/s/AKfycbwOKOO_Qx-FmxVon_LjfyuEuBf4l0-jp4gIBaabcrEB5ylI6XQlwdiEx2M_70zP-bWung/exec",   //done
     entourage: "https://script.google.com/macros/s/AKfycbyzu9cDfMgZfbFR66FwKzdkz7ZhYLybifE8EsuWO6ymKu2XWQLJm8dMw-JbCONFVW9tvg/exec",  //done
     sponsors: SPONSORS_API,  //done 
