@@ -1262,7 +1262,18 @@ export const siteConfig = {
     description: "Your presence on our wedding day is the greatest gift of all.",
     paragraphs: [
       "Having you beside us as we say our vows, and keeping us in your prayers as we begin this new chapter, is truly all we could ask for.",
-      "Should you wish to bless us further, a monetary gift toward our life together would be warmly appreciated — though never expected.",
+      "Should you wish to bless us further, a monetary gift toward our first home and life together would be warmly appreciated — though never expected. For your convenience, you may send it through the QR code below.",
+    ],
+    // Gift QR codes shown inside the letter card — [] hides the block
+    accounts: [
+      {
+        id: "chinabank",
+        label: "Chinabank",
+        name: "Yanyan",
+        accountNumber: "*********2310",
+        src: "/QR/Chinabank.png",
+        note: "InstaPay QR — scan with any bank or e-wallet app (GCash, Maya, BDO, BPI & more)",
+      },
     ],
     thankYou: "Thank you for being part of our story.", // "" hides the line
     signOff: "With joyful hearts,",

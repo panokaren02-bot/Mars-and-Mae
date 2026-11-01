@@ -4,7 +4,7 @@ import { RisingHearts } from "@/components/rising-hearts"
 import type { CSSProperties } from "react"
 import localFont from "next/font/local"
 import { cinzel } from "@/lib/fonts"
-import { Gift, Heart } from "lucide-react"
+import { Download, Gift, Heart } from "lucide-react"
 import { motion, useReducedMotion, type Variants } from "motion/react"
 import { useSiteConfig } from "@/hooks/use-site-config"
 import { layeredSectionTitleSize, sectionType } from "@/lib/section-typography"
@@ -201,6 +201,59 @@ export function Registry() {
                 </motion.p>
               ))}
             </div>
+
+            {/* Gift QR codes */}
+            {content.accounts?.length ? (
+              <motion.div variants={itemVariants} className="mt-8 flex flex-wrap justify-center gap-6 sm:mt-10">
+                {content.accounts.map((acct) => (
+                  <figure
+                    key={acct.id}
+                    className="w-full max-w-[17rem] rounded-2xl px-5 pb-5 pt-4"
+                    style={{ border: `1px solid ${c.cardEdge}`, background: `color-mix(in srgb, ${c.glow} 35%, white)` }}
+                  >
+                    <p
+                      className={`${cinzel.className} text-[0.6875rem] font-semibold uppercase tracking-[0.22em] sm:text-[0.75rem]`}
+                      style={{ color: c.eyebrow }}
+                    >
+                      {acct.label}
+                    </p>
+                    <div className="mx-auto mt-3 rounded-xl bg-white p-2.5 shadow-sm">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={acct.src}
+                        alt={`${acct.label} QR code for ${acct.name}`}
+                        width={423}
+                        height={426}
+                        loading="lazy"
+                        className="h-auto w-full"
+                      />
+                    </div>
+                    <figcaption className="mt-4 space-y-1">
+                      <p className={`${theSeasons.className} text-[1.35rem] leading-tight sm:text-[1.5rem]`} style={{ color: c.title }}>
+                        {acct.name}
+                      </p>
+                      <p className="font-mono text-sm tracking-[0.12em]" style={{ color: c.body }}>
+                        {acct.accountNumber}
+                      </p>
+                      {acct.note ? (
+                        <p className={`font-goudy-italic pt-1 text-sm leading-snug`} style={{ color: c.soft }}>
+                          {acct.note}
+                        </p>
+                      ) : null}
+                      <a
+                        href={acct.src}
+                        download={`${acct.label}-QR.png`}
+                        className={`${cinzel.className} mt-3 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] transition-opacity hover:opacity-90`}
+                        style={{ background: buttonBg, color: buttonText }}
+                      >
+                        <Download className="h-3.5 w-3.5" aria-hidden />
+                        Save QR
+                      </a>
+                    </figcaption>
+                  </figure>
+                ))}
+              </motion.div>
+            ) : null}
 
             <div className="h-6 sm:h-7" aria-hidden />
 
