@@ -3,8 +3,9 @@
 import { useState, useEffect, useLayoutEffect, useCallback, useRef } from "react"
 import { createPortal } from "react-dom"
 import Image from "next/image"
+import Link from "next/link"
 import localFont from "next/font/local"
-import { X, ChevronLeft, ChevronRight, Camera } from "lucide-react"
+import { X, ChevronLeft, ChevronRight, Camera, Images } from "lucide-react"
 import { cinzel } from "@/lib/fonts"
 import { Section } from "@/components/section"
 import { sectionType } from "@/lib/section-typography"
@@ -515,6 +516,24 @@ export function Gallery() {
                 </button>
               ))}
             </div>
+
+            {/* Opens the full masonry gallery (/gallery) */}
+            {gallery.viewAllText ? (
+              <div className="mt-8 flex justify-center sm:mt-10 lg:mt-12">
+                <Link
+                  href="/gallery"
+                  className={`${cinzel.className} inline-flex items-center gap-2 rounded-full px-6 py-3 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-motif-accent)] sm:px-7 sm:text-xs sm:tracking-[0.22em]`}
+                  style={{
+                    background: "var(--color-motif-deep)",
+                    color: "var(--color-motif-soft)",
+                    boxShadow: "0 8px 18px -8px color-mix(in srgb, var(--color-motif-deep) 60%, transparent)",
+                  }}
+                >
+                  <Images className="h-4 w-4" aria-hidden />
+                  {gallery.viewAllText}
+                </Link>
+              </div>
+            ) : null}
 
             {gallery.footnote ? (
               <p

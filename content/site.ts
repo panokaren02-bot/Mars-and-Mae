@@ -684,6 +684,7 @@ export const siteConfig = {
     // Thin double border around the section and the full gallery page (false hides it)
     showFrame: true,
     // Small labels
+    viewAllText: "View Full Gallery", // button under the photos → /gallery ("" hides it)
     swipeHint: "Swipe to explore", // under the phone carousel
     lightboxSwipeHint: "Swipe to navigate", // inside the full-screen photo view
     resetZoomText: "Reset Zoom",
@@ -708,6 +709,9 @@ export const siteConfig = {
       "/mobile-background/couples (9).webp",
       "/mobile-background/couples (10).webp",
       "/mobile-background/couples (11).webp",
+      "/mobile-background/couples (12).webp",
+      "/mobile-background/couples (13).webp",
+      "/mobile-background/couples (14).webp",
     ].map((image, i) => ({ image, text: `${COUPLE.groomNickname} and ${COUPLE.brideNickname}, photo ${i + 1}` })),
   },
 
@@ -831,17 +835,8 @@ export const siteConfig = {
     events: [
       {
         show: true,
-        time: TIMES.entourageCall,
-        title: "Entourage Call Time",
-        description: "The couple and entourage gather and get ready.",
-        location: "{ceremony}",
-        image: "/weddingtimeline/Wedding Entourage Call Time Logo.png",
-        icon: "arrival" as TimelineIconName,
-      },
-      {
-        show: true,
-        time: TIMES.guestArrival,
-        title: "Guests Arrive",
+        time: "2:30 PM",
+        title: "Arrival of Guests",
         description: "Kindly be seated before the ceremony begins.",
         location: "{ceremony}",
         image: "/weddingtimeline/Elegant Wedding Guests Arrive Sign.png",
@@ -849,7 +844,7 @@ export const siteConfig = {
       },
       {
         show: true,
-        time: TIMES.ceremony,
+        time: "3:00 PM",
         title: "Wedding Ceremony",
         description: "We exchange our vows before God, family and friends.",
         location: "{ceremony}",
@@ -858,7 +853,7 @@ export const siteConfig = {
       },
       {
         show: true,
-        time: "4:00 PM", // ⚠ check — not confirmed yet
+        time: "4:00 PM",
         title: "Photo Session",
         description: "Join us for pictures with the newlyweds.",
         location: "{ceremony}",
@@ -867,34 +862,35 @@ export const siteConfig = {
       },
       {
         show: true,
-        time: TIMES.reception,
-        title: "Start of Program",
-        description: "",
+        time: "5:00 PM",
+        title: "Welcome Gathering",
+        description: "Settle in and mingle as we gather for the celebration.",
         location: "{reception}",
         image: "/weddingtimeline/reception welcom.png",
-        icon: "fireworks" as TimelineIconName,
-      },
-      {
-        show: true,
-        time: "5:45 PM", // ⚠ check — not confirmed yet
-        title: "Grand Entrance",
-        description: "Welcome the newlyweds as husband and wife.",
-        location: "{reception}",
-        image: "/weddingtimeline/assemble.png",
-        icon: "fireworks" as TimelineIconName,
-      },
-      {
-        show: true,
-        time: "6:00 PM", // ⚠ check — not confirmed yet
-        title: "Wedding Feast",
-        description: "Let's share a meal and celebrate together.",
-        location: "{reception}",
-        image: "/weddingtimeline/DinnerService.png",
         icon: "cocktail" as TimelineIconName,
       },
       {
         show: true,
-        time: "7:00 PM", // ⚠ check — not confirmed yet
+        time: "6:30 PM",
+        title: "The Wedding Celebration",
+        description: "Dinner, toasts and dancing with the newlyweds.",
+        location: "{reception}",
+        image: "/weddingtimeline/DinnerService.png",
+        icon: "dance" as TimelineIconName,
+      },
+      // Hidden — not in the current program (set show: true to bring one back)
+      {
+        show: false,
+        time: TIMES.entourageCall,
+        title: "Entourage Call Time",
+        description: "The couple and entourage gather and get ready.",
+        location: "{ceremony}",
+        image: "/weddingtimeline/Wedding Entourage Call Time Logo.png",
+        icon: "arrival" as TimelineIconName,
+      },
+      {
+        show: false,
+        time: "7:00 PM",
         title: "Cake Cutting",
         description: "",
         location: "{reception}",
@@ -902,8 +898,8 @@ export const siteConfig = {
         icon: "fireworks" as TimelineIconName,
       },
       {
-        show: true,
-        time: "7:30 PM", // ⚠ check — not confirmed yet
+        show: false,
+        time: "7:30 PM",
         title: "First Dance",
         description: "Our first dance as husband and wife.",
         location: "{reception}",
@@ -911,8 +907,8 @@ export const siteConfig = {
         icon: "dance" as TimelineIconName,
       },
       {
-        show: true,
-        time: "9:00 PM", // ⚠ check — not confirmed yet
+        show: false,
+        time: "9:00 PM",
         title: "Send-off",
         description: "Thank you for celebrating with us!",
         location: "{reception}",
