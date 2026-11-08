@@ -1058,7 +1058,7 @@ export const siteConfig = {
       guestsLabel: "Number of Guests *",
       guestsPlaceholder: "How many guests?",
       messageLabel: "Message",
-      messagePlaceholder: "Share why you'd like to join...",
+      messagePlaceholder: "Share why you'd like to join....",
       submitting: "Submitting...",
       submit: "Send Request",
       sentTitle: "Request Sent!",
