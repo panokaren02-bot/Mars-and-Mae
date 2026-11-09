@@ -426,7 +426,7 @@ const COUPLE_LABEL = `${COUPLE.groomNickname} & ${COUPLE.brideNickname}`
    ============================================================================ */
 
 // Principal sponsors Google Apps Script — used by the main page and /inviteone
-const SPONSORS_API = "https://script.google.com/macros/s/AKfycbx5jkzDs9ZQfRQlH1ogiyZNxV9R-pzUMu3XhZ8-joppLz5B3asEfT2YkQX-p0Gk6ziHog/exec"
+const SPONSORS_API = "https://script.google.com/macros/s/AKfycbxMf-1icHBWnQLlNtopz-IuOX5E0zMcqwCRYYMDuuZhVedEDMLhZ6ivG8Xt3kVNq-gMLQ/exec"
 
 export const siteConfig = {
   siteUrl: SITE_URL,
@@ -437,18 +437,18 @@ export const siteConfig = {
     backgroundMusic: BRAND.backgroundMusic,
   },
   googleAPI:{
-    messageForm: "https://docs.google.com/forms/d/e/1FAIpQLSc7lZyiyr3aZDA671r808snsFK9MZqRguf8O_0VO-MSE9YjOA/formResponse",   //done
-    message: "https://script.google.com/macros/s/AKfycbxzUHsq0jgLBjvwyoZAEcNiXetYlmULGEJtT5wNFV_IlgWLrrJAztDOHTNnN-fGUKpPGw/exec",  //done
-    guestList: "https://script.google.com/macros/s/AKfycbwaGzmNQONuDvs-BCpS0bNvJp2tmw2Wd2apYBlEX_RSU7aYVIzxoumS7q1eDepb4kHr3g/exec",  //done
-    guestListTwo:"https://script.google.com/macros/s/AKfycbznifjBa3D5E-KjOjtOWtx09BXBINKBwPMhUkzzFXrvwfrPLN_nQOWRNfFLLvZaWw-v3g/exec",
-    guestRequest: "https://script.google.com/macros/s/AKfycbwOKOO_Qx-FmxVon_LjfyuEuBf4l0-jp4gIBaabcrEB5ylI6XQlwdiEx2M_70zP-bWung/exec",   //done
-    entourage: "https://script.google.com/macros/s/AKfycbyzu9cDfMgZfbFR66FwKzdkz7ZhYLybifE8EsuWO6ymKu2XWQLJm8dMw-JbCONFVW9tvg/exec",  //done
+    messageForm: "https://docs.google.com/forms/d/e/1FAIpQLSerLPJ2L77ocBrq3TeXwLVf6szNuVoV6SiYuZ4gYBhQ63oDPw/formResponse",   //done
+    message: "https://script.google.com/macros/s/AKfycbzjlojQOlw4eP8AJXXUvcjjzO62KJyvy2iViy3L9H02FxK5zrrXtaQmIE76SDe37ZQdyQ/exec",  //done
+    guestList: "https://script.google.com/macros/s/AKfycbxONsfT_fzmCEl_20_LgiWAd9_MIB1cMPUudegoDVPsYysKl0UfhP7Le4UN-OMIqP5avQ/exec",  //done
+    guestListTwo:"https://script.google.com/macros/s/AKfycbzbIqtCssPlmBkmMzwrylbZa-c5pbWABzCpetEI6K5WEu1nYA9hh37D5-WgSV9m_BW7Nw/exec",
+    guestRequest: "https://script.google.com/macros/s/AKfycbzt2FMEkqTPuodrGF-IlVbvea3fEfSRqKo2kfU5aZS6BZIOizi332o6MX_nxcbxKriUKA/exec",   //done
+    entourage: "https://script.google.com/macros/s/AKfycbxhMnufxWwfi9K9aQx0RtAk9AiLOCScKyvSDcnMa1DcQ3TgBJrRChlJ36pfiK3QpSH6lg/exec",  //done
     sponsors: SPONSORS_API,  //done 
     // Principal sponsors shown on /inviteone and /invitetwo (entourage section)
     sponsorsInviteOne: SPONSORS_API, // same sheet as sponsors above
-    sponsorsInviteTwo: "https://script.google.com/macros/s/AKfycbx5jkzDs9ZQfRQlH1ogiyZNxV9R-pzUMu3XhZ8-joppLz5B3asEfT2YkQX-p0Gk6ziHog/exec",
+    sponsorsInviteTwo: "https://script.google.com/macros/s/AKfycbxMf-1icHBWnQLlNtopz-IuOX5E0zMcqwCRYYMDuuZhVedEDMLhZ6ivG8Xt3kVNq-gMLQ/exec",
 ////google share 
-    googleShare: "https://docs.google.com/spreadsheets/d/1WZZu2afoyhetz5599muIPW4lEpKF3DiG3FgpjRgtnnw/edit?usp=sharing",
+    googleShare: "https://docs.google.com/spreadsheets/d/1s2eZ0G-5iO2M5VfDACQBvgbZxRo7kL8Eyqi3kO4ezT0/edit?usp=sharing",
     videoMessageForm:
       "https://docs.google.com/forms/d/e/1FAIpQLSfeGlEl4CMXWefdvCw6AOPHFS1ROku_rs-Gbofa2LkVJ0sLGQ/viewform", 
   },
@@ -1576,10 +1576,15 @@ export const siteConfig = {
     ...INVITE_TWO,
     // Love story chapter (matched by title) whose paragraphs are replaced on /invitetwo
     invitationChapter: {
-      title: "Please Celebrate With Us",
+      // Must match the loveStory chapter title — applyInviteTwo swaps that chapter's paragraphs
+      title: "A Day of Love, A Lifetime of Memories",
       paragraphs: [
-        `With grateful hearts, we warmly invite you to celebrate with us at ${INVITE_TWO.venue.name}, ${INVITE_TWO.venue.address}.`,
-        "Your presence is the greatest gift we could ask for. We look forward to celebrating and giving thanks together with you. With all our love, {groom} & {bride}. ♡",
+        // **text** = bold with a gold underline
+        `With grateful hearts and a love made beautiful by God’s grace, we joyfully invite you to join us for a celebration of love, laughter, and new beginnings at **${INVITE_TWO.venue.name}**.`,
+        "As we begin this beautiful new chapter together, we would be honored to share this special occasion with you.",
+        "Your presence would make our celebration all the more meaningful as we gather with family and friends, create lasting memories, and give thanks for the blessings that have brought us here.",
+        "With love and grateful hearts,",
+        "{groom} & {bride}",
       ],
     },
     // Event Details → attire: guests only (no entourage / principal sponsors)
