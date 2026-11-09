@@ -186,7 +186,7 @@ const INVITE_TWO = {
 
 // ── RSVP & contact ──────────────────────────────────────────────────────────
 const RSVP = {
-  deadline: " November 30, 2026",
+  deadline: " December 1, 2026",
   coordinator: "{groom} / {bride}", // {groom} / {bride} → couple nicknames
   phone: "to be announced",
 }
@@ -654,7 +654,7 @@ export const siteConfig = {
       {
         date: "Our Invitation",
         title: "A Day of Love, A Lifetime of Memories",
-        image: "/mobile-background/couples (8).webp",
+        image: "/mobile-background/couples (13).webp",
         paragraphs: [
           // **text** = bold with a gold underline
           "With grateful hearts and a love made beautiful by God’s grace, we joyfully invite you to witness the beginning of our forever at the **Iglesia ni Cristo, Local Congregation of Santiago Norte, Ecclesiastical District of La Union**.",
